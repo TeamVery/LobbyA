@@ -11,7 +11,7 @@ import java.util.Objects;
 public class config {
 
     private static File file;
-    private static FileConfiguration config;
+    public static FileConfiguration config;
 
     public static void setup() {
         file = new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("LobbyA")).getDataFolder(), "config.yml");
@@ -26,7 +26,7 @@ public class config {
         config = YamlConfiguration.loadConfiguration(file);
     }
 
-    public static FileConfiguration get(){
+    public static FileConfiguration get() {
         return config;
     }
 

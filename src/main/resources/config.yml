@@ -5,27 +5,23 @@
 
 # EXECUTE
 # ---
-# CMD : 유저 권한으로 명령어가 실행됩니다
-# CMDOP : OP 권한으로 명령어가 실행됩니다
-# CMDCON : 콘솔 권한으로 명령어 실행됩니다
-# OPENMENU : (EX : OPENMENU:helloworld1) 지정된 메뉴를 오픈합니다.
+# [CMD] : 유저 권한으로 명령어가 실행됩니다
+# [CMDOP] : OP 권한으로 명령어가 실행됩니다
+# [CMDCON] : 콘솔 권한으로 명령어 실행됩니다
+# [OPENMENU] : (EX : OPENMENU:helloworld1) 지정된 메뉴를 오픈합니다.
 # ---
 
 # 로비 아이템을 접속시 마다 초기화 합니다.
 초기화: true
 
-# 스코어 보드 관련
-
-스코어 보드 활성화: true
-
-업데이트 시간(초): 15
-
-# 서버 최적화/설정 관련
+# 서버 최적화, 설정 관련
 
 엔티티 소환 차단: true
 날씨 차단: true
 아이템 드랍 비활성화: true
 아이템 획득 비활성화: true
+블럭 파괴금지: true
+블럭 설치금지: true
 
 플레이어 허기 비활성화: true
 플레이어 채력 비활성화: true
@@ -34,24 +30,20 @@
 
 # 처음 접속했거나 재접속시 발생하는 이벤트
 
-첫 접속:
-  채팅:
-    - "안녕하세요 %player%님!"
-    - "처음 접속하셨습니다!"
+첫접속:
+  입장: 환영합니다 %player%님!
   폭죽: true
-#  소리:
-#  명령어(콘솔):
-
+  소리: none
+  명령어(콘솔): none
 
 재접속:
-  채팅:
-    - "안녕하세요 %player%님!"
-    - "다시 접속해주셔서 감사합니다!"
+  입장: 다시한번 환영합니다 %player%님!
   폭죽: true
-#  소리:
-#  명령어(콘솔):
+  소리: none
+  명령어(콘솔): none
+  퇴장: 안녕히 가세요 %player%님!
 
-# 슬롯별 아이템 설정 (대문자만 가능) Ex [STONE, count:2, name:제목입니다, lore(0):lore 입니다, lore(1):lore2 입니다, ..., EXECUTE:Put Your Executes]
+# 슬롯별 아이템 설정 (대문자만 가능)
 
 슬롯:
   1번:
@@ -59,55 +51,64 @@
     개수: 1
     이름: 공기
     lore(n): lore
-    execute: CMD:tell %player% work
+    execute:
+      - "[CMD] tell %player% work"
   2번:
     아이템: 0
     개수: 1
     이름: 공기
     lore(n): lore
-    execute: CMD:tell %player% work
+    execute:
+      - "[CMD] tell %player% work"
   3번:
     아이템: 0
     개수: 1
     이름: 공기
     lore(n): lore
-    execute: CMD:tell %player% work
+    execute:
+      - "[CMD] tell %player% work"
   4번:
     아이템: 0
     개수: 1
     이름: 공기
     lore(n): lore
-    execute: CMD:tell %player% work
+    execute:
+      - "[CMD] tell %player% work"
   5번:
     아이템: 0
     개수: 1
     이름: 공기
     lore(n): lore
-    execute: CMD:tell %player% work
+    execute:
+      - "[CMD] tell %player% work"
   6번:
     아이템: 0
     개수: 1
     이름: 공기
     lore(n): lore
-    execute: CMD:tell %player% work
+    execute:
+      - "[CMD] tell %player% work"
   7번:
     아이템: 0
     개수: 1
     이름: 공기
     lore(n): lore
-    execute: CMD:tell %player% work
+    execute:
+      - "[CMD] tell %player% work"
   8번:
     아이템: 0
     개수: 1
     이름: 공기
     lore(n): lore
-    execute: CMD:tell %player% work
+    execute:
+      - "[CMD] tell %player% work"
   9번:
     아이템: 0
     개수: 1
     이름: 공기
     lore(n): lore
-    execute: CMD:tell %player% work
+    execute:
+      - "[CMD] tell %player% work"
 
 # ---------
 # TABLIST |
@@ -133,3 +134,14 @@ tablist:
 # SCOREBOARD |
 # ------------
 
+scoreboard:
+  활성화: true
+
+  업데이트:
+    활성화: true
+    시간(초): 5
+
+    라인:
+      - "~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      - "환영합니다 %player%님!"
+      - "~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
