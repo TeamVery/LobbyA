@@ -1,14 +1,11 @@
 package com.teamvery.lobbya.event;
 
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
 import java.util.Objects;
 
 import static com.teamvery.lobbya.config.config;

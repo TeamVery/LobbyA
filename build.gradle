@@ -1,9 +1,7 @@
-import org.apache.tools.ant.filters.ReplaceTokens
-
 apply plugin: 'java'
 
-group = 'com.teamvery.lobbya'
-version = '1.0.0-SNAPSHOT'
+group = properties["pluginGroup"]
+version = properties["pluginVersion"]
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -26,8 +24,13 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
-processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        filter ReplaceTokens, tokens: [version: version]
+tasks {
+    compileJava {
+        options.encoding = "UTF-8"
+    }
+    processResources {
+        filesMatching("**/*.yml") {
+            expand(project.properties)
+        }
     }
 }

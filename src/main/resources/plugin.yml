@@ -1,6 +1,6 @@
-name: LobbyA
-version: @version@
-main: com.teamvery.lobbya.main
+name: $pluginName
+version: $pluginVersion
+main: $pluginMain
 api-version: 1.16
 depend: [ Verylib, ProtocolLib, PlaceholderAPI ]
 authors: [ TeamVery ]
