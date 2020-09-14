@@ -14,10 +14,11 @@
 # 로비 아이템을 접속시 마다 초기화 합니다.
 초기화: true
 
-# 서버 최적화, 설정 관련
+# 서버 최적화 설정 관련
 
 엔티티 소환 차단: true
 날씨 차단: true
+시간 고정: true
 아이템 드랍 비활성화: true
 아이템 획득 비활성화: true
 블럭 파괴금지: true
@@ -26,6 +27,8 @@
 플레이어 허기 비활성화: true
 플레이어 채력 비활성화: true
 플레이어 PVP 비활성화: true
+플레이어 채팅 비활성화: true
+플레이어 상호작용 비활성화: true
 플레이어 무적: true
 
 # 처음 접속했거나 재접속시 발생하는 이벤트
@@ -47,63 +50,63 @@
 
 슬롯:
   1번:
-    아이템: 0
+    아이템: AIR
     개수: 1
     이름: 공기
     lore(n): lore
     execute:
       - "[CMD] tell %player% work"
   2번:
-    아이템: 0
+    아이템: AIR
     개수: 1
     이름: 공기
     lore(n): lore
     execute:
       - "[CMD] tell %player% work"
   3번:
-    아이템: 0
+    아이템: AIR
     개수: 1
     이름: 공기
     lore(n): lore
     execute:
       - "[CMD] tell %player% work"
   4번:
-    아이템: 0
+    아이템: AIR
     개수: 1
     이름: 공기
     lore(n): lore
     execute:
       - "[CMD] tell %player% work"
   5번:
-    아이템: 0
+    아이템: AIR
     개수: 1
     이름: 공기
     lore(n): lore
     execute:
       - "[CMD] tell %player% work"
   6번:
-    아이템: 0
+    아이템: AIR
     개수: 1
     이름: 공기
     lore(n): lore
     execute:
       - "[CMD] tell %player% work"
   7번:
-    아이템: 0
+    아이템: AIR
     개수: 1
     이름: 공기
     lore(n): lore
     execute:
       - "[CMD] tell %player% work"
   8번:
-    아이템: 0
+    아이템: AIR
     개수: 1
     이름: 공기
     lore(n): lore
     execute:
       - "[CMD] tell %player% work"
   9번:
-    아이템: 0
+    아이템: AIR
     개수: 1
     이름: 공기
     lore(n): lore

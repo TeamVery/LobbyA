@@ -10,14 +10,14 @@ import java.util.Objects;
 
 import static com.teamvery.lobbya.config.config;
 
-public class joinevent implements @NotNull Listener {
+public class joinquitevent implements @NotNull Listener {
 
     @EventHandler
     void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        boolean hasjoined = player.hasPlayedBefore();
+        boolean hsb = player.hasPlayedBefore();
 
-        if(!hasjoined) {
+        if(!hsb) {
             e.setJoinMessage(Objects.requireNonNull(config.getString("첫접속.입장"))
                     .replace("&", "§")
                     .replace("%player%", player.getName()));

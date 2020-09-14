@@ -34,3 +34,8 @@ tasks {
         }
     }
 }
+
+clean {
+    file('build/resources').deleteDir()
+}
+
