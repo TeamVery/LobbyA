@@ -1,0 +1,13 @@
+name: LobbyA
+version: @version@
+main: com.teamvery.lobbya.main
+api-version: 1.16
+depend: [ Verylib, ProtocolLib, PlaceholderAPI ]
+authors: [ TeamVery ]
+description: 로비의 잡다한 기능을 추가해줍니다.
+website: https://github.com/teamvery
+
+commands:
+  lobbya:
+    description: 로비A 플러그인 설정 관련 명령어
+    permission: op
