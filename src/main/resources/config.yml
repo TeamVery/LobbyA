@@ -35,15 +35,23 @@
 
 첫접속:
   입장: 환영합니다 %player%님!
-  폭죽: true
-  소리: none
-  명령어(콘솔): none
+  폭죽: false
+  소리:
+    활성화: false
+    사운드: NULL
+  명령어(콘솔):
+    활성화: false
+    명령어: helloworld
 
 재접속:
   입장: 다시한번 환영합니다 %player%님!
-  폭죽: true
-  소리: none
-  명령어(콘솔): none
+  폭죽: false
+  소리:
+    활성화: false
+    사운드: NULL
+  명령어(콘솔):
+    활성화: false
+    명령어: helloworld
   퇴장: 안녕히 가세요 %player%님!
 
 # 슬롯별 아이템 설정 (대문자만 가능)
