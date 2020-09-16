@@ -11,3 +11,18 @@ commands:
   lobbya:
     description: 로비A 플러그인 설정 관련 명령어
     permission: op
+
+permissions:
+  lobbya.*:
+    description: LobbyA관련 펄미션
+    children:
+      lobbya.bypass: true
+  lobbya.bypass:
+    default: op
+    children:
+      lobbya.bypass.blockplace: true
+      lobbya.bypass.blockbreak: true
+      lobbya.bypass.pickupitem: true
+      lobbya.bypass.dropitem: true
+      lobbya.bypass.interact: true
+      lobbya.bypass.chat: true

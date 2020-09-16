@@ -51,8 +51,10 @@ public class playerevents implements Listener {
     void onBlockPlace(BlockPlaceEvent e) {
         Player player = e.getPlayer();
         if (config.getBoolean("블럭 설치금지")) {
-            e.setCancelled(true);
-            player.sendMessage("§c서버 내 블럭 설치가 비활성화 되어있습니다");
+            if (!(player.hasPermission("lobbya.bypass.blockplace"))) {
+                player.sendMessage("§c서버 내 블럭 설치가 비활성화 되어있습니다");
+                e.setCancelled(true);
+            }
         }
     }
 
@@ -60,15 +62,20 @@ public class playerevents implements Listener {
     void onBlockBreak(BlockBreakEvent e) {
         Player player = e.getPlayer();
         if (config.getBoolean("블럭 파괴금지")) {
-            e.setCancelled(true);
-            player.sendMessage("§c서버 내 블럭 파괴가 비활성화 되어있습니다");
+            if (!(player.hasPermission("lobbya.bypass.blockbreak"))) {
+                e.setCancelled(true);
+                player.sendMessage("§c서버 내 블럭 파괴가 비활성화 되어있습니다");
+            }
         }
     }
 
     @EventHandler
     void onPickupItem(EntityPickupItemEvent e) {
+        Player player = (Player) e.getEntity();
         if (config.getBoolean("아이템 획득 비활성화")) {
-            e.setCancelled(true);
+            if (!(player.hasPermission("lobbya.bypass.pickupitem"))) {
+                e.setCancelled(true);
+            }
         }
     }
 
@@ -76,8 +83,10 @@ public class playerevents implements Listener {
     void onDropItem(PlayerDropItemEvent e) {
         Player player = e.getPlayer();
         if (config.getBoolean("아이템 드랍 비활성화")) {
-            e.setCancelled(true);
-            player.sendMessage("§c서버 내 아이템 드랍이 비활성화 되어있습니다");
+            if (!(player.hasPermission("lobbya.bypass.dropitem"))) {
+                e.setCancelled(true);
+                player.sendMessage("§c서버 내 아이템 드랍이 비활성화 되어있습니다");
+            }
         }
     }
 
@@ -85,8 +94,10 @@ public class playerevents implements Listener {
     void onInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
         if (config.getBoolean("플레이어 상호작용 비활성화")) {
-            player.sendActionBar("§c§l서버 내 상호작용이 비활성화 되어있습니다");
-            e.setCancelled(true);
+            if (!(player.hasPermission("lobbya.bypass.interact"))) {
+                player.sendActionBar("§c§l서버 내 상호작용이 비활성화 되어있습니다");
+                e.setCancelled(true);
+            }
         }
     }
 
@@ -110,8 +121,10 @@ public class playerevents implements Listener {
     void onChat(AsyncPlayerChatEvent e) {
         Player player = e.getPlayer();
         if (config.getBoolean("플레이어 채팅 비활성화")) {
-            e.setCancelled(true);
-            player.sendMessage("§c서버 내 채팅이 비활성화 되어있습니다");
+            if (!(player.hasPermission("lobbya.bypass.chat"))) {
+                e.setCancelled(true);
+                player.sendMessage("§c서버 내 채팅이 비활성화 되어있습니다");
+            }
         }
     }
 }
