@@ -1,6 +1,6 @@
-package com.teamvery.lobbya.cmd;
+package com.teamvery.manage.cmd;
 
-import com.teamvery.lobbya.config;
+import com.teamvery.manage.config;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -50,8 +50,8 @@ public class settings implements CommandExecutor {
                 player.sendMessage("디버그 실행됨.");
             }
         } else {
-            player.sendMessage("§7---------- §3LobbyA 플러그인 명령어 §7----------");
-            player.sendMessage("§6/lobbya reload §7- LobbyA플러그인의 Config를 리로드합니다.");
+            player.sendMessage("§7---------- §3Manage 플러그인 명령어 §7----------");
+            player.sendMessage("§6/manage reload §7- Manage플러그인의 Config를 리로드합니다.");
         }
         return false;
     }

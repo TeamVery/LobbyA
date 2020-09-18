@@ -1,8 +1,8 @@
-package com.teamvery.lobbya;
+package com.teamvery.manage;
 
-import com.teamvery.lobbya.cmd.settings;
-import com.teamvery.lobbya.event.joinquitevent;
-import com.teamvery.lobbya.event.playerevents;
+import com.teamvery.manage.cmd.settings;
+import com.teamvery.manage.event.joinquitevent;
+import com.teamvery.manage.event.playerevents;
 import com.teamvery.verylib.license;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
@@ -14,7 +14,7 @@ public final class main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Objects.requireNonNull(getCommand("lobbya")).setExecutor(new settings());
+        Objects.requireNonNull(getCommand("manage")).setExecutor(new settings());
         getServer().getPluginManager().registerEvents(new joinquitevent(), this);
         getServer().getPluginManager().registerEvents(new playerevents(), this);
         license.load(475842821);

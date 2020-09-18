@@ -1,4 +1,4 @@
-package com.teamvery.lobbya;
+package com.teamvery.manage;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -14,7 +14,7 @@ public class config {
     public static FileConfiguration config;
 
     public static void setup() {
-        file = new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("LobbyA")).getDataFolder(), "config.yml");
+        file = new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("manage")).getDataFolder(), "config.yml");
 
         if (!file.exists()){
             try{

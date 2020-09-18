@@ -1,4 +1,4 @@
-package com.teamvery.lobbya.event;
+package com.teamvery.manage.event;
 
 import org.bukkit.*;
 import org.bukkit.command.ConsoleCommandSender;
@@ -11,13 +11,15 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
-import static com.teamvery.lobbya.config.config;
+import static com.teamvery.manage.config.config;
+import static org.bukkit.Bukkit.getServer;
 
 public class joinquitevent implements @NotNull Listener {
 
-    ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+    ConsoleCommandSender console = getServer().getConsoleSender();
 
     @EventHandler
     void onPlayerJoin(PlayerJoinEvent e) {

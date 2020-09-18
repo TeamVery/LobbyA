@@ -3,22 +3,13 @@
 # %player% - Get Player Name
 # ---
 
-# EXECUTE
-# ---
-# [CMD] : 유저 권한으로 명령어가 실행됩니다
-# [CMDOP] : OP 권한으로 명령어가 실행됩니다
-# [CMDCON] : 콘솔 권한으로 명령어 실행됩니다
-# [OPENMENU] : (EX : OPENMENU:helloworld1) 지정된 메뉴를 오픈합니다.
-# ---
-
-# 로비 아이템을 접속시 마다 초기화 합니다.
-초기화: true
+초기화: false
 
 # 서버 최적화 설정 관련
 
-엔티티 소환 차단: true
-날씨 차단: true
-시간 고정: true
+엔티티 소환 차단: false
+날씨 차단: false
+시간 고정: false
 아이템 드랍 비활성화: false
 아이템 획득 비활성화: false
 블럭 파괴금지: false
@@ -52,106 +43,3 @@
     활성화: false
     명령어: helloworld
   퇴장: 안녕히 가세요 %player%님!
-
-# 슬롯별 아이템 설정 (대문자만 가능)
-
-슬롯:
-  1번:
-    아이템: AIR
-    개수: 1
-    이름: 공기
-    lore(n): lore
-    execute:
-      - "[CMD] tell %player% work"
-  2번:
-    아이템: AIR
-    개수: 1
-    이름: 공기
-    lore(n): lore
-    execute:
-      - "[CMD] tell %player% work"
-  3번:
-    아이템: AIR
-    개수: 1
-    이름: 공기
-    lore(n): lore
-    execute:
-      - "[CMD] tell %player% work"
-  4번:
-    아이템: AIR
-    개수: 1
-    이름: 공기
-    lore(n): lore
-    execute:
-      - "[CMD] tell %player% work"
-  5번:
-    아이템: AIR
-    개수: 1
-    이름: 공기
-    lore(n): lore
-    execute:
-      - "[CMD] tell %player% work"
-  6번:
-    아이템: AIR
-    개수: 1
-    이름: 공기
-    lore(n): lore
-    execute:
-      - "[CMD] tell %player% work"
-  7번:
-    아이템: AIR
-    개수: 1
-    이름: 공기
-    lore(n): lore
-    execute:
-      - "[CMD] tell %player% work"
-  8번:
-    아이템: AIR
-    개수: 1
-    이름: 공기
-    lore(n): lore
-    execute:
-      - "[CMD] tell %player% work"
-  9번:
-    아이템: AIR
-    개수: 1
-    이름: 공기
-    lore(n): lore
-    execute:
-      - "[CMD] tell %player% work"
-
-# ---------
-# TABLIST |
-# ---------
-
-tablist:
-  황성화: true
-
-  업데이트:
-    활성화: true
-    시간(초): 30
-
-    header:
-      - ""
-      - "VeryServer Season 3 (%player%님 환영합니다)"
-      - ""
-    footer:
-      - ""
-      - "디스코드 : https://discord.gg/ABCDEF"
-      - ""
-
-# ------------
-# SCOREBOARD |
-# ------------
-
-scoreboard:
-  활성화: true
-
-  업데이트:
-    활성화: true
-    시간(초): 5
-
-    라인:
-      - "~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-      - "환영합니다 %player%님!"
-      - "~~~~~~~~~~~~~~~~~~~~~~~~~~~~"

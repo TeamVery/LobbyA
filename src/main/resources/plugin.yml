@@ -4,25 +4,25 @@ main: $pluginMain
 api-version: 1.16
 depend: [ Verylib, ProtocolLib, PlaceholderAPI ]
 authors: [ TeamVery ]
-description: 로비의 잡다한 기능을 추가해줍니다.
+description: 관리의 잡다한 기능을 추가해줍니다.
 website: https://github.com/teamvery
 
 commands:
-  lobbya:
-    description: 로비A 플러그인 설정 관련 명령어
+  manage:
+    description: 관리 플러그인 설정 관련 명령어
     permission: op
 
 permissions:
-  lobbya.*:
-    description: LobbyA관련 펄미션
+  manage.*:
+    description: 관리관련 펄미션
     children:
       lobbya.bypass: true
-  lobbya.bypass:
+  manage.bypass:
     default: op
     children:
-      lobbya.bypass.blockplace: true
-      lobbya.bypass.blockbreak: true
-      lobbya.bypass.pickupitem: true
-      lobbya.bypass.dropitem: true
-      lobbya.bypass.interact: true
-      lobbya.bypass.chat: true
+      manage.bypass.blockplace: true
+      manage.bypass.blockbreak: true
+      manage.bypass.pickupitem: true
+      manage.bypass.dropitem: true
+      manage.bypass.interact: true
+      manage.bypass.chat: true
