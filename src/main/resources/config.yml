@@ -28,7 +28,7 @@
   폭죽: false
   소리:
     활성화: false
-    사운드: NULL
+    사운드: helloplayer
   명령어(콘솔):
     활성화: false
     명령어: helloworld
@@ -38,7 +38,7 @@
   폭죽: false
   소리:
     활성화: false
-    사운드: NULL
+    사운드: helloplayer
   명령어(콘솔):
     활성화: false
     명령어: helloworld
