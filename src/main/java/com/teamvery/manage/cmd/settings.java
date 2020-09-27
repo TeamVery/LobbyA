@@ -4,17 +4,17 @@ import com.teamvery.manage.config;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.command.*;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.jetbrains.annotations.NotNull;
 
-public class settings implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class settings implements CommandExecutor, TabExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
@@ -54,5 +54,17 @@ public class settings implements CommandExecutor {
             player.sendMessage("§6/manage reload §7- Manage플러그인의 Config를 리로드합니다.");
         }
         return false;
+    }
+
+    @Override
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
+        if (args.length == 1) {
+            List<String> arguments = new ArrayList<>();
+            arguments.add("reload");
+            arguments.add("debug");
+
+            return arguments;
+        }
+        return null;
     }
 }
