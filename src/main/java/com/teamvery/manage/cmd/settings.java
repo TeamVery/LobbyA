@@ -4,6 +4,7 @@ import com.teamvery.manage.config;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
+import org.bukkit.GameRule;
 import org.bukkit.command.*;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
@@ -13,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class settings implements CommandExecutor, TabExecutor {
 
@@ -26,14 +28,12 @@ public class settings implements CommandExecutor, TabExecutor {
                 config.reload();
                 player.sendMessage("§a리로드가 완료되었습니다!");
 
-                ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-
-                if (config.config.getBoolean("시간 고정")) {
-                    String cmd = "gamerule doDaylightCycle false";
-                    Bukkit.dispatchCommand(console, cmd);
+                if (config.config.getBoolean("시간 고정.활성화")) {
+                    Objects.requireNonNull(Bukkit.getWorld(Objects.requireNonNull(config.get().getString("시간 고정.월드"))))
+                            .setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
                 } else {
-                    String cmd = "gamerule doDaylightCycle true";
-                    Bukkit.dispatchCommand(console, cmd);
+                    Objects.requireNonNull(Bukkit.getWorld(Objects.requireNonNull(config.get().getString("시간 고정.월드"))))
+                            .setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
                 }
             }
             if (args[0].equalsIgnoreCase("debug")) {

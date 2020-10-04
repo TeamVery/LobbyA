@@ -5,6 +5,8 @@ import com.teamvery.manage.event.joinquitevent;
 import com.teamvery.manage.event.playerevents;
 import com.teamvery.verylib.license;
 import org.bukkit.Bukkit;
+import org.bukkit.GameRule;
+import org.bukkit.World;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -26,14 +28,12 @@ public final class main extends JavaPlugin {
         config.get().options().copyDefaults(true);
         config.save();
 
-        ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-
-        if (config.config.getBoolean("시간 고정")) {
-            String cmd = "gamerule doDaylightCycle false";
-            Bukkit.dispatchCommand(console, cmd);
+        if (config.config.getBoolean("시간 고정.활성화")) {
+            Objects.requireNonNull(Bukkit.getWorld(Objects.requireNonNull(config.get().getString("시간 고정.월드"))))
+                    .setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
         } else {
-            String cmd = "gamerule doDaylightCycle true";
-            Bukkit.dispatchCommand(console, cmd);
+            Objects.requireNonNull(Bukkit.getWorld(Objects.requireNonNull(config.get().getString("시간 고정.월드"))))
+                    .setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
         }
     }
 }
