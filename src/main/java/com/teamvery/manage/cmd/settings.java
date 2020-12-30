@@ -236,6 +236,7 @@ public class settings implements CommandExecutor, TabExecutor {
                     player.sendMessage("§6/manage set <string> <boolean> §7- Manage플러그인의 Config를 명령어로 수정합니다.");
                 }
             }
+
             if (args[0].equalsIgnoreCase("setJoinQuit")) {
                 if (args[1].equalsIgnoreCase("QUIT")) {
                     if (args[2].equalsIgnoreCase("MESSAGE")) {
@@ -246,6 +247,7 @@ public class settings implements CommandExecutor, TabExecutor {
                             player.sendMessage("변경된 문장 : " + config.config.getString("재접속.퇴장"));
                     }
                 }
+
                 if (args[1].equalsIgnoreCase("FIRST_JOIN")) {
                     if (args[2].equalsIgnoreCase("MESSAGE")) {
                         player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 입장 문장이 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
@@ -322,6 +324,86 @@ public class settings implements CommandExecutor, TabExecutor {
                             config.config.set("첫접속.명령어(콘솔).명령어", args[4].replace("%_%", " "));
                             config.save();
                             player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.명령어(콘솔).명령어"));
+                        }
+                    }
+                }
+
+                if (args[1].equalsIgnoreCase("JOIN")) {
+                    if (args[2].equalsIgnoreCase("MESSAGE")) {
+                        player.sendMessage("§a성공적으로 '재접속'유저에 대한 입장 문장이 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
+                        player.sendMessage("기존 문장 : " + config.config.getString("재접속.입장"));
+                        config.config.set("재접속.입장", args[3].replace("%_%", " "));
+                        config.save();
+                        player.sendMessage("변경된 문장 : " + config.config.getString("재접속.입장"));
+                    } else if (args[2].equalsIgnoreCase("FIREWORK")) {
+                        if (args[3].equalsIgnoreCase("true")) {
+                            if (config.config.getBoolean("재접속.폭죽")) {
+                                player.sendMessage("§cFIRST_JOIN_FIREWORK is already true");
+                            } else {
+                                player.sendMessage("§aFIRST_JOIN_FIREWORK == TRUE");
+                                config.config.set("재접속.폭죽", true);
+                                config.save();
+                            }
+                        } else if (args[3].equalsIgnoreCase("false")) {
+                            if (!config.config.getBoolean("재접속.폭죽")) {
+                                player.sendMessage("§cFIRST_JOIN_FIREWORK is already false");
+                            } else {
+                                player.sendMessage("§aFIRST_JOIN_FIREWORK == FALSE");
+                                config.config.set("재접속.폭죽", false);
+                                config.save();
+                            }
+                        }
+                    } else if (args[2].equalsIgnoreCase("SOUND")) {
+                        if (args[3].equalsIgnoreCase("ENABLE")) {
+                            if (args[4].equalsIgnoreCase("true")) {
+                                if (config.config.getBoolean("재접속.소리.활성화")) {
+                                    player.sendMessage("§cFIRST_JOIN_SOUND_ENABLE is already true");
+                                } else {
+                                    player.sendMessage("§aFIRST_JOIN_SOUND_ENABLE == TRUE");
+                                    config.config.set("재접속.소리.활성화", true);
+                                    config.save();
+                                }
+                            } else if (args[4].equalsIgnoreCase("false")) {
+                                if (!config.config.getBoolean("재접속.소리.활성화")) {
+                                    player.sendMessage("§cFIRST_JOIN_SOUND_ENABLE is already false");
+                                } else {
+                                    player.sendMessage("§aFIRST_JOIN_SOUND_ENABLE == FALSE");
+                                    config.config.set("재접속.소리.활성화", false);
+                                    config.save();
+                                }
+                            }
+                        } else if (args[3].equalsIgnoreCase("SET_SOUND")) {
+                            player.sendMessage("§a성공적으로 '재접속'유저에 대한 노래가 변경되었습니다.");
+                            player.sendMessage("기존 문장 : " + config.config.getString("재접속.소리.사운드"));
+                            config.config.set("첫접속.소리.사운드", args[4]);
+                            config.save();
+                            player.sendMessage("변경된 문장 : " + config.config.getString("재접속.소리.사운드"));
+                        }
+                    } else if (args[2].equalsIgnoreCase("COMMAND")) {
+                        if (args[3].equalsIgnoreCase("ENABLE")) {
+                            if (args[4].equalsIgnoreCase("true")) {
+                                if (config.config.getBoolean("재접속.명령어(콘솔).활성화")) {
+                                    player.sendMessage("§cFIRST_JOIN_CONSOLE_COMMAND_ENABLE is already true");
+                                } else {
+                                    player.sendMessage("§aFIRST_JOIN_CONSOLE_COMMAND_ENABLE == TRUE");
+                                    config.config.set("재접속.명령어(콘솔).활성화", true);
+                                    config.save();
+                                }
+                            } else if (args[4].equalsIgnoreCase("false")) {
+                                if (!config.config.getBoolean("재접속.명령어(콘솔).활성화")) {
+                                    player.sendMessage("§cFIRST_JOIN_CONSOLE_COMMAND_ENABLE is already false");
+                                } else {
+                                    player.sendMessage("§aFIRST_JOIN_CONSOLE_COMMAND_ENABLE == FALSE");
+                                    config.config.set("재접속.명령어(콘솔).활성화", false);
+                                    config.save();
+                                }
+                            }
+                        } else if (args[3].equalsIgnoreCase("SET_COMMAND")) {
+                            player.sendMessage("§a성공적으로 '재접속'유저에 대한 명령어가 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
+                            player.sendMessage("기존 문장 : " + config.config.getString("재접속.명령어(콘솔).명령어"));
+                            config.config.set("재접속.명령어(콘솔).명령어", args[4].replace("%_%", " "));
+                            config.save();
+                            player.sendMessage("변경된 문장 : " + config.config.getString("재접속.명령어(콘솔).명령어"));
                         }
                     }
                 }
