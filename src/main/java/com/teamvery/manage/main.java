@@ -17,7 +17,6 @@ public final class main extends JavaPlugin {
         Objects.requireNonNull(getCommand("manage")).setExecutor(new settings());
         getServer().getPluginManager().registerEvents(new joinquitevent(), this);
         getServer().getPluginManager().registerEvents(new playerevents(), this);
-        license.load(getConfig().getInt("인증코드"));
 
         getConfig().options().copyDefaults();
         saveDefaultConfig();
