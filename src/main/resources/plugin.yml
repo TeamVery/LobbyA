@@ -16,7 +16,8 @@ permissions:
   manage.*:
     description: 관리관련 펄미션
     children:
-      lobbya.bypass: true
+      manage.bypass: true
+      manage.set: true
   manage.bypass:
     default: op
     children:
@@ -26,3 +27,5 @@ permissions:
       manage.bypass.dropitem: true
       manage.bypass.interact: true
       manage.bypass.chat: true
+  manage.set:
+    default: op

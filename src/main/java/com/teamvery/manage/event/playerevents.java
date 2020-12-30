@@ -103,7 +103,7 @@ public class playerevents implements Listener {
 
     @EventHandler
     void onWeather(WeatherChangeEvent e) {
-        if (config.getBoolean("날씨 차단")) {
+        if (config.getBoolean("날씨 비활성화")) {
             e.setCancelled(e.toWeatherState());
         }
     }

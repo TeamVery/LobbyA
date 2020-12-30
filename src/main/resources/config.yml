@@ -3,14 +3,12 @@
 # %player% - Get Player Name
 # ---
 
-인증코드: 12345678
-
 초기화: false
 
 # 서버 최적화 설정 관련
 
 엔티티 소환 차단: false
-날씨 차단: false
+날씨 비활성화: false
 시간 고정:
   활성화: true
   월드: world
