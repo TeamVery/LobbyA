@@ -1,13 +1,9 @@
 package com.teamvery.manage.cmd;
 
 import com.teamvery.manage.config;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
 import org.bukkit.command.*;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.meta.FireworkMeta;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -241,6 +237,15 @@ public class settings implements CommandExecutor, TabExecutor {
                 }
             }
             if (args[0].equalsIgnoreCase("setJoinQuit")) {
+                if (args[1].equalsIgnoreCase("QUIT")) {
+                    if (args[2].equalsIgnoreCase("MESSAGE")) {
+                            player.sendMessage("§a성공적으로 '로그아웃'하는 유저에 대한 퇴장 문장이 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
+                            player.sendMessage("기존 문장 : " + config.config.getString("재접속.퇴장"));
+                            config.config.set("재접속.퇴장", args[3].replace("%_%", " "));
+                            config.save();
+                            player.sendMessage("변경된 문장 : " + config.config.getString("재접속.퇴장"));
+                    }
+                }
                 if (args[1].equalsIgnoreCase("FIRST_JOIN")) {
                     if (args[2].equalsIgnoreCase("MESSAGE")) {
                         player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 입장 문장이 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
