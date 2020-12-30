@@ -266,6 +266,32 @@ public class settings implements CommandExecutor, TabExecutor {
                                 config.save();
                             }
                         }
+                    } else if (args[2].equalsIgnoreCase("SOUND")) {
+                        if (args[3].equalsIgnoreCase("ENABLE")) {
+                            if (args[4].equalsIgnoreCase("true")) {
+                                if (config.config.getBoolean("첫접속.소리.활성화")) {
+                                    player.sendMessage("§cFIRST_JOIN_SOUND_ENABLE is already true");
+                                } else {
+                                    player.sendMessage("§aFIRST_JOIN_SOUND_ENABLE == TRUE");
+                                    config.config.set("첫접속.소리.활성화", true);
+                                    config.save();
+                                }
+                            } else if (args[4].equalsIgnoreCase("false")) {
+                                if (!config.config.getBoolean("첫접속.소리.활성화")) {
+                                    player.sendMessage("§cFIRST_JOIN_SOUND_ENABLE is already false");
+                                } else {
+                                    player.sendMessage("§aFIRST_JOIN_SOUND_ENABLE == FALSE");
+                                    config.config.set("첫접속.소리.활성화", false);
+                                    config.save();
+                                }
+                            }
+                        } else if (args[3].equalsIgnoreCase("SET_SOUND")) {
+                            player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 노래가 변경되었습니다.");
+                            player.sendMessage("기존 문장 : " + config.config.getString("첫접속.소리.사운드"));
+                            config.config.set("첫접속.소리.사운드", args[4]);
+                            config.save();
+                            player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.소리.사운드"));
+                        }
                     }
                 }
             }
