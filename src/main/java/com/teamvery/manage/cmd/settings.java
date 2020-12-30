@@ -37,17 +37,17 @@ public class settings implements CommandExecutor, TabExecutor {
                 if (args[1].equalsIgnoreCase("IGNORE_ENTITY_SPAWN")) {
                     if (args[2].equalsIgnoreCase("true")) {
                         if (config.config.getBoolean("엔티티 소환 차단")) {
-                            player.sendMessage("§cENTITY_SPAWN_IGNORE is already true");
+                            player.sendMessage("§cIGNORE_ENTITY_SPAWN is already true");
                         } else {
-                            player.sendMessage("§aENTITY_SPAWN_IGNORE == TRUE");
+                            player.sendMessage("§aIGNORE_ENTITY_SPAWN == TRUE");
                             config.config.set("엔티티 소환 차단", true);
                             config.save();
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
                         if (!config.config.getBoolean("엔티티 소환 차단")) {
-                            player.sendMessage("§cENTITY_SPAWN_IGNORE is already false");
+                            player.sendMessage("§cIGNORE_ENTITY_SPAWN is already false");
                         } else {
-                            player.sendMessage("§aENTITY_SPAWN_IGNORE == FALSE");
+                            player.sendMessage("§aIGNORE_ENTITY_SPAWN == FALSE");
                             config.config.set("엔티티 소환 차단", false);
                             config.save();
                         }
@@ -55,20 +55,42 @@ public class settings implements CommandExecutor, TabExecutor {
                 } else if (args[1].equalsIgnoreCase("IGNORE_WEATHER")) {
                     if (args[2].equalsIgnoreCase("true")) {
                         if (config.config.getBoolean("날씨 차단")) {
-                            player.sendMessage("§cWEATHER_IGNORE is already true");
+                            player.sendMessage("§cIGNORE_WEATHER is already true");
                         } else {
-                            player.sendMessage("§aWEATHER_IGNORE == TRUE");
+                            player.sendMessage("§aIGNORE_WEATHER == TRUE");
                             config.config.set("날씨 차단", true);
                             config.save();
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
                         if (!config.config.getBoolean("날씨 차단")) {
-                            player.sendMessage("§cWEATHER_IGNORE is already false");
+                            player.sendMessage("§cIGNORE_WEATHER is already false");
                         } else {
-                            player.sendMessage("§aWEATHER_IGNORE == FALSE");
+                            player.sendMessage("§aIGNORE_WEATHER == FALSE");
                             config.config.set("날씨 차단", false);
                             config.save();
                         }
+                    }
+                } else if (args[1].equalsIgnoreCase("FREEZE_TIME")) {
+                    if (args[2].equalsIgnoreCase("ENABLE")) {
+                        if (args[3].equalsIgnoreCase("true")) {
+                            if (config.config.getBoolean("시간 고정.활성화")) {
+                                player.sendMessage("§cFREEZE_TIME is already true");
+                            } else {
+                                player.sendMessage("§aFREEZE_TIME == TRUE");
+                                config.config.set("시간 고정.활성화", true);
+                                config.save();
+                            }
+                        } else if (args[3].equalsIgnoreCase("false")) {
+                            if (!config.config.getBoolean("시간 고정.활성화")) {
+                                player.sendMessage("§cFREEZE_TIME is already false");
+                            } else {
+                                player.sendMessage("§aFREEZE_TIME == FALSE");
+                                config.config.set("시간 고정.활성화", false);
+                                config.save();
+                            }
+                        }
+                    } else if (args[2].equalsIgnoreCase("SET_WORLD")) {
+                        player.sendMessage("COMMING SOON.");
                     }
                 } else if (args[1].equalsIgnoreCase("IGNORE_ITEM_DROP")) {
                     if (args[2].equalsIgnoreCase("true")) {
@@ -466,43 +488,59 @@ public class settings implements CommandExecutor, TabExecutor {
             List<String> arguments = new ArrayList<>();
             List<String> matches;
             if (args[0].equalsIgnoreCase("set")) {
-                arguments.add("true");
-                arguments.add("false");
-                matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
+                if (args[1].equalsIgnoreCase("FREEZE_TIME")) {
+                    arguments.add("ENABLE");
+                    arguments.add("SET_WORLD");
+                    matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
 
+                } else {
+                    arguments.add("true");
+                    arguments.add("false");
+                    matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
+
+                }
                 return matches;
             }
-            if (args[0].equalsIgnoreCase("setJoinQuit")) {
-                if (args[1].equalsIgnoreCase("QUIT")) {
-                    arguments.add("MESSAGE");
-                    matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
+                if (args[0].equalsIgnoreCase("setJoinQuit")) {
+                    if (args[1].equalsIgnoreCase("QUIT")) {
+                        arguments.add("MESSAGE");
+                        matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
 
-                    return matches;
-                }
-                if (args[1].equalsIgnoreCase("FIRST_JOIN")) {
-                    arguments.add("SOUND");
-                    arguments.add("FIREWORK");
-                    arguments.add("MESSAGE");
-                    arguments.add("COMMAND");
-                    matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
+                        return matches;
+                    }
+                    if (args[1].equalsIgnoreCase("FIRST_JOIN")) {
+                        arguments.add("SOUND");
+                        arguments.add("FIREWORK");
+                        arguments.add("MESSAGE");
+                        arguments.add("COMMAND");
+                        matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
 
-                    return matches;
-                }
-                if (args[1].equalsIgnoreCase("JOIN")) {
-                    arguments.add("SOUND");
-                    arguments.add("FIREWORK");
-                    arguments.add("MESSAGE");
-                    arguments.add("COMMAND");
-                    matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
+                        return matches;
+                    }
+                    if (args[1].equalsIgnoreCase("JOIN")) {
+                        arguments.add("SOUND");
+                        arguments.add("FIREWORK");
+                        arguments.add("MESSAGE");
+                        arguments.add("COMMAND");
+                        matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
 
-                    return matches;
+                        return matches;
+                    }
                 }
             }
-        }
 
         if (args.length == 4) {
             List<String> arguments = new ArrayList<>();
             List<String> matches;
+            if (args[1].equalsIgnoreCase("FREEZE_TIME")) {
+                if (args[2].equalsIgnoreCase("ENABLE")) {
+                    arguments.add("true");
+                    arguments.add("false");
+                    matches = arguments.stream().filter(val -> val.startsWith(args[3])).collect(Collectors.toList());
+
+                    return matches;
+                }
+            }
             if (args[0].equalsIgnoreCase("setJoinQuit")) {
                 if (args[2].equalsIgnoreCase("MESSAGE")) {
                     arguments.add("[<string>]");
