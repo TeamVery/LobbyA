@@ -240,10 +240,22 @@ public class settings implements CommandExecutor, TabExecutor {
                     player.sendMessage("§6/manage set <string> <boolean> §7- Manage플러그인의 Config를 명령어로 수정합니다.");
                 }
             }
+            if (args[0].equalsIgnoreCase("setJoinQuit")) {
+                if (args[1].equalsIgnoreCase("FIRST_JOIN")) {
+                    if (args[2].equalsIgnoreCase("MESSAGE")) {
+                        player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 입장 문장이 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
+                        player.sendMessage("기존 문장 : " + config.config.getString("첫접속.입장"));
+                        config.config.set("첫접속.입장", args[3].replace("%_%", " "));
+                        config.save();
+                        player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.입장"));
+                    }
+                }
+            }
         } else {
             player.sendMessage("§7---------- §3Manage 플러그인 명령어 §7----------");
             player.sendMessage("§6/manage reload §7- Manage플러그인의 Config를 리로드합니다.");
             player.sendMessage("§6/manage set <string> <boolean> §7- Manage플러그인의 Config를 명령어로 수정합니다.");
+            player.sendMessage("§6/manage setJoinQuit <string> §7- Manage플러그인의 Join/Quit을 명령어로 수정합니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
             player.sendMessage("§6/manage debug §7- Manage플러그인의 디버그를 실행합니다.");
         }
         return false;
