@@ -292,6 +292,32 @@ public class settings implements CommandExecutor, TabExecutor {
                             config.save();
                             player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.소리.사운드"));
                         }
+                    } else if (args[2].equalsIgnoreCase("COMMAND")) {
+                        if (args[3].equalsIgnoreCase("ENABLE")) {
+                            if (args[4].equalsIgnoreCase("true")) {
+                                if (config.config.getBoolean("첫접속.명령어(콘솔).활성화")) {
+                                    player.sendMessage("§cFIRST_JOIN_CONSOLE_COMMAND_ENABLE is already true");
+                                } else {
+                                    player.sendMessage("§aFIRST_JOIN_CONSOLE_COMMAND_ENABLE == TRUE");
+                                    config.config.set("첫접속.명령어(콘솔).활성화", true);
+                                    config.save();
+                                }
+                            } else if (args[4].equalsIgnoreCase("false")) {
+                                if (!config.config.getBoolean("첫접속.명령어(콘솔).활성화")) {
+                                    player.sendMessage("§cFIRST_JOIN_CONSOLE_COMMAND_ENABLE is already false");
+                                } else {
+                                    player.sendMessage("§aFIRST_JOIN_CONSOLE_COMMAND_ENABLE == FALSE");
+                                    config.config.set("첫접속.명령어(콘솔).활성화", false);
+                                    config.save();
+                                }
+                            }
+                        } else if (args[3].equalsIgnoreCase("SET_COMMAND")) {
+                            player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 명령어가 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
+                            player.sendMessage("기존 문장 : " + config.config.getString("첫접속.명령어(콘솔).명령어"));
+                            config.config.set("첫접속.명령어(콘솔).명령어", args[4].replace("%_%", " "));
+                            config.save();
+                            player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.명령어(콘솔).명령어"));
+                        }
                     }
                 }
             }
