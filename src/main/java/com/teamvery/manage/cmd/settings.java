@@ -248,6 +248,24 @@ public class settings implements CommandExecutor, TabExecutor {
                         config.config.set("첫접속.입장", args[3].replace("%_%", " "));
                         config.save();
                         player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.입장"));
+                    } else if (args[2].equalsIgnoreCase("FIREWORK")) {
+                        if (args[3].equalsIgnoreCase("true")) {
+                            if (config.config.getBoolean("첫접속.폭죽")) {
+                                player.sendMessage("§cFIRST_JOIN_FIREWORK is already true");
+                            } else {
+                                player.sendMessage("§aFIRST_JOIN_FIREWORK == TRUE");
+                                config.config.set("첫접속.폭죽", true);
+                                config.save();
+                            }
+                        } else if (args[3].equalsIgnoreCase("false")) {
+                            if (!config.config.getBoolean("첫접속.폭죽")) {
+                                player.sendMessage("§cFIRST_JOIN_FIREWORK is already false");
+                            } else {
+                                player.sendMessage("§aFIRST_JOIN_FIREWORK == FALSE");
+                                config.config.set("첫접속.폭죽", false);
+                                config.save();
+                            }
+                        }
                     }
                 }
             }
