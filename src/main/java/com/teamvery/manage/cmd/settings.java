@@ -375,7 +375,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else if (args[3].equalsIgnoreCase("SET_SOUND")) {
                             player.sendMessage("§a성공적으로 '재접속'유저에 대한 노래가 변경되었습니다.");
                             player.sendMessage("기존 문장 : " + config.config.getString("재접속.소리.사운드"));
-                            config.config.set("첫접속.소리.사운드", args[4]);
+                            config.config.set("재접속.소리.사운드", args[4]);
                             config.save();
                             player.sendMessage("변경된 문장 : " + config.config.getString("재접속.소리.사운드"));
                         }
