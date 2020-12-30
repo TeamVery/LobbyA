@@ -338,17 +338,17 @@ public class settings implements CommandExecutor, TabExecutor {
                     } else if (args[2].equalsIgnoreCase("FIREWORK")) {
                         if (args[3].equalsIgnoreCase("true")) {
                             if (config.config.getBoolean("재접속.폭죽")) {
-                                player.sendMessage("§cFIRST_JOIN_FIREWORK is already true");
+                                player.sendMessage("§cJOIN_FIREWORK is already true");
                             } else {
-                                player.sendMessage("§aFIRST_JOIN_FIREWORK == TRUE");
+                                player.sendMessage("§aJOIN_FIREWORK == TRUE");
                                 config.config.set("재접속.폭죽", true);
                                 config.save();
                             }
                         } else if (args[3].equalsIgnoreCase("false")) {
                             if (!config.config.getBoolean("재접속.폭죽")) {
-                                player.sendMessage("§cFIRST_JOIN_FIREWORK is already false");
+                                player.sendMessage("§cJOIN_FIREWORK is already false");
                             } else {
-                                player.sendMessage("§aFIRST_JOIN_FIREWORK == FALSE");
+                                player.sendMessage("§aJOIN_FIREWORK == FALSE");
                                 config.config.set("재접속.폭죽", false);
                                 config.save();
                             }
@@ -357,17 +357,17 @@ public class settings implements CommandExecutor, TabExecutor {
                         if (args[3].equalsIgnoreCase("ENABLE")) {
                             if (args[4].equalsIgnoreCase("true")) {
                                 if (config.config.getBoolean("재접속.소리.활성화")) {
-                                    player.sendMessage("§cFIRST_JOIN_SOUND_ENABLE is already true");
+                                    player.sendMessage("§cJOIN_SOUND_ENABLE is already true");
                                 } else {
-                                    player.sendMessage("§aFIRST_JOIN_SOUND_ENABLE == TRUE");
+                                    player.sendMessage("§aJOIN_SOUND_ENABLE == TRUE");
                                     config.config.set("재접속.소리.활성화", true);
                                     config.save();
                                 }
                             } else if (args[4].equalsIgnoreCase("false")) {
                                 if (!config.config.getBoolean("재접속.소리.활성화")) {
-                                    player.sendMessage("§cFIRST_JOIN_SOUND_ENABLE is already false");
+                                    player.sendMessage("§cJOIN_SOUND_ENABLE is already false");
                                 } else {
-                                    player.sendMessage("§aFIRST_JOIN_SOUND_ENABLE == FALSE");
+                                    player.sendMessage("§aJOIN_SOUND_ENABLE == FALSE");
                                     config.config.set("재접속.소리.활성화", false);
                                     config.save();
                                 }
@@ -383,17 +383,17 @@ public class settings implements CommandExecutor, TabExecutor {
                         if (args[3].equalsIgnoreCase("ENABLE")) {
                             if (args[4].equalsIgnoreCase("true")) {
                                 if (config.config.getBoolean("재접속.명령어(콘솔).활성화")) {
-                                    player.sendMessage("§cFIRST_JOIN_CONSOLE_COMMAND_ENABLE is already true");
+                                    player.sendMessage("§cJOIN_CONSOLE_COMMAND_ENABLE is already true");
                                 } else {
-                                    player.sendMessage("§aFIRST_JOIN_CONSOLE_COMMAND_ENABLE == TRUE");
+                                    player.sendMessage("§aJOIN_CONSOLE_COMMAND_ENABLE == TRUE");
                                     config.config.set("재접속.명령어(콘솔).활성화", true);
                                     config.save();
                                 }
                             } else if (args[4].equalsIgnoreCase("false")) {
                                 if (!config.config.getBoolean("재접속.명령어(콘솔).활성화")) {
-                                    player.sendMessage("§cFIRST_JOIN_CONSOLE_COMMAND_ENABLE is already false");
+                                    player.sendMessage("§cJOIN_CONSOLE_COMMAND_ENABLE is already false");
                                 } else {
-                                    player.sendMessage("§aFIRST_JOIN_CONSOLE_COMMAND_ENABLE == FALSE");
+                                    player.sendMessage("§aJOIN_CONSOLE_COMMAND_ENABLE == FALSE");
                                     config.config.set("재접속.명령어(콘솔).활성화", false);
                                     config.save();
                                 }
