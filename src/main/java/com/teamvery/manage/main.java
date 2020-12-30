@@ -3,7 +3,6 @@ package com.teamvery.manage;
 import com.teamvery.manage.cmd.settings;
 import com.teamvery.manage.event.joinquitevent;
 import com.teamvery.manage.event.playerevents;
-import com.teamvery.verylib.license;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.plugin.java.JavaPlugin;
