@@ -38,7 +38,7 @@ public class settings implements CommandExecutor, TabExecutor {
                 player.sendMessage("디버그 실행됨.");
             }
             if (args[0].equalsIgnoreCase("set")) {
-                if (args[1].equalsIgnoreCase("ENTITY_SPAWN_IGNORE")) {
+                if (args[1].equalsIgnoreCase("IGNORE_ENTITY_SPAWN")) {
                     if (args[2].equalsIgnoreCase("true")) {
                         if (config.config.getBoolean("엔티티 소환 차단")) {
                             player.sendMessage("§cENTITY_SPAWN_IGNORE is already true");
@@ -56,7 +56,7 @@ public class settings implements CommandExecutor, TabExecutor {
                             config.save();
                         }
                     }
-                } else if (args[1].equalsIgnoreCase("WEATHER_IGNORE")) {
+                } else if (args[1].equalsIgnoreCase("IGNORE_WEATHER")) {
                     if (args[2].equalsIgnoreCase("true")) {
                         if (config.config.getBoolean("날씨 차단")) {
                             player.sendMessage("§cWEATHER_IGNORE is already true");
@@ -236,6 +236,8 @@ public class settings implements CommandExecutor, TabExecutor {
                             config.save();
                         }
                     }
+                } else {
+                    player.sendMessage("§6/manage set <string> <boolean> §7- Manage플러그인의 Config를 명령어로 수정합니다.");
                 }
             }
         } else {
