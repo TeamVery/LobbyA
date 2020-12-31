@@ -32,7 +32,10 @@ public class joinquitevent implements @NotNull Listener {
             }
             if (config.getBoolean("첫접속.명령어(콘솔).활성화")) {
                 String cmd = config.getString("첫접속.명령어(콘솔).명령어");
-                Bukkit.dispatchCommand(console, Objects.requireNonNull(cmd));
+                Bukkit.dispatchCommand(console, Objects.requireNonNull(cmd)
+                        .replace("&", "§")
+                        .replace("%player%", player.getName())
+                        .replace("%n%", "\n"));
             }
             if (config.getBoolean("첫접속.폭죽")) {
                 Firework firework = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
@@ -49,7 +52,8 @@ public class joinquitevent implements @NotNull Listener {
             if (!(config.getString("첫접속.입장") == null)) {
                 e.setJoinMessage(Objects.requireNonNull(config.getString("첫접속.입장"))
                         .replace("&", "§")
-                        .replace("%player%", player.getName()));
+                        .replace("%player%", player.getName())
+                        .replace("%n%", "\n"));
             }
         } else {
             if (config.getBoolean("재접속.소리.활성화")) {
@@ -57,7 +61,10 @@ public class joinquitevent implements @NotNull Listener {
             }
             if (config.getBoolean("재접속.명령어(콘솔).활성화")) {
                 String cmd = config.getString("재접속.명령어(콘솔).명령어");
-                Bukkit.dispatchCommand(console, Objects.requireNonNull(cmd));
+                Bukkit.dispatchCommand(console, Objects.requireNonNull(cmd)
+                        .replace("&", "§")
+                        .replace("%player%", player.getName())
+                        .replace("%n%", "\n"));
             }
             if (config.getBoolean("재접속.폭죽")) {
                 Firework firework = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
@@ -74,7 +81,8 @@ public class joinquitevent implements @NotNull Listener {
             if (!(config.getString("재접속.입장") == null)) {
                 e.setJoinMessage(Objects.requireNonNull(config.getString("재접속.입장"))
                         .replace("&", "§")
-                        .replace("%player%", player.getName()));
+                        .replace("%player%", player.getName())
+                        .replace("%n%", "\n"));
             }
         }
         if (config.getBoolean("초기화")) {
@@ -87,6 +95,7 @@ public class joinquitevent implements @NotNull Listener {
         Player player = e.getPlayer();
         e.setQuitMessage(Objects.requireNonNull(config.getString("재접속.퇴장"))
                 .replace("&", "§")
-                .replace("%player%", player.getName()));
+                .replace("%player%", player.getName())
+                .replace("%n%", "\n"));
     }
 }

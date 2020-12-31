@@ -1,6 +1,7 @@
 # PlaceholderAPI Support
 # ---
 # %player% - Get Player Name
+# %n% - Line Break
 # ---
 
 초기화: false
