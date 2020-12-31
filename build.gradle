@@ -3,8 +3,8 @@ apply plugin: 'java'
 group = properties["pluginGroup"]
 version = properties["pluginVersion"]
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+sourceCompatibility = '11.0'
+targetCompatibility = '11.0'
 
 repositories {
     mavenCentral()
@@ -20,7 +20,7 @@ repositories {
 
 dependencies {
     implementation 'org.jetbrains:annotations:19.0.0'
-    compileOnly 'com.destroystokyo.paper:paper-api:1.16.1-R0.1-SNAPSHOT'
+    compileOnly 'com.destroystokyo.paper:paper-api:1.16.4-R0.1-SNAPSHOT'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
