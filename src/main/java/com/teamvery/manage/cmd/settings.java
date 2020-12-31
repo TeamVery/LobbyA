@@ -51,21 +51,21 @@ public class settings implements CommandExecutor, TabExecutor {
                                 config.save();
                             }
                         }
-                    } else if (args[1].equalsIgnoreCase("IGNORE_WEATHER")) {
+                    } else if (args[1].equalsIgnoreCase("DISABLE_WEATHER")) {
                         if (args[2].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("날씨 차단")) {
-                                System.out.println("§cIGNORE_WEATHER is already true");
+                            if (config.config.getBoolean("날씨 비활성화")) {
+                                System.out.println("§cDISABLE_WEATHER is already true");
                             } else {
-                                System.out.println("§aIGNORE_WEATHER == TRUE");
-                                config.config.set("날씨 차단", true);
+                                System.out.println("§aDISABLE_WEATHER == TRUE");
+                                config.config.set("날씨 비활성화", true);
                                 config.save();
                             }
                         } else if (args[2].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("날씨 차단")) {
-                                System.out.println("§cIGNORE_WEATHER is already false");
+                            if (!config.config.getBoolean("날씨 비활성화")) {
+                                System.out.println("§cDISABLE_WEATHER is already false");
                             } else {
-                                System.out.println("§aIGNORE_WEATHER == FALSE");
-                                config.config.set("날씨 차단", false);
+                                System.out.println("§aDISABLE_WEATHER == FALSE");
+                                config.config.set("날씨 비활성화", false);
                                 config.save();
                             }
                         }
@@ -513,21 +513,21 @@ public class settings implements CommandExecutor, TabExecutor {
                             config.save();
                         }
                     }
-                } else if (args[1].equalsIgnoreCase("IGNORE_WEATHER")) {
+                } else if (args[1].equalsIgnoreCase("DISABLE_WEATHER")) {
                     if (args[2].equalsIgnoreCase("true")) {
-                        if (config.config.getBoolean("날씨 차단")) {
-                            player.sendMessage("§cIGNORE_WEATHER is already true");
+                        if (config.config.getBoolean("날씨 비활성화")) {
+                            player.sendMessage("§cDISABLE_WEATHER is already true");
                         } else {
-                            player.sendMessage("§aIGNORE_WEATHER == TRUE");
-                            config.config.set("날씨 차단", true);
+                            player.sendMessage("§aDISABLE_WEATHER == TRUE");
+                            config.config.set("날씨 비활성화", true);
                             config.save();
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
-                        if (!config.config.getBoolean("날씨 차단")) {
-                            player.sendMessage("§cIGNORE_WEATHER is already false");
+                        if (!config.config.getBoolean("날씨 비활성화")) {
+                            player.sendMessage("§cDISABLE_WEATHER is already false");
                         } else {
-                            player.sendMessage("§aIGNORE_WEATHER == FALSE");
-                            config.config.set("날씨 차단", false);
+                            player.sendMessage("§aDISABLE_WEATHER == FALSE");
+                            config.config.set("날씨 비활성화", false);
                             config.save();
                         }
                     }
