@@ -26,6 +26,8 @@ permissions:
       manage.bypass.pickupitem: true
       manage.bypass.dropitem: true
       manage.bypass.interact: true
+      manage.bypass.movement: true
       manage.bypass.chat: true
+      manage.bypass.inv: true
   manage.set:
     default: op

@@ -254,6 +254,42 @@ public class settings implements CommandExecutor, TabExecutor {
                             config.save();
                         }
                     }
+                } else if (args[1].equalsIgnoreCase("DISABLE_PLAYER_MOVEMENT")) {
+                    if (args[2].equalsIgnoreCase("true")) {
+                        if (config.config.getBoolean("플레이어 움직임 비활성화")) {
+                            player.sendMessage("§cDISABLE_PLAYER_MOVEMENT is already true");
+                        } else {
+                            player.sendMessage("§aDISABLE_PLAYER_MOVEMENT == TRUE");
+                            config.config.set("플레이어 움직임 비활성화", true);
+                            config.save();
+                        }
+                    } else if (args[2].equalsIgnoreCase("false")) {
+                        if (!config.config.getBoolean("플레이어 움직임 비활성화")) {
+                            player.sendMessage("§cDISABLE_PLAYER_MOVEMENT is already false");
+                        } else {
+                            player.sendMessage("§aDISABLE_PLAYER_MOVEMENT == FALSE");
+                            config.config.set("플레이어 움직임 비활성화", false);
+                            config.save();
+                        }
+                    }
+                } else if (args[1].equalsIgnoreCase("DISABLE_INVENTORY_INTERACT")) {
+                    if (args[2].equalsIgnoreCase("true")) {
+                        if (config.config.getBoolean("인벤토리 상호작용 비활성화")) {
+                            player.sendMessage("§cDISABLE_INVENTORY_INTERACT is already true");
+                        } else {
+                            player.sendMessage("§aDISABLE_INVENTORY_INTERACT == TRUE");
+                            config.config.set("인벤토리 상호작용 비활성화", true);
+                            config.save();
+                        }
+                    } else if (args[2].equalsIgnoreCase("false")) {
+                        if (!config.config.getBoolean("인벤토리 상호작용 비활성화")) {
+                            player.sendMessage("§cDISABLE_INVENTORY_INTERACT is already false");
+                        } else {
+                            player.sendMessage("§aDISABLE_INVENTORY_INTERACT == FALSE");
+                            config.config.set("인벤토리 상호작용 비활성화", false);
+                            config.save();
+                        }
+                    }
                 } else {
                     player.sendMessage("§6/manage set <string> <boolean> §7- Manage플러그인의 Config를 명령어로 수정합니다.");
                 }
@@ -470,6 +506,8 @@ public class settings implements CommandExecutor, TabExecutor {
                 arguments.add("DISABLE_CHAT");
                 arguments.add("DISABLE_PLAYER_INTERACT");
                 arguments.add("DISABLE_PLAYER_DAMAGE");
+                arguments.add("DISABLE_PLAYER_MOVEMENT");
+                arguments.add("DISABLE_INVENTORY_INTERACT");
                 matches = arguments.stream().filter(val -> val.startsWith(args[1])).collect(Collectors.toList());
 
                 return matches;

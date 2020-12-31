@@ -9,10 +9,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
+import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.inventory.PlayerInventory;
 
 import static com.teamvery.manage.config.config;
 
@@ -124,6 +127,28 @@ public class playerevents implements Listener {
             if (!(player.hasPermission("manage.bypass.chat"))) {
                 e.setCancelled(true);
                 player.sendMessage("§c서버 내 채팅이 비활성화 되어있습니다");
+            }
+        }
+    }
+
+    @EventHandler
+    void onMovement(PlayerMoveEvent e) {
+        Player player = e.getPlayer();
+        if (config.getBoolean("플레이어 움직임 비활성화")) {
+            if (!(player.hasPermission("manage.bypass.movement"))) {
+                e.setCancelled(true);
+                player.sendActionBar("§c§l구속 되어있습니다.");
+            }
+        }
+    }
+
+    @EventHandler
+    void onInv(InventoryClickEvent e) {
+        Player player = (Player) e.getWhoClicked();
+        if (config.getBoolean("인벤토리 상호작용 비활성화")) {
+            if (!(player.hasPermission("manage.bypass.inv"))) {
+                e.setCancelled(true);
+                player.sendMessage("§c§l인벤토리 상호작용이 비활성화 되어있습니다.");
             }
         }
     }
