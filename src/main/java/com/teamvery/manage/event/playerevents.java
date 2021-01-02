@@ -10,10 +10,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.*;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -145,6 +142,28 @@ public class playerevents implements Listener {
     @EventHandler
     void onInv(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
+        if (config.getBoolean("인벤토리 상호작용 비활성화")) {
+            if (!(player.hasPermission("manage.bypass.inv"))) {
+                e.setCancelled(true);
+                player.sendMessage("§c§l인벤토리 상호작용이 비활성화 되어있습니다.");
+            }
+        }
+    }
+
+    @EventHandler
+    void onInv2(PlayerDropItemEvent e) {
+        Player player = e.getPlayer();
+        if (config.getBoolean("인벤토리 상호작용 비활성화")) {
+            if (!(player.hasPermission("manage.bypass.inv"))) {
+                e.setCancelled(true);
+                player.sendMessage("§c§l인벤토리 상호작용이 비활성화 되어있습니다.");
+            }
+        }
+    }
+
+    @EventHandler
+    void onInv3(PlayerSwapHandItemsEvent e) {
+        Player player = e.getPlayer();
         if (config.getBoolean("인벤토리 상호작용 비활성화")) {
             if (!(player.hasPermission("manage.bypass.inv"))) {
                 e.setCancelled(true);

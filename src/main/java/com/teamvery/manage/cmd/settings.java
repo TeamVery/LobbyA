@@ -469,7 +469,7 @@ public class settings implements CommandExecutor, TabExecutor {
                 System.out.println("§7---------- §3Manage 플러그인 명령어 §7----------");
                 System.out.println("§6/manage reload §7- Manage플러그인의 Config를 리로드합니다.");
                 System.out.println("§6/manage set <string> <boolean> §7- Manage플러그인의 Config를 명령어로 수정합니다.");
-                System.out.println("§6/manage setJoinQuit <string> §7- Manage플러그인의 Join/Quit을 명령어로 수정합니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
+                System.out.println("§6/manage setJoinQuit <string> §7- Manage플러그인의 Join/Quit을 명령어로 수정합니다.");
                 System.out.println("§6/manage debug §7- Manage플러그인의 디버그를 실행합니다.");
             }
             return false;
@@ -977,10 +977,12 @@ public class settings implements CommandExecutor, TabExecutor {
             }
         } else {
             player.sendMessage("§7---------- §3Manage 플러그인 명령어 §7----------");
-            player.sendMessage("§6/manage reload §7- Manage플러그인의 Config를 리로드합니다.");
+            player.sendMessage("§6/manage gui §7- Manage플러그인의 GUI를 실행합니다.");
             player.sendMessage("§6/manage set <string> <boolean> §7- Manage플러그인의 Config를 명령어로 수정합니다.");
-            player.sendMessage("§6/manage setJoinQuit <string> §7- Manage플러그인의 Join/Quit을 명령어로 수정합니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
+            player.sendMessage("§6/manage setJoinQuit <string> §7- Manage플러그인의 Join/Quit을 명령어로 수정합니다.");
+            player.sendMessage("§6/manage reload §7- Manage플러그인의 Config를 리로드합니다.");
             player.sendMessage("§6/manage debug §7- Manage플러그인의 디버그를 실행합니다.");
+
         }
         return false;
     }
@@ -994,6 +996,9 @@ public class settings implements CommandExecutor, TabExecutor {
             arguments.add("debug");
             arguments.add("set");
             arguments.add("setJoinQuit");
+            if (sender instanceof Player) {
+                arguments.add("gui");
+            }
             matches = arguments.stream().filter(val -> val.startsWith(args[0])).collect(Collectors.toList());
 
             return matches;
