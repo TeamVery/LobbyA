@@ -759,21 +759,37 @@ public class settings implements CommandExecutor, TabExecutor {
             if (args[0].equalsIgnoreCase("setJoinQuit")) {
                 if (args[1].equalsIgnoreCase("QUIT")) {
                     if (args[2].equalsIgnoreCase("MESSAGE")) {
-                            player.sendMessage("§a성공적으로 '로그아웃'하는 유저에 대한 퇴장 문장이 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
+                        StringBuilder M = null;
+                        for (int i = 3; i <= args.length - 1; i++) {
+                            if (M == null) {
+                                M = new StringBuilder(args[i]);
+                            } else {
+                                M.append(" ").append(args[i]);
+                            }
+                            player.sendMessage("§a성공적으로 '로그아웃'하는 유저에 대한 퇴장 문장이 변경되었습니다.");
                             player.sendMessage("기존 문장 : " + config.config.getString("재접속.퇴장"));
-                            config.config.set("재접속.퇴장", args[3].replace("%_%", " "));
+                            config.config.set("재접속.퇴장", M.toString());
                             config.save();
                             player.sendMessage("변경된 문장 : " + config.config.getString("재접속.퇴장"));
+                        }
                     }
                 }
 
                 if (args[1].equalsIgnoreCase("FIRST_JOIN")) {
                     if (args[2].equalsIgnoreCase("MESSAGE")) {
-                        player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 입장 문장이 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
-                        player.sendMessage("기존 문장 : " + config.config.getString("첫접속.입장"));
-                        config.config.set("첫접속.입장", args[3].replace("%_%", " "));
-                        config.save();
-                        player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.입장"));
+                        StringBuilder M = null;
+                        for (int i = 3; i <= args.length - 1; i++) {
+                            if (M == null) {
+                                M = new StringBuilder(args[i]);
+                            } else {
+                                M.append(" ").append(args[i]);
+                            }
+                            player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 입장 문장이 변경되었습니다.");
+                            player.sendMessage("기존 문장 : " + config.config.getString("첫접속.입장"));
+                            config.config.set("첫접속.입장", M.toString());
+                            config.save();
+                            player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.입장"));
+                        }
                     } else if (args[2].equalsIgnoreCase("FIREWORK")) {
                         if (args[3].equalsIgnoreCase("true")) {
                             if (config.config.getBoolean("첫접속.폭죽")) {
@@ -812,11 +828,15 @@ public class settings implements CommandExecutor, TabExecutor {
                                 }
                             }
                         } else if (args[3].equalsIgnoreCase("SET_SOUND")) {
-                            player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 노래가 변경되었습니다.");
-                            player.sendMessage("기존 문장 : " + config.config.getString("첫접속.소리.사운드"));
-                            config.config.set("첫접속.소리.사운드", args[4]);
-                            config.save();
-                            player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.소리.사운드"));
+                            for (Sound a : Sound.values()) {
+                                if (a.toString().matches(args[4])) {
+                                    player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 노래가 변경되었습니다.");
+                                    player.sendMessage("기존 문장 : " + config.config.getString("첫접속.소리.사운드"));
+                                    config.config.set("첫접속.소리.사운드", args[4]);
+                                    config.save();
+                                    player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.소리.사운드"));
+                                }
+                            }
                         }
                     } else if (args[2].equalsIgnoreCase("COMMAND")) {
                         if (args[3].equalsIgnoreCase("ENABLE")) {
@@ -838,22 +858,38 @@ public class settings implements CommandExecutor, TabExecutor {
                                 }
                             }
                         } else if (args[3].equalsIgnoreCase("SET_COMMAND")) {
-                            player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 명령어가 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
-                            player.sendMessage("기존 문장 : " + config.config.getString("첫접속.명령어(콘솔).명령어"));
-                            config.config.set("첫접속.명령어(콘솔).명령어", args[4].replace("%_%", " "));
-                            config.save();
-                            player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.명령어(콘솔).명령어"));
+                            StringBuilder M = null;
+                            for (int i = 4; i <= args.length - 1; i++) {
+                                if (M == null) {
+                                    M = new StringBuilder(args[i]);
+                                } else {
+                                    M.append(" ").append(args[i]);
+                                }
+                                player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 명령어가 변경되었습니다.");
+                                player.sendMessage("기존 문장 : " + config.config.getString("첫접속.명령어(콘솔).명령어"));
+                                config.config.set("첫접속.명령어(콘솔).명령어", M.toString());
+                                config.save();
+                                player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.명령어(콘솔).명령어"));
+                            }
                         }
                     }
                 }
 
                 if (args[1].equalsIgnoreCase("JOIN")) {
                     if (args[2].equalsIgnoreCase("MESSAGE")) {
-                        player.sendMessage("§a성공적으로 '재접속'유저에 대한 입장 문장이 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
-                        player.sendMessage("기존 문장 : " + config.config.getString("재접속.입장"));
-                        config.config.set("재접속.입장", args[3].replace("%_%", " "));
-                        config.save();
-                        player.sendMessage("변경된 문장 : " + config.config.getString("재접속.입장"));
+                        StringBuilder M = null;
+                        for (int i = 3; i <= args.length - 1; i++) {
+                            if (M == null) {
+                                M = new StringBuilder(args[i]);
+                            } else {
+                                M.append(" ").append(args[i]);
+                            }
+                            player.sendMessage("§a성공적으로 '재접속'유저에 대한 입장 문장이 변경되었습니다.");
+                            player.sendMessage("기존 문장 : " + config.config.getString("재접속.입장"));
+                            config.config.set("재접속.입장", args[3].replace("%_%", " "));
+                            config.save();
+                            player.sendMessage("변경된 문장 : " + config.config.getString("재접속.입장"));
+                        }
                     } else if (args[2].equalsIgnoreCase("FIREWORK")) {
                         if (args[3].equalsIgnoreCase("true")) {
                             if (config.config.getBoolean("재접속.폭죽")) {
@@ -892,11 +928,15 @@ public class settings implements CommandExecutor, TabExecutor {
                                 }
                             }
                         } else if (args[3].equalsIgnoreCase("SET_SOUND")) {
-                            player.sendMessage("§a성공적으로 '재접속'유저에 대한 노래가 변경되었습니다.");
-                            player.sendMessage("기존 문장 : " + config.config.getString("재접속.소리.사운드"));
-                            config.config.set("재접속.소리.사운드", args[4]);
-                            config.save();
-                            player.sendMessage("변경된 문장 : " + config.config.getString("재접속.소리.사운드"));
+                            for (Sound a : Sound.values()) {
+                                if (a.toString().matches(args[4])) {
+                                    player.sendMessage("§a성공적으로 '재접속'유저에 대한 노래가 변경되었습니다.");
+                                    player.sendMessage("기존 문장 : " + config.config.getString("재접속.소리.사운드"));
+                                    config.config.set("재접속.소리.사운드", args[4]);
+                                    config.save();
+                                    player.sendMessage("변경된 문장 : " + config.config.getString("재접속.소리.사운드"));
+                                }
+                            }
                         }
                     } else if (args[2].equalsIgnoreCase("COMMAND")) {
                         if (args[3].equalsIgnoreCase("ENABLE")) {
@@ -918,11 +958,19 @@ public class settings implements CommandExecutor, TabExecutor {
                                 }
                             }
                         } else if (args[3].equalsIgnoreCase("SET_COMMAND")) {
-                            player.sendMessage("§a성공적으로 '재접속'유저에 대한 명령어가 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
-                            player.sendMessage("기존 문장 : " + config.config.getString("재접속.명령어(콘솔).명령어"));
-                            config.config.set("재접속.명령어(콘솔).명령어", args[4].replace("%_%", " "));
-                            config.save();
-                            player.sendMessage("변경된 문장 : " + config.config.getString("재접속.명령어(콘솔).명령어"));
+                            StringBuilder M = null;
+                            for (int i = 4; i <= args.length - 1; i++) {
+                                if (M == null) {
+                                    M = new StringBuilder(args[i]);
+                                } else {
+                                    M.append(" ").append(args[i]);
+                                }
+                                player.sendMessage("§a성공적으로 '재접속'유저에 대한 명령어가 변경되었습니다.");
+                                player.sendMessage("기존 문장 : " + config.config.getString("재접속.명령어(콘솔).명령어"));
+                                config.config.set("재접속.명령어(콘솔).명령어", args[4].replace("%_%", " "));
+                                config.save();
+                                player.sendMessage("변경된 문장 : " + config.config.getString("재접속.명령어(콘솔).명령어"));
+                            }
                         }
                     }
                 }
