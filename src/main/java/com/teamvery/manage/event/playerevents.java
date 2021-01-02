@@ -1,9 +1,6 @@
 package com.teamvery.manage.event;
 
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Item;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -12,7 +9,6 @@ import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
-import org.bukkit.inventory.PlayerInventory;
 
 import static com.teamvery.manage.config.config;
 
@@ -86,6 +82,15 @@ public class playerevents implements Listener {
             if (!(player.hasPermission("manage.bypass.dropitem"))) {
                 e.setCancelled(true);
                 player.sendMessage("§c서버 내 아이템 드랍이 비활성화 되어있습니다");
+            }
+        }
+    }
+
+    @EventHandler
+    void onKick(PlayerKickEvent e) {
+        if (config.getBoolean("플레이어 움직임 비활성화")) {
+            if (e.getReason().equals("Flying is not enabled on this server")) {
+                e.setCancelled(true);
             }
         }
     }
