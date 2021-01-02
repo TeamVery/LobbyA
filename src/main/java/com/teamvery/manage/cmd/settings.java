@@ -766,12 +766,12 @@ public class settings implements CommandExecutor, TabExecutor {
                             } else {
                                 M.append(" ").append(args[i]);
                             }
-                            player.sendMessage("§a성공적으로 '로그아웃'하는 유저에 대한 퇴장 문장이 변경되었습니다.");
-                            player.sendMessage("기존 문장 : " + config.config.getString("재접속.퇴장"));
-                            config.config.set("재접속.퇴장", M.toString());
-                            config.save();
-                            player.sendMessage("변경된 문장 : " + config.config.getString("재접속.퇴장"));
                         }
+                        player.sendMessage("§a성공적으로 '로그아웃'하는 유저에 대한 퇴장 문장이 변경되었습니다.");
+                        player.sendMessage("기존 문장 : " + config.config.getString("재접속.퇴장"));
+                        config.config.set("재접속.퇴장", Objects.requireNonNull(M).toString());
+                        config.save();
+                        player.sendMessage("변경된 문장 : " + config.config.getString("재접속.퇴장"));
                     }
                 }
 
@@ -784,12 +784,12 @@ public class settings implements CommandExecutor, TabExecutor {
                             } else {
                                 M.append(" ").append(args[i]);
                             }
-                            player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 입장 문장이 변경되었습니다.");
-                            player.sendMessage("기존 문장 : " + config.config.getString("첫접속.입장"));
-                            config.config.set("첫접속.입장", M.toString());
-                            config.save();
-                            player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.입장"));
                         }
+                        player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 입장 문장이 변경되었습니다.");
+                        player.sendMessage("기존 문장 : " + config.config.getString("첫접속.입장"));
+                        config.config.set("첫접속.입장", Objects.requireNonNull(M).toString());
+                        config.save();
+                        player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.입장"));
                     } else if (args[2].equalsIgnoreCase("FIREWORK")) {
                         if (args[3].equalsIgnoreCase("true")) {
                             if (config.config.getBoolean("첫접속.폭죽")) {
@@ -865,12 +865,12 @@ public class settings implements CommandExecutor, TabExecutor {
                                 } else {
                                     M.append(" ").append(args[i]);
                                 }
-                                player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 명령어가 변경되었습니다.");
-                                player.sendMessage("기존 문장 : " + config.config.getString("첫접속.명령어(콘솔).명령어"));
-                                config.config.set("첫접속.명령어(콘솔).명령어", M.toString());
-                                config.save();
-                                player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.명령어(콘솔).명령어"));
                             }
+                            player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 명령어가 변경되었습니다.");
+                            player.sendMessage("기존 문장 : " + config.config.getString("첫접속.명령어(콘솔).명령어"));
+                            config.config.set("첫접속.명령어(콘솔).명령어", Objects.requireNonNull(M).toString());
+                            config.save();
+                            player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.명령어(콘솔).명령어"));
                         }
                     }
                 }
@@ -884,12 +884,12 @@ public class settings implements CommandExecutor, TabExecutor {
                             } else {
                                 M.append(" ").append(args[i]);
                             }
-                            player.sendMessage("§a성공적으로 '재접속'유저에 대한 입장 문장이 변경되었습니다.");
-                            player.sendMessage("기존 문장 : " + config.config.getString("재접속.입장"));
-                            config.config.set("재접속.입장", args[3].replace("%_%", " "));
-                            config.save();
-                            player.sendMessage("변경된 문장 : " + config.config.getString("재접속.입장"));
                         }
+                        player.sendMessage("§a성공적으로 '재접속'유저에 대한 입장 문장이 변경되었습니다.");
+                        player.sendMessage("기존 문장 : " + config.config.getString("재접속.입장"));
+                        config.config.set("재접속.입장", Objects.requireNonNull(M).toString());
+                        config.save();
+                        player.sendMessage("변경된 문장 : " + config.config.getString("재접속.입장"));
                     } else if (args[2].equalsIgnoreCase("FIREWORK")) {
                         if (args[3].equalsIgnoreCase("true")) {
                             if (config.config.getBoolean("재접속.폭죽")) {
@@ -965,12 +965,12 @@ public class settings implements CommandExecutor, TabExecutor {
                                 } else {
                                     M.append(" ").append(args[i]);
                                 }
-                                player.sendMessage("§a성공적으로 '재접속'유저에 대한 명령어가 변경되었습니다.");
-                                player.sendMessage("기존 문장 : " + config.config.getString("재접속.명령어(콘솔).명령어"));
-                                config.config.set("재접속.명령어(콘솔).명령어", args[4].replace("%_%", " "));
-                                config.save();
-                                player.sendMessage("변경된 문장 : " + config.config.getString("재접속.명령어(콘솔).명령어"));
                             }
+                            player.sendMessage("§a성공적으로 '재접속'유저에 대한 명령어가 변경되었습니다.");
+                            player.sendMessage("기존 문장 : " + config.config.getString("재접속.명령어(콘솔).명령어"));
+                            config.config.set("재접속.명령어(콘솔).명령어", Objects.requireNonNull(M).toString());
+                            config.save();
+                            player.sendMessage("변경된 문장 : " + config.config.getString("재접속.명령어(콘솔).명령어"));
                         }
                     }
                 }
