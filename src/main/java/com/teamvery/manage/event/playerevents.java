@@ -1,5 +1,6 @@
 package com.teamvery.manage.event;
 
+import com.teamvery.configframework.cfg;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,13 +11,15 @@ import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
-import static com.teamvery.manage.config.config;
+import java.util.Objects;
+
+import static com.teamvery.manage.main.*;
 
 public class playerevents implements Listener {
 
     @EventHandler
     void onDamage(EntityDamageEvent e) {
-        if (config.getBoolean("플레이어 무적")) {
+        if (cfg.get(p, c).getBoolean("플레이어 무적")) {
             if(e.getEntity().getType() == EntityType.PLAYER) {
                 e.setCancelled(true);
             }
@@ -25,11 +28,11 @@ public class playerevents implements Listener {
 
     @EventHandler
     void OnPVP(EntityDamageByEntityEvent e) {
-        if (config.getBoolean("플레이어 PVP 비활성화")) {
+        if (cfg.get(p, c).getBoolean("플레이어 PVP 비활성화")) {
             if (e.getDamager() instanceof Player){
                 if (e.getEntity() instanceof Player) {
                     e.setCancelled(true);
-                    e.getDamager().sendMessage("§c서버 내 PVP가 비활성화 되어있습니다");
+                    e.getDamager().sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-PVP")));
                 }
             }
         }
@@ -37,7 +40,7 @@ public class playerevents implements Listener {
 
     @EventHandler
     void onHunger(FoodLevelChangeEvent e) {
-        if (config.getBoolean("플레이어 허기 비활성화")) {
+        if (cfg.get(p, c).getBoolean("플레이어 허기 비활성화")) {
             e.setFoodLevel(20);
             e.setCancelled(true);
         }
@@ -46,9 +49,9 @@ public class playerevents implements Listener {
     @EventHandler
     void onBlockPlace(BlockPlaceEvent e) {
         Player player = e.getPlayer();
-        if (config.getBoolean("블럭 설치금지")) {
+        if (cfg.get(p, c).getBoolean("블럭 설치금지")) {
             if (!(player.hasPermission("manage.bypass.blockplace"))) {
-                player.sendMessage("§c서버 내 블럭 설치가 비활성화 되어있습니다");
+                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT BLOCK_PLACE")));
                 e.setCancelled(true);
             }
         }
@@ -57,10 +60,10 @@ public class playerevents implements Listener {
     @EventHandler
     void onBlockBreak(BlockBreakEvent e) {
         Player player = e.getPlayer();
-        if (config.getBoolean("블럭 파괴금지")) {
+        if (cfg.get(p, c).getBoolean("블럭 파괴금지")) {
             if (!(player.hasPermission("manage.bypass.blockbreak"))) {
                 e.setCancelled(true);
-                player.sendMessage("§c서버 내 블럭 파괴가 비활성화 되어있습니다");
+                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-BLOCK_BREAK")));
             }
         }
     }
@@ -68,7 +71,7 @@ public class playerevents implements Listener {
     @EventHandler
     void onPickupItem(EntityPickupItemEvent e) {
         Player player = (Player) e.getEntity();
-        if (config.getBoolean("아이템 획득 비활성화")) {
+        if (cfg.get(p, c).getBoolean("아이템 획득 비활성화")) {
             if (!(player.hasPermission("manage.bypass.pickupitem"))) {
                 e.setCancelled(true);
             }
@@ -78,17 +81,17 @@ public class playerevents implements Listener {
     @EventHandler
     void onDropItem(PlayerDropItemEvent e) {
         Player player = e.getPlayer();
-        if (config.getBoolean("아이템 드랍 비활성화")) {
+        if (cfg.get(p, c).getBoolean("아이템 드랍 비활성화")) {
             if (!(player.hasPermission("manage.bypass.dropitem"))) {
                 e.setCancelled(true);
-                player.sendMessage("§c서버 내 아이템 드랍이 비활성화 되어있습니다");
+                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-ITEM_DROP")));
             }
         }
     }
 
     @EventHandler
     void onKick(PlayerKickEvent e) {
-        if (config.getBoolean("플레이어 움직임 비활성화")) {
+        if (cfg.get(p, c).getBoolean("플레이어 움직임 비활성화")) {
             if (e.getReason().equals("Flying is not enabled on this server")) {
                 e.setCancelled(true);
             }
@@ -98,9 +101,9 @@ public class playerevents implements Listener {
     @EventHandler
     void onInteract(PlayerInteractEvent e) {
         Player player = e.getPlayer();
-        if (config.getBoolean("플레이어 상호작용 비활성화")) {
+        if (cfg.get(p, c).getBoolean("플레이어 상호작용 비활성화")) {
             if (!(player.hasPermission("manage.bypass.interact"))) {
-                player.sendActionBar("§c§l서버 내 상호작용이 비활성화 되어있습니다");
+                player.sendActionBar(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-PLAYER_INTERACT")));
                 e.setCancelled(true);
             }
         }
@@ -108,14 +111,14 @@ public class playerevents implements Listener {
 
     @EventHandler
     void onWeather(WeatherChangeEvent e) {
-        if (config.getBoolean("날씨 비활성화")) {
+        if (cfg.get(p, c).getBoolean("날씨 비활성화")) {
             e.setCancelled(e.toWeatherState());
         }
     }
 
     @EventHandler
     void onEntitySpawn(final EntitySpawnEvent e) {
-        if (config.getBoolean("엔티티 소환 차단")) {
+        if (cfg.get(p, c).getBoolean("엔티티 소환 차단")) {
             Entity entity = e.getEntity();
             if (!(entity instanceof Player) && !(entity instanceof Item))
                 entity.remove();
@@ -125,10 +128,10 @@ public class playerevents implements Listener {
     @EventHandler
     void onChat(AsyncPlayerChatEvent e) {
         Player player = e.getPlayer();
-        if (config.getBoolean("플레이어 채팅 비활성화")) {
+        if (cfg.get(p, c).getBoolean("플레이어 채팅 비활성화")) {
             if (!(player.hasPermission("manage.bypass.chat"))) {
                 e.setCancelled(true);
-                player.sendMessage("§c서버 내 채팅이 비활성화 되어있습니다");
+                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-CHAT")));
             }
         }
     }
@@ -136,10 +139,10 @@ public class playerevents implements Listener {
     @EventHandler
     void onMovement(PlayerMoveEvent e) {
         Player player = e.getPlayer();
-        if (config.getBoolean("플레이어 움직임 비활성화")) {
+        if (cfg.get(p, c).getBoolean("플레이어 움직임 비활성화")) {
             if (!(player.hasPermission("manage.bypass.movement"))) {
                 e.setCancelled(true);
-                player.sendActionBar("§c§l구속 되어있습니다.");
+                player.sendActionBar(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-PLAYER_MOVEMENT")));
             }
         }
     }
@@ -147,10 +150,10 @@ public class playerevents implements Listener {
     @EventHandler
     void onInv(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
-        if (config.getBoolean("인벤토리 상호작용 비활성화")) {
+        if (cfg.get(p, c).getBoolean("인벤토리 상호작용 비활성화")) {
             if (!(player.hasPermission("manage.bypass.inv"))) {
                 e.setCancelled(true);
-                player.sendMessage("§c§l인벤토리 상호작용이 비활성화 되어있습니다.");
+                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-INVENTORY_INTERACT")));
             }
         }
     }
@@ -158,10 +161,10 @@ public class playerevents implements Listener {
     @EventHandler
     void onInv2(PlayerDropItemEvent e) {
         Player player = e.getPlayer();
-        if (config.getBoolean("인벤토리 상호작용 비활성화")) {
+        if (cfg.get(p, c).getBoolean("인벤토리 상호작용 비활성화")) {
             if (!(player.hasPermission("manage.bypass.inv"))) {
                 e.setCancelled(true);
-                player.sendMessage("§c§l인벤토리 상호작용이 비활성화 되어있습니다.");
+                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-INVENTORY_INTERACT")));
             }
         }
     }
@@ -169,10 +172,10 @@ public class playerevents implements Listener {
     @EventHandler
     void onInv3(PlayerSwapHandItemsEvent e) {
         Player player = e.getPlayer();
-        if (config.getBoolean("인벤토리 상호작용 비활성화")) {
+        if (cfg.get(p, c).getBoolean("인벤토리 상호작용 비활성화")) {
             if (!(player.hasPermission("manage.bypass.inv"))) {
                 e.setCancelled(true);
-                player.sendMessage("§c§l인벤토리 상호작용이 비활성화 되어있습니다.");
+                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-INVENTORY_INTERACT")));
             }
         }
     }

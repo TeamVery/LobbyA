@@ -1,13 +1,23 @@
 package com.teamvery.manage.cmd;
 
-import com.teamvery.manage.config;
-import org.bukkit.*;
-import org.bukkit.command.*;
+import com.teamvery.configframework.cfg;
+import org.bukkit.Bukkit;
+import org.bukkit.GameRule;
+import org.bukkit.Sound;
+import org.bukkit.World;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static com.teamvery.manage.main.*;
 
 public class settings implements CommandExecutor, TabExecutor {
 
@@ -15,463 +25,8 @@ public class settings implements CommandExecutor, TabExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
         if (!(sender instanceof Player)) {
-            if (args.length > 0) {
-                if (args[0].equalsIgnoreCase("reload")) {
-                    config.reload();
-                    System.out.println("§a리로드가 완료되었습니다!");
+            System.out.println("Comming Soon");
 
-                    if (config.config.getBoolean("시간 고정.활성화")) {
-                        Objects.requireNonNull(Bukkit.getWorld(Objects.requireNonNull(config.get().getString("시간 고정.월드"))))
-                                .setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
-                    } else {
-                        Objects.requireNonNull(Bukkit.getWorld(Objects.requireNonNull(config.get().getString("시간 고정.월드"))))
-                                .setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
-                    }
-                }
-                if (args[0].equalsIgnoreCase("debug")) {
-
-                    System.out.println("디버그 실행됨.");
-                }
-                if (args[0].equalsIgnoreCase("set")) {
-                    if (args[1].equalsIgnoreCase("IGNORE_ENTITY_SPAWN")) {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("엔티티 소환 차단")) {
-                                System.out.println("§cIGNORE_ENTITY_SPAWN is already true");
-                            } else {
-                                System.out.println("§aIGNORE_ENTITY_SPAWN == TRUE");
-                                config.config.set("엔티티 소환 차단", true);
-                                config.save();
-                            }
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("엔티티 소환 차단")) {
-                                System.out.println("§cIGNORE_ENTITY_SPAWN is already false");
-                            } else {
-                                System.out.println("§aIGNORE_ENTITY_SPAWN == FALSE");
-                                config.config.set("엔티티 소환 차단", false);
-                                config.save();
-                            }
-                        }
-                    } else if (args[1].equalsIgnoreCase("DISABLE_WEATHER")) {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("날씨 비활성화")) {
-                                System.out.println("§cDISABLE_WEATHER is already true");
-                            } else {
-                                System.out.println("§aDISABLE_WEATHER == TRUE");
-                                config.config.set("날씨 비활성화", true);
-                                config.save();
-                            }
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("날씨 비활성화")) {
-                                System.out.println("§cDISABLE_WEATHER is already false");
-                            } else {
-                                System.out.println("§aDISABLE_WEATHER == FALSE");
-                                config.config.set("날씨 비활성화", false);
-                                config.save();
-                            }
-                        }
-                    } else if (args[1].equalsIgnoreCase("FREEZE_TIME")) {
-                        if (args[2].equalsIgnoreCase("ENABLE")) {
-                            if (args[3].equalsIgnoreCase("true")) {
-                                if (config.config.getBoolean("시간 고정.활성화")) {
-                                    System.out.println("§cFREEZE_TIME is already true");
-                                } else {
-                                    System.out.println("§aFREEZE_TIME == TRUE");
-                                    config.config.set("시간 고정.활성화", true);
-                                    config.save();
-                                }
-                            } else if (args[3].equalsIgnoreCase("false")) {
-                                if (!config.config.getBoolean("시간 고정.활성화")) {
-                                    System.out.println("§cFREEZE_TIME is already false");
-                                } else {
-                                    System.out.println("§aFREEZE_TIME == FALSE");
-                                    config.config.set("시간 고정.활성화", false);
-                                    config.save();
-                                }
-                            }
-                        } else if (args[2].equalsIgnoreCase("SET_WORLD")) {
-                            System.out.println("COMMING SOON.");
-                        }
-                    } else if (args[1].equalsIgnoreCase("IGNORE_ITEM_DROP")) {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("아이템 드랍 비활성화")) {
-                                System.out.println("§cIGNORE_ITEM_DROP is already true");
-                            } else {
-                                System.out.println("§aIGNORE_ITEM_DROP == TRUE");
-                                config.config.set("아이템 드랍 비활성화", true);
-                                config.save();
-                            }
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("아이템 드랍 비활성화")) {
-                                System.out.println("§cIGNORE_ITEM_DROP is already false");
-                            } else {
-                                System.out.println("§aIGNORE_ITEM_DROP == FALSE");
-                                config.config.set("아이템 드랍 비활성화", false);
-                                config.save();
-                            }
-                        }
-                    } else if (args[1].equalsIgnoreCase("IGNORE_ITEM_PICKUP")) {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("아이템 획득 비활성화")) {
-                                System.out.println("§cIGNORE_ITEM_PICKUP is already true");
-                            } else {
-                                System.out.println("§aIGNORE_ITEM_PICKUP == TRUE");
-                                config.config.set("아이템 획득 비활성화", true);
-                                config.save();
-                            }
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("아이템 획득 비활성화")) {
-                                System.out.println("§cIGNORE_ITEM_PICKUP is already false");
-                            } else {
-                                System.out.println("§aIGNORE_ITEM_PICKUP == FALSE");
-                                config.config.set("아이템 획득 비활성화", false);
-                                config.save();
-                            }
-                        }
-                    } else if (args[1].equalsIgnoreCase("IGNORE_BLOCK_BREAK")) {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("블럭 파괴금지")) {
-                                System.out.println("§cIGNORE_BLOCK_BREAK is already true");
-                            } else {
-                                System.out.println("§aIGNORE_BLOCK_BREAK == TRUE");
-                                config.config.set("블럭 파괴금지", true);
-                                config.save();
-                            }
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("블럭 파괴금지")) {
-                                System.out.println("§cIGNORE_BLOCK_BREAK is already false");
-                            } else {
-                                System.out.println("§aIGNORE_BLOCK_BREAK == FALSE");
-                                config.config.set("블럭 파괴금지", false);
-                                config.save();
-                            }
-                        }
-                    } else if (args[1].equalsIgnoreCase("IGNORE_BLOCK_PLACE")) {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("블럭 설치금지")) {
-                                System.out.println("§cIGNORE_BLOCK_PLACE is already true");
-                            } else {
-                                System.out.println("§aIGNORE_BLOCK_PLACE == TRUE");
-                                config.config.set("블럭 설치금지", true);
-                                config.save();
-                            }
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("블럭 설치금지")) {
-                                System.out.println("§cIGNORE_BLOCK_PLACE is already false");
-                            } else {
-                                System.out.println("§aIGNORE_BLOCK_PLACE == FALSE");
-                                config.config.set("블럭 설치금지", false);
-                                config.save();
-                            }
-                        }
-                    } else if (args[1].equalsIgnoreCase("DISABLE_PLAYER_HUNGER")) {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("플레이어 허기 비활성화")) {
-                                System.out.println("§cDISABLE_PLAYER_HUNGER is already true");
-                            } else {
-                                System.out.println("§aDISABLE_PLAYER_HUNGER == TRUE");
-                                config.config.set("플레이어 허기 비활성화", true);
-                                config.save();
-                            }
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("플레이어 허기 비활성화")) {
-                                System.out.println("§cDISABLE_PLAYER_HUNGER is already false");
-                            } else {
-                                System.out.println("§aDISABLE_PLAYER_HUNGER == FALSE");
-                                config.config.set("플레이어 허기 비활성화", false);
-                                config.save();
-                            }
-                        }
-                    } else if (args[1].equalsIgnoreCase("DISABLE_PVP")) {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("플레이어 PVP 비활성화")) {
-                                System.out.println("§cDISABLE_PVP is already true");
-                            } else {
-                                System.out.println("§aDISABLE_PVP == TRUE");
-                                config.config.set("플레이어 PVP 비활성화", true);
-                                config.save();
-                            }
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("플레이어 PVP 비활성화")) {
-                                System.out.println("§cDISABLE_PVP is already false");
-                            } else {
-                                System.out.println("§aDISABLE_PVP == FALSE");
-                                config.config.set("플레이어 PVP 비활성화", false);
-                                config.save();
-                            }
-                        }
-                    } else if (args[1].equalsIgnoreCase("DISABLE_CHAT")) {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("플레이어 채팅 비활성화")) {
-                                System.out.println("§cDISABLE_CHAT is already true");
-                            } else {
-                                System.out.println("§aDISABLE_CHAT == TRUE");
-                                config.config.set("플레이어 채팅 비활성화", true);
-                                config.save();
-                            }
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("플레이어 채팅 비활성화")) {
-                                System.out.println("§cDISABLE_CHAT is already false");
-                            } else {
-                                System.out.println("§aDISABLE_CHAT == FALSE");
-                                config.config.set("플레이어 채팅 비활성화", false);
-                                config.save();
-                            }
-                        }
-                    } else if (args[1].equalsIgnoreCase("DISABLE_PLAYER_INTERACT")) {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("플레이어 상호작용 비활성화")) {
-                                System.out.println("§cDISABLE_PLAYER_INTERACT is already true");
-                            } else {
-                                System.out.println("§aDISABLE_PLAYER_INTERACT == TRUE");
-                                config.config.set("플레이어 상호작용 비활성화", true);
-                                config.save();
-                            }
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("플레이어 상호작용 비활성화")) {
-                                System.out.println("§cDISABLE_PLAYER_INTERACT is already false");
-                            } else {
-                                System.out.println("§aDISABLE_PLAYER_INTERACT == FALSE");
-                                config.config.set("플레이어 상호작용 비활성화", false);
-                                config.save();
-                            }
-                        }
-                    } else if (args[1].equalsIgnoreCase("DISABLE_PLAYER_DAMAGE")) {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("플레이어 무적")) {
-                                System.out.println("§cDISABLE_PLAYER_DAMAGE is already true");
-                            } else {
-                                System.out.println("§aDISABLE_PLAYER_DAMAGE == TRUE");
-                                config.config.set("플레이어 무적", true);
-                                config.save();
-                            }
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("플레이어 무적")) {
-                                System.out.println("§cDISABLE_PLAYER_DAMAGE is already false");
-                            } else {
-                                System.out.println("§aDISABLE_PLAYER_DAMAGE == FALSE");
-                                config.config.set("플레이어 무적", false);
-                                config.save();
-                            }
-                        }
-                    } else if (args[1].equalsIgnoreCase("DISABLE_PLAYER_MOVEMENT")) {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("플레이어 움직임 비활성화")) {
-                                System.out.println("§cDISABLE_PLAYER_MOVEMENT is already true");
-                            } else {
-                                System.out.println("§aDISABLE_PLAYER_MOVEMENT == TRUE");
-                                config.config.set("플레이어 움직임 비활성화", true);
-                                config.save();
-                            }
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("플레이어 움직임 비활성화")) {
-                                System.out.println("§cDISABLE_PLAYER_MOVEMENT is already false");
-                            } else {
-                                System.out.println("§aDISABLE_PLAYER_MOVEMENT == FALSE");
-                                config.config.set("플레이어 움직임 비활성화", false);
-                                config.save();
-                            }
-                        }
-                    } else if (args[1].equalsIgnoreCase("DISABLE_INVENTORY_INTERACT")) {
-                        if (args[2].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("인벤토리 상호작용 비활성화")) {
-                                System.out.println("§cDISABLE_INVENTORY_INTERACT is already true");
-                            } else {
-                                System.out.println("§aDISABLE_INVENTORY_INTERACT == TRUE");
-                                config.config.set("인벤토리 상호작용 비활성화", true);
-                                config.save();
-                            }
-                        } else if (args[2].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("인벤토리 상호작용 비활성화")) {
-                                System.out.println("§cDISABLE_INVENTORY_INTERACT is already false");
-                            } else {
-                                System.out.println("§aDISABLE_INVENTORY_INTERACT == FALSE");
-                                config.config.set("인벤토리 상호작용 비활성화", false);
-                                config.save();
-                            }
-                        }
-                    } else {
-                        System.out.println("§6/manage set <string> <boolean> §7- Manage플러그인의 Config를 명령어로 수정합니다.");
-                    }
-                }
-
-                if (args[0].equalsIgnoreCase("setJoinQuit")) {
-                    if (args[1].equalsIgnoreCase("QUIT")) {
-                        if (args[2].equalsIgnoreCase("MESSAGE")) {
-                            System.out.println("§a성공적으로 '로그아웃'하는 유저에 대한 퇴장 문장이 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
-                            System.out.println("기존 문장 : " + config.config.getString("재접속.퇴장"));
-                            config.config.set("재접속.퇴장", args[3].replace("%_%", " "));
-                            config.save();
-                            System.out.println("변경된 문장 : " + config.config.getString("재접속.퇴장"));
-                        }
-                    }
-
-                    if (args[1].equalsIgnoreCase("FIRST_JOIN")) {
-                        if (args[2].equalsIgnoreCase("MESSAGE")) {
-                            System.out.println("§a성공적으로 '첫 접속'유저에 대한 입장 문장이 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
-                            System.out.println("기존 문장 : " + config.config.getString("첫접속.입장"));
-                            config.config.set("첫접속.입장", args[3].replace("%_%", " "));
-                            config.save();
-                            System.out.println("변경된 문장 : " + config.config.getString("첫접속.입장"));
-                        } else if (args[2].equalsIgnoreCase("FIREWORK")) {
-                            if (args[3].equalsIgnoreCase("true")) {
-                                if (config.config.getBoolean("첫접속.폭죽")) {
-                                    System.out.println("§cFIRST_JOIN_FIREWORK is already true");
-                                } else {
-                                    System.out.println("§aFIRST_JOIN_FIREWORK == TRUE");
-                                    config.config.set("첫접속.폭죽", true);
-                                    config.save();
-                                }
-                            } else if (args[3].equalsIgnoreCase("false")) {
-                                if (!config.config.getBoolean("첫접속.폭죽")) {
-                                    System.out.println("§cFIRST_JOIN_FIREWORK is already false");
-                                } else {
-                                    System.out.println("§aFIRST_JOIN_FIREWORK == FALSE");
-                                    config.config.set("첫접속.폭죽", false);
-                                    config.save();
-                                }
-                            }
-                        } else if (args[2].equalsIgnoreCase("SOUND")) {
-                            if (args[3].equalsIgnoreCase("ENABLE")) {
-                                if (args[4].equalsIgnoreCase("true")) {
-                                    if (config.config.getBoolean("첫접속.소리.활성화")) {
-                                        System.out.println("§cFIRST_JOIN_SOUND_ENABLE is already true");
-                                    } else {
-                                        System.out.println("§aFIRST_JOIN_SOUND_ENABLE == TRUE");
-                                        config.config.set("첫접속.소리.활성화", true);
-                                        config.save();
-                                    }
-                                } else if (args[4].equalsIgnoreCase("false")) {
-                                    if (!config.config.getBoolean("첫접속.소리.활성화")) {
-                                        System.out.println("§cFIRST_JOIN_SOUND_ENABLE is already false");
-                                    } else {
-                                        System.out.println("§aFIRST_JOIN_SOUND_ENABLE == FALSE");
-                                        config.config.set("첫접속.소리.활성화", false);
-                                        config.save();
-                                    }
-                                }
-                            } else if (args[3].equalsIgnoreCase("SET_SOUND")) {
-                                System.out.println("§a성공적으로 '첫 접속'유저에 대한 노래가 변경되었습니다.");
-                                System.out.println("기존 문장 : " + config.config.getString("첫접속.소리.사운드"));
-                                config.config.set("첫접속.소리.사운드", args[4]);
-                                config.save();
-                                System.out.println("변경된 문장 : " + config.config.getString("첫접속.소리.사운드"));
-                            }
-                        } else if (args[2].equalsIgnoreCase("COMMAND")) {
-                            if (args[3].equalsIgnoreCase("ENABLE")) {
-                                if (args[4].equalsIgnoreCase("true")) {
-                                    if (config.config.getBoolean("첫접속.명령어(콘솔).활성화")) {
-                                        System.out.println("§cFIRST_JOIN_CONSOLE_COMMAND_ENABLE is already true");
-                                    } else {
-                                        System.out.println("§aFIRST_JOIN_CONSOLE_COMMAND_ENABLE == TRUE");
-                                        config.config.set("첫접속.명령어(콘솔).활성화", true);
-                                        config.save();
-                                    }
-                                } else if (args[4].equalsIgnoreCase("false")) {
-                                    if (!config.config.getBoolean("첫접속.명령어(콘솔).활성화")) {
-                                        System.out.println("§cFIRST_JOIN_CONSOLE_COMMAND_ENABLE is already false");
-                                    } else {
-                                        System.out.println("§aFIRST_JOIN_CONSOLE_COMMAND_ENABLE == FALSE");
-                                        config.config.set("첫접속.명령어(콘솔).활성화", false);
-                                        config.save();
-                                    }
-                                }
-                            } else if (args[3].equalsIgnoreCase("SET_COMMAND")) {
-                                System.out.println("§a성공적으로 '첫 접속'유저에 대한 명령어가 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
-                                System.out.println("기존 문장 : " + config.config.getString("첫접속.명령어(콘솔).명령어"));
-                                config.config.set("첫접속.명령어(콘솔).명령어", args[4].replace("%_%", " "));
-                                config.save();
-                                System.out.println("변경된 문장 : " + config.config.getString("첫접속.명령어(콘솔).명령어"));
-                            }
-                        }
-                    }
-
-                    if (args[1].equalsIgnoreCase("JOIN")) {
-                        if (args[2].equalsIgnoreCase("MESSAGE")) {
-                            System.out.println("§a성공적으로 '재접속'유저에 대한 입장 문장이 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
-                            System.out.println("기존 문장 : " + config.config.getString("재접속.입장"));
-                            config.config.set("재접속.입장", args[3].replace("%_%", " "));
-                            config.save();
-                            System.out.println("변경된 문장 : " + config.config.getString("재접속.입장"));
-                        } else if (args[2].equalsIgnoreCase("FIREWORK")) {
-                            if (args[3].equalsIgnoreCase("true")) {
-                                if (config.config.getBoolean("재접속.폭죽")) {
-                                    System.out.println("§cJOIN_FIREWORK is already true");
-                                } else {
-                                    System.out.println("§aJOIN_FIREWORK == TRUE");
-                                    config.config.set("재접속.폭죽", true);
-                                    config.save();
-                                }
-                            } else if (args[3].equalsIgnoreCase("false")) {
-                                if (!config.config.getBoolean("재접속.폭죽")) {
-                                    System.out.println("§cJOIN_FIREWORK is already false");
-                                } else {
-                                    System.out.println("§aJOIN_FIREWORK == FALSE");
-                                    config.config.set("재접속.폭죽", false);
-                                    config.save();
-                                }
-                            }
-                        } else if (args[2].equalsIgnoreCase("SOUND")) {
-                            if (args[3].equalsIgnoreCase("ENABLE")) {
-                                if (args[4].equalsIgnoreCase("true")) {
-                                    if (config.config.getBoolean("재접속.소리.활성화")) {
-                                        System.out.println("§cJOIN_SOUND_ENABLE is already true");
-                                    } else {
-                                        System.out.println("§aJOIN_SOUND_ENABLE == TRUE");
-                                        config.config.set("재접속.소리.활성화", true);
-                                        config.save();
-                                    }
-                                } else if (args[4].equalsIgnoreCase("false")) {
-                                    if (!config.config.getBoolean("재접속.소리.활성화")) {
-                                        System.out.println("§cJOIN_SOUND_ENABLE is already false");
-                                    } else {
-                                        System.out.println("§aJOIN_SOUND_ENABLE == FALSE");
-                                        config.config.set("재접속.소리.활성화", false);
-                                        config.save();
-                                    }
-                                }
-                            } else if (args[3].equalsIgnoreCase("SET_SOUND")) {
-                                System.out.println("§a성공적으로 '재접속'유저에 대한 노래가 변경되었습니다.");
-                                System.out.println("기존 문장 : " + config.config.getString("재접속.소리.사운드"));
-                                config.config.set("재접속.소리.사운드", args[4]);
-                                config.save();
-                                System.out.println("변경된 문장 : " + config.config.getString("재접속.소리.사운드"));
-                            }
-                        } else if (args[2].equalsIgnoreCase("COMMAND")) {
-                            if (args[3].equalsIgnoreCase("ENABLE")) {
-                                if (args[4].equalsIgnoreCase("true")) {
-                                    if (config.config.getBoolean("재접속.명령어(콘솔).활성화")) {
-                                        System.out.println("§cJOIN_CONSOLE_COMMAND_ENABLE is already true");
-                                    } else {
-                                        System.out.println("§aJOIN_CONSOLE_COMMAND_ENABLE == TRUE");
-                                        config.config.set("재접속.명령어(콘솔).활성화", true);
-                                        config.save();
-                                    }
-                                } else if (args[4].equalsIgnoreCase("false")) {
-                                    if (!config.config.getBoolean("재접속.명령어(콘솔).활성화")) {
-                                        System.out.println("§cJOIN_CONSOLE_COMMAND_ENABLE is already false");
-                                    } else {
-                                        System.out.println("§aJOIN_CONSOLE_COMMAND_ENABLE == FALSE");
-                                        config.config.set("재접속.명령어(콘솔).활성화", false);
-                                        config.save();
-                                    }
-                                }
-                            } else if (args[3].equalsIgnoreCase("SET_COMMAND")) {
-                                System.out.println("§a성공적으로 '재접속'유저에 대한 명령어가 변경되었습니다. §c(띄어쓰기를 하려면 %_%를 입력하세요!)");
-                                System.out.println("기존 문장 : " + config.config.getString("재접속.명령어(콘솔).명령어"));
-                                config.config.set("재접속.명령어(콘솔).명령어", args[4].replace("%_%", " "));
-                                config.save();
-                                System.out.println("변경된 문장 : " + config.config.getString("재접속.명령어(콘솔).명령어"));
-                            }
-                        }
-                    }
-                }
-            } else {
-                System.out.println("§7---------- §3Manage 플러그인 명령어 §7----------");
-                System.out.println("§6/manage reload §7- Manage플러그인의 Config를 리로드합니다.");
-                System.out.println("§6/manage set <string> <boolean> §7- Manage플러그인의 Config를 명령어로 수정합니다.");
-                System.out.println("§6/manage setJoinQuit <string> §7- Manage플러그인의 Join/Quit을 명령어로 수정합니다.");
-                System.out.println("§6/manage debug §7- Manage플러그인의 디버그를 실행합니다.");
-            }
             return false;
         }
 
@@ -479,280 +34,283 @@ public class settings implements CommandExecutor, TabExecutor {
 
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("reload")) {
-                config.reload();
-                player.sendMessage("§a리로드가 완료되었습니다!");
+                cfg.reload(p, c);
+                cfg.reload(p, m);
+                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("RELOAD CONFIRM")));
 
-                if (config.config.getBoolean("시간 고정.활성화")) {
-                    Objects.requireNonNull(Bukkit.getWorld(Objects.requireNonNull(config.get().getString("시간 고정.월드"))))
-                            .setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+                if (cfg.get(p, c).getBoolean("시간 고정.활성화")) {
+                    for (World worlds : Bukkit.getWorlds()) {
+                        worlds.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+                    }
                 } else {
-                    Objects.requireNonNull(Bukkit.getWorld(Objects.requireNonNull(config.get().getString("시간 고정.월드"))))
-                            .setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+                    for (World worlds : Bukkit.getWorlds()) {
+                        worlds.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+                    }
                 }
             }
             if (args[0].equalsIgnoreCase("debug")) {
 
-                player.sendMessage("디버그 실행됨.");
+                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DEBUG")));
             }
             if (args[0].equalsIgnoreCase("set")) {
                 if (args[1].equalsIgnoreCase("IGNORE_ENTITY_SPAWN")) {
                     if (args[2].equalsIgnoreCase("true")) {
-                        if (config.config.getBoolean("엔티티 소환 차단")) {
-                            player.sendMessage("§cIGNORE_ENTITY_SPAWN is already true");
+                        if (cfg.get(p, c).getBoolean("엔티티 소환 차단")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ENTITY_SPAWN Already True")));
                         } else {
-                            player.sendMessage("§aIGNORE_ENTITY_SPAWN == TRUE");
-                            config.config.set("엔티티 소환 차단", true);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ENTITY_SPAWN True")));
+                            cfg.get(p, c).set("엔티티 소환 차단", true);
+                            cfg.save(p, c);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
-                        if (!config.config.getBoolean("엔티티 소환 차단")) {
-                            player.sendMessage("§cIGNORE_ENTITY_SPAWN is already false");
+                        if (!cfg.get(p, c).getBoolean("엔티티 소환 차단")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ENTITY_SPAWN Already False")));
                         } else {
-                            player.sendMessage("§aIGNORE_ENTITY_SPAWN == FALSE");
-                            config.config.set("엔티티 소환 차단", false);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ENTITY_SPAWN False")));
+                            cfg.get(p, c).set("엔티티 소환 차단", false);
+                            cfg.save(p, c);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_WEATHER")) {
                     if (args[2].equalsIgnoreCase("true")) {
-                        if (config.config.getBoolean("날씨 비활성화")) {
-                            player.sendMessage("§cDISABLE_WEATHER is already true");
+                        if (cfg.get(p, c).getBoolean("날씨 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_WEATHER Already True")));
                         } else {
-                            player.sendMessage("§aDISABLE_WEATHER == TRUE");
-                            config.config.set("날씨 비활성화", true);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_WEATHER True")));
+                            cfg.get(p, c).set("날씨 비활성화", true);
+                            cfg.save(p, c);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
-                        if (!config.config.getBoolean("날씨 비활성화")) {
-                            player.sendMessage("§cDISABLE_WEATHER is already false");
+                        if (!cfg.get(p, c).getBoolean("날씨 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_WEATHER Already False")));
                         } else {
-                            player.sendMessage("§aDISABLE_WEATHER == FALSE");
-                            config.config.set("날씨 비활성화", false);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_WEATHER False")));
+                            cfg.get(p, c).set("날씨 비활성화", false);
+                            cfg.save(p, c);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("FREEZE_TIME")) {
                     if (args[2].equalsIgnoreCase("ENABLE")) {
                         if (args[3].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("시간 고정.활성화")) {
-                                player.sendMessage("§cFREEZE_TIME is already true");
+                            if (cfg.get(p, c).getBoolean("시간 고정.활성화")) {
+                                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME Already True")));
                             } else {
-                                player.sendMessage("§aFREEZE_TIME == TRUE");
-                                config.config.set("시간 고정.활성화", true);
-                                config.save();
+                                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME True")));
+                                cfg.get(p, c).set("시간 고정.활성화", true);
+                                cfg.save(p, c);
                             }
                         } else if (args[3].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("시간 고정.활성화")) {
-                                player.sendMessage("§cFREEZE_TIME is already false");
+                            if (!cfg.get(p, c).getBoolean("시간 고정.활성화")) {
+                                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME Already False")));
                             } else {
-                                player.sendMessage("§aFREEZE_TIME == FALSE");
-                                config.config.set("시간 고정.활성화", false);
-                                config.save();
+                                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME False")));
+                                cfg.get(p, c).set("시간 고정.활성화", false);
+                                cfg.save(p, c);
                             }
                         }
                     } else if (args[2].equalsIgnoreCase("SET_WORLD")) {
-                        player.sendMessage("COMMING SOON.");
+                        player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME Set World")));
                     }
                 } else if (args[1].equalsIgnoreCase("IGNORE_ITEM_DROP")) {
                     if (args[2].equalsIgnoreCase("true")) {
-                        if (config.config.getBoolean("아이템 드랍 비활성화")) {
-                            player.sendMessage("§cIGNORE_ITEM_DROP is already true");
+                        if (cfg.get(p, c).getBoolean("아이템 드랍 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ITEM_DROP Already True")));
                         } else {
-                            player.sendMessage("§aIGNORE_ITEM_DROP == TRUE");
-                            config.config.set("아이템 드랍 비활성화", true);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ITEM_DROP True")));
+                            cfg.get(p, c).set("아이템 드랍 비활성화", true);
+                            cfg.save(p, c);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
-                        if (!config.config.getBoolean("아이템 드랍 비활성화")) {
-                            player.sendMessage("§cIGNORE_ITEM_DROP is already false");
+                        if (!cfg.get(p, c).getBoolean("아이템 드랍 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ITEM_DROP Already False")));
                         } else {
-                            player.sendMessage("§aIGNORE_ITEM_DROP == FALSE");
-                            config.config.set("아이템 드랍 비활성화", false);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ITEM_DROP False")));
+                            cfg.get(p, c).set("아이템 드랍 비활성화", false);
+                            cfg.save(p, c);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("IGNORE_ITEM_PICKUP")) {
                     if (args[2].equalsIgnoreCase("true")) {
-                        if (config.config.getBoolean("아이템 획득 비활성화")) {
-                            player.sendMessage("§cIGNORE_ITEM_PICKUP is already true");
+                        if (cfg.get(p, c).getBoolean("아이템 획득 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ITEM_PICKUP Already True")));
                         } else {
-                            player.sendMessage("§aIGNORE_ITEM_PICKUP == TRUE");
-                            config.config.set("아이템 획득 비활성화", true);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ITEM_PICKUP True")));
+                            cfg.get(p, c).set("아이템 획득 비활성화", true);
+                            cfg.save(p, c);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
-                        if (!config.config.getBoolean("아이템 획득 비활성화")) {
-                            player.sendMessage("§cIGNORE_ITEM_PICKUP is already false");
+                        if (!cfg.get(p, c).getBoolean("아이템 획득 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ITEM_PICKUP Already False")));
                         } else {
-                            player.sendMessage("§aIGNORE_ITEM_PICKUP == FALSE");
-                            config.config.set("아이템 획득 비활성화", false);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ITEM_PICKUP False")));
+                            cfg.get(p, c).set("아이템 획득 비활성화", false);
+                            cfg.save(p, c);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("IGNORE_BLOCK_BREAK")) {
                     if (args[2].equalsIgnoreCase("true")) {
-                        if (config.config.getBoolean("블럭 파괴금지")) {
-                            player.sendMessage("§cIGNORE_BLOCK_BREAK is already true");
+                        if (cfg.get(p, c).getBoolean("블럭 파괴금지")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_BLOCK_BREAK Already True")));
                         } else {
-                            player.sendMessage("§aIGNORE_BLOCK_BREAK == TRUE");
-                            config.config.set("블럭 파괴금지", true);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_BLOCK_BREAK True")));
+                            cfg.get(p, c).set("블럭 파괴금지", true);
+                            cfg.save(p, c);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
-                        if (!config.config.getBoolean("블럭 파괴금지")) {
-                            player.sendMessage("§cIGNORE_BLOCK_BREAK is already false");
+                        if (!cfg.get(p, c).getBoolean("블럭 파괴금지")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_BLOCK_BREAK Already False")));
                         } else {
-                            player.sendMessage("§aIGNORE_BLOCK_BREAK == FALSE");
-                            config.config.set("블럭 파괴금지", false);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_BLOCK_BREAK False")));
+                            cfg.get(p, c).set("블럭 파괴금지", false);
+                            cfg.save(p, c);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("IGNORE_BLOCK_PLACE")) {
                     if (args[2].equalsIgnoreCase("true")) {
-                        if (config.config.getBoolean("블럭 설치금지")) {
-                            player.sendMessage("§cIGNORE_BLOCK_PLACE is already true");
+                        if (cfg.get(p, c).getBoolean("블럭 설치금지")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_BLOCK_PLACE Already True")));
                         } else {
-                            player.sendMessage("§aIGNORE_BLOCK_PLACE == TRUE");
-                            config.config.set("블럭 설치금지", true);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_BLOCK_PLACE True")));
+                            cfg.get(p, c).set("블럭 설치금지", true);
+                            cfg.save(p, c);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
-                        if (!config.config.getBoolean("블럭 설치금지")) {
-                            player.sendMessage("§cIGNORE_BLOCK_PLACE is already false");
+                        if (!cfg.get(p, c).getBoolean("블럭 설치금지")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_BLOCK_PLACE Already False")));
                         } else {
-                            player.sendMessage("§aIGNORE_BLOCK_PLACE == FALSE");
-                            config.config.set("블럭 설치금지", false);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_BLOCK_PLACE False")));
+                            cfg.get(p, c).set("블럭 설치금지", false);
+                            cfg.save(p, c);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_PLAYER_HUNGER")) {
                     if (args[2].equalsIgnoreCase("true")) {
-                        if (config.config.getBoolean("플레이어 허기 비활성화")) {
-                            player.sendMessage("§cDISABLE_PLAYER_HUNGER is already true");
+                        if (cfg.get(p, c).getBoolean("플레이어 허기 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_HUNGER Already True")));
                         } else {
-                            player.sendMessage("§aDISABLE_PLAYER_HUNGER == TRUE");
-                            config.config.set("플레이어 허기 비활성화", true);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_HUNGER True")));
+                            cfg.get(p, c).set("플레이어 허기 비활성화", true);
+                            cfg.save(p, c);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
-                        if (!config.config.getBoolean("플레이어 허기 비활성화")) {
-                            player.sendMessage("§cDISABLE_PLAYER_HUNGER is already false");
+                        if (!cfg.get(p, c).getBoolean("플레이어 허기 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_HUNGER Already False")));
                         } else {
-                            player.sendMessage("§aDISABLE_PLAYER_HUNGER == FALSE");
-                            config.config.set("플레이어 허기 비활성화", false);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_HUNGER False")));
+                            cfg.get(p, c).set("플레이어 허기 비활성화", false);
+                            cfg.save(p, c);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_PVP")) {
                     if (args[2].equalsIgnoreCase("true")) {
-                        if (config.config.getBoolean("플레이어 PVP 비활성화")) {
-                            player.sendMessage("§cDISABLE_PVP is already true");
+                        if (cfg.get(p, c).getBoolean("플레이어 PVP 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PVP Already True")));
                         } else {
-                            player.sendMessage("§aDISABLE_PVP == TRUE");
-                            config.config.set("플레이어 PVP 비활성화", true);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PVP True")));
+                            cfg.get(p, c).set("플레이어 PVP 비활성화", true);
+                            cfg.save(p, c);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
-                        if (!config.config.getBoolean("플레이어 PVP 비활성화")) {
-                            player.sendMessage("§cDISABLE_PVP is already false");
+                        if (!cfg.get(p, c).getBoolean("플레이어 PVP 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PVP Already False")));
                         } else {
-                            player.sendMessage("§aDISABLE_PVP == FALSE");
-                            config.config.set("플레이어 PVP 비활성화", false);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PVP False")));
+                            cfg.get(p, c).set("플레이어 PVP 비활성화", false);
+                            cfg.save(p, c);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_CHAT")) {
                     if (args[2].equalsIgnoreCase("true")) {
-                        if (config.config.getBoolean("플레이어 채팅 비활성화")) {
-                            player.sendMessage("§cDISABLE_CHAT is already true");
+                        if (cfg.get(p, c).getBoolean("플레이어 채팅 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_CHAT Already True")));
                         } else {
-                            player.sendMessage("§aDISABLE_CHAT == TRUE");
-                            config.config.set("플레이어 채팅 비활성화", true);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_CHAT True")));
+                            cfg.get(p, c).set("플레이어 채팅 비활성화", true);
+                            cfg.save(p, c);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
-                        if (!config.config.getBoolean("플레이어 채팅 비활성화")) {
-                            player.sendMessage("§cDISABLE_CHAT is already false");
+                        if (!cfg.get(p, c).getBoolean("플레이어 채팅 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_CHAT Already False")));
                         } else {
-                            player.sendMessage("§aDISABLE_CHAT == FALSE");
-                            config.config.set("플레이어 채팅 비활성화", false);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_CHAT False")));
+                            cfg.get(p, c).set("플레이어 채팅 비활성화", false);
+                            cfg.save(p, c);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_PLAYER_INTERACT")) {
                     if (args[2].equalsIgnoreCase("true")) {
-                        if (config.config.getBoolean("플레이어 상호작용 비활성화")) {
-                            player.sendMessage("§cDISABLE_PLAYER_INTERACT is already true");
+                        if (cfg.get(p, c).getBoolean("플레이어 상호작용 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_INTERACT Already True")));
                         } else {
-                            player.sendMessage("§aDISABLE_PLAYER_INTERACT == TRUE");
-                            config.config.set("플레이어 상호작용 비활성화", true);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_INTERACT True")));
+                            cfg.get(p, c).set("플레이어 상호작용 비활성화", true);
+                            cfg.save(p, c);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
-                        if (!config.config.getBoolean("플레이어 상호작용 비활성화")) {
-                            player.sendMessage("§cDISABLE_PLAYER_INTERACT is already false");
+                        if (!cfg.get(p, c).getBoolean("플레이어 상호작용 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_INTERACT Already False")));
                         } else {
-                            player.sendMessage("§aDISABLE_PLAYER_INTERACT == FALSE");
-                            config.config.set("플레이어 상호작용 비활성화", false);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_INTERACT False")));
+                            cfg.get(p, c).set("플레이어 상호작용 비활성화", false);
+                            cfg.save(p, c);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_PLAYER_DAMAGE")) {
                     if (args[2].equalsIgnoreCase("true")) {
-                        if (config.config.getBoolean("플레이어 무적")) {
-                            player.sendMessage("§cDISABLE_PLAYER_DAMAGE is already true");
+                        if (cfg.get(p, c).getBoolean("플레이어 무적")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_DAMAGE Already True")));
                         } else {
-                            player.sendMessage("§aDISABLE_PLAYER_DAMAGE == TRUE");
-                            config.config.set("플레이어 무적", true);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_DAMAGE True")));
+                            cfg.get(p, c).set("플레이어 무적", true);
+                            cfg.save(p, c);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
-                        if (!config.config.getBoolean("플레이어 무적")) {
-                            player.sendMessage("§cDISABLE_PLAYER_DAMAGE is already false");
+                        if (!cfg.get(p, c).getBoolean("플레이어 무적")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_DAMAGE Already False")));
                         } else {
-                            player.sendMessage("§aDISABLE_PLAYER_DAMAGE == FALSE");
-                            config.config.set("플레이어 무적", false);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_DAMAGE False")));
+                            cfg.get(p, c).set("플레이어 무적", false);
+                            cfg.save(p, c);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_PLAYER_MOVEMENT")) {
                     if (args[2].equalsIgnoreCase("true")) {
-                        if (config.config.getBoolean("플레이어 움직임 비활성화")) {
-                            player.sendMessage("§cDISABLE_PLAYER_MOVEMENT is already true");
+                        if (cfg.get(p, c).getBoolean("플레이어 움직임 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_MOVEMENT Already True")));
                         } else {
-                            player.sendMessage("§aDISABLE_PLAYER_MOVEMENT == TRUE");
-                            config.config.set("플레이어 움직임 비활성화", true);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_MOVEMENT True")));
+                            cfg.get(p, c).set("플레이어 움직임 비활성화", true);
+                            cfg.save(p, c);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
-                        if (!config.config.getBoolean("플레이어 움직임 비활성화")) {
-                            player.sendMessage("§cDISABLE_PLAYER_MOVEMENT is already false");
+                        if (!cfg.get(p, c).getBoolean("플레이어 움직임 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_MOVEMENT Already False")));
                         } else {
-                            player.sendMessage("§aDISABLE_PLAYER_MOVEMENT == FALSE");
-                            config.config.set("플레이어 움직임 비활성화", false);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_MOVEMENT False")));
+                            cfg.get(p, c).set("플레이어 움직임 비활성화", false);
+                            cfg.save(p, c);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_INVENTORY_INTERACT")) {
                     if (args[2].equalsIgnoreCase("true")) {
-                        if (config.config.getBoolean("인벤토리 상호작용 비활성화")) {
-                            player.sendMessage("§cDISABLE_INVENTORY_INTERACT is already true");
+                        if (cfg.get(p, c).getBoolean("인벤토리 상호작용 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_INVENTORY_INTERACT Already True")));
                         } else {
-                            player.sendMessage("§aDISABLE_INVENTORY_INTERACT == TRUE");
-                            config.config.set("인벤토리 상호작용 비활성화", true);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_INVENTORY_INTERACT True")));
+                            cfg.get(p, c).set("인벤토리 상호작용 비활성화", true);
+                            cfg.save(p, c);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
-                        if (!config.config.getBoolean("인벤토리 상호작용 비활성화")) {
-                            player.sendMessage("§cDISABLE_INVENTORY_INTERACT is already false");
+                        if (!cfg.get(p, c).getBoolean("인벤토리 상호작용 비활성화")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_INVENTORY_INTERACT Already False")));
                         } else {
-                            player.sendMessage("§aDISABLE_INVENTORY_INTERACT == FALSE");
-                            config.config.set("인벤토리 상호작용 비활성화", false);
-                            config.save();
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_INVENTORY_INTERACT False")));
+                            cfg.get(p, c).set("인벤토리 상호작용 비활성화", false);
+                            cfg.save(p, c);
                         }
                     }
                 } else {
-                    player.sendMessage("§6/manage set <string> <boolean> §7- Manage플러그인의 Config를 명령어로 수정합니다.");
+                        player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("Info.MANAGE_SET")));
                 }
             }
 
@@ -768,10 +326,10 @@ public class settings implements CommandExecutor, TabExecutor {
                             }
                         }
                         player.sendMessage("§a성공적으로 '로그아웃'하는 유저에 대한 퇴장 문장이 변경되었습니다.");
-                        player.sendMessage("기존 문장 : " + config.config.getString("재접속.퇴장"));
-                        config.config.set("재접속.퇴장", Objects.requireNonNull(M).toString());
-                        config.save();
-                        player.sendMessage("변경된 문장 : " + config.config.getString("재접속.퇴장"));
+                        player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("재접속.퇴장"));
+                        cfg.get(p, c).set("재접속.퇴장", Objects.requireNonNull(M).toString());
+                        cfg.save(p, c);
+                        player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("재접속.퇴장"));
                     }
                 }
 
@@ -786,75 +344,75 @@ public class settings implements CommandExecutor, TabExecutor {
                             }
                         }
                         player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 입장 문장이 변경되었습니다.");
-                        player.sendMessage("기존 문장 : " + config.config.getString("첫접속.입장"));
-                        config.config.set("첫접속.입장", Objects.requireNonNull(M).toString());
-                        config.save();
-                        player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.입장"));
+                        player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("첫접속.입장"));
+                        cfg.get(p, c).set("첫접속.입장", Objects.requireNonNull(M).toString());
+                        cfg.save(p, c);
+                        player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("첫접속.입장"));
                     } else if (args[2].equalsIgnoreCase("FIREWORK")) {
                         if (args[3].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("첫접속.폭죽")) {
+                            if (cfg.get(p, c).getBoolean("첫접속.폭죽")) {
                                 player.sendMessage("§cFIRST_JOIN_FIREWORK is already true");
                             } else {
                                 player.sendMessage("§aFIRST_JOIN_FIREWORK == TRUE");
-                                config.config.set("첫접속.폭죽", true);
-                                config.save();
+                                cfg.get(p, c).set("첫접속.폭죽", true);
+                                cfg.save(p, c);
                             }
                         } else if (args[3].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("첫접속.폭죽")) {
+                            if (!cfg.get(p, c).getBoolean("첫접속.폭죽")) {
                                 player.sendMessage("§cFIRST_JOIN_FIREWORK is already false");
                             } else {
                                 player.sendMessage("§aFIRST_JOIN_FIREWORK == FALSE");
-                                config.config.set("첫접속.폭죽", false);
-                                config.save();
+                                cfg.get(p, c).set("첫접속.폭죽", false);
+                                cfg.save(p, c);
                             }
                         }
                     } else if (args[2].equalsIgnoreCase("SOUND")) {
                         if (args[3].equalsIgnoreCase("ENABLE")) {
                             if (args[4].equalsIgnoreCase("true")) {
-                                if (config.config.getBoolean("첫접속.소리.활성화")) {
+                                if (cfg.get(p, c).getBoolean("첫접속.소리.활성화")) {
                                     player.sendMessage("§cFIRST_JOIN_SOUND_ENABLE is already true");
                                 } else {
                                     player.sendMessage("§aFIRST_JOIN_SOUND_ENABLE == TRUE");
-                                    config.config.set("첫접속.소리.활성화", true);
-                                    config.save();
+                                    cfg.get(p, c).set("첫접속.소리.활성화", true);
+                                    cfg.save(p, c);
                                 }
                             } else if (args[4].equalsIgnoreCase("false")) {
-                                if (!config.config.getBoolean("첫접속.소리.활성화")) {
+                                if (!cfg.get(p, c).getBoolean("첫접속.소리.활성화")) {
                                     player.sendMessage("§cFIRST_JOIN_SOUND_ENABLE is already false");
                                 } else {
                                     player.sendMessage("§aFIRST_JOIN_SOUND_ENABLE == FALSE");
-                                    config.config.set("첫접속.소리.활성화", false);
-                                    config.save();
+                                    cfg.get(p, c).set("첫접속.소리.활성화", false);
+                                    cfg.save(p, c);
                                 }
                             }
                         } else if (args[3].equalsIgnoreCase("SET_SOUND")) {
                             for (Sound a : Sound.values()) {
                                 if (a.toString().matches(args[4])) {
                                     player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 노래가 변경되었습니다.");
-                                    player.sendMessage("기존 문장 : " + config.config.getString("첫접속.소리.사운드"));
-                                    config.config.set("첫접속.소리.사운드", args[4]);
-                                    config.save();
-                                    player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.소리.사운드"));
+                                    player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("첫접속.소리.사운드"));
+                                    cfg.get(p, c).set("첫접속.소리.사운드", args[4]);
+                                    cfg.save(p, c);
+                                    player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("첫접속.소리.사운드"));
                                 }
                             }
                         }
                     } else if (args[2].equalsIgnoreCase("COMMAND")) {
                         if (args[3].equalsIgnoreCase("ENABLE")) {
                             if (args[4].equalsIgnoreCase("true")) {
-                                if (config.config.getBoolean("첫접속.명령어(콘솔).활성화")) {
+                                if (cfg.get(p, c).getBoolean("첫접속.명령어(콘솔).활성화")) {
                                     player.sendMessage("§cFIRST_JOIN_CONSOLE_COMMAND_ENABLE is already true");
                                 } else {
                                     player.sendMessage("§aFIRST_JOIN_CONSOLE_COMMAND_ENABLE == TRUE");
-                                    config.config.set("첫접속.명령어(콘솔).활성화", true);
-                                    config.save();
+                                    cfg.get(p, c).set("첫접속.명령어(콘솔).활성화", true);
+                                    cfg.save(p, c);
                                 }
                             } else if (args[4].equalsIgnoreCase("false")) {
-                                if (!config.config.getBoolean("첫접속.명령어(콘솔).활성화")) {
+                                if (!cfg.get(p, c).getBoolean("첫접속.명령어(콘솔).활성화")) {
                                     player.sendMessage("§cFIRST_JOIN_CONSOLE_COMMAND_ENABLE is already false");
                                 } else {
                                     player.sendMessage("§aFIRST_JOIN_CONSOLE_COMMAND_ENABLE == FALSE");
-                                    config.config.set("첫접속.명령어(콘솔).활성화", false);
-                                    config.save();
+                                    cfg.get(p, c).set("첫접속.명령어(콘솔).활성화", false);
+                                    cfg.save(p, c);
                                 }
                             }
                         } else if (args[3].equalsIgnoreCase("SET_COMMAND")) {
@@ -867,10 +425,10 @@ public class settings implements CommandExecutor, TabExecutor {
                                 }
                             }
                             player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 명령어가 변경되었습니다.");
-                            player.sendMessage("기존 문장 : " + config.config.getString("첫접속.명령어(콘솔).명령어"));
-                            config.config.set("첫접속.명령어(콘솔).명령어", Objects.requireNonNull(M).toString());
-                            config.save();
-                            player.sendMessage("변경된 문장 : " + config.config.getString("첫접속.명령어(콘솔).명령어"));
+                            player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("첫접속.명령어(콘솔).명령어"));
+                            cfg.get(p, c).set("첫접속.명령어(콘솔).명령어", Objects.requireNonNull(M).toString());
+                            cfg.save(p, c);
+                            player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("첫접속.명령어(콘솔).명령어"));
                         }
                     }
                 }
@@ -886,75 +444,75 @@ public class settings implements CommandExecutor, TabExecutor {
                             }
                         }
                         player.sendMessage("§a성공적으로 '재접속'유저에 대한 입장 문장이 변경되었습니다.");
-                        player.sendMessage("기존 문장 : " + config.config.getString("재접속.입장"));
-                        config.config.set("재접속.입장", Objects.requireNonNull(M).toString());
-                        config.save();
-                        player.sendMessage("변경된 문장 : " + config.config.getString("재접속.입장"));
+                        player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("재접속.입장"));
+                        cfg.get(p, c).set("재접속.입장", Objects.requireNonNull(M).toString());
+                        cfg.save(p, c);
+                        player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("재접속.입장"));
                     } else if (args[2].equalsIgnoreCase("FIREWORK")) {
                         if (args[3].equalsIgnoreCase("true")) {
-                            if (config.config.getBoolean("재접속.폭죽")) {
+                            if (cfg.get(p, c).getBoolean("재접속.폭죽")) {
                                 player.sendMessage("§cJOIN_FIREWORK is already true");
                             } else {
                                 player.sendMessage("§aJOIN_FIREWORK == TRUE");
-                                config.config.set("재접속.폭죽", true);
-                                config.save();
+                                cfg.get(p, c).set("재접속.폭죽", true);
+                                cfg.save(p, c);
                             }
                         } else if (args[3].equalsIgnoreCase("false")) {
-                            if (!config.config.getBoolean("재접속.폭죽")) {
+                            if (!cfg.get(p, c).getBoolean("재접속.폭죽")) {
                                 player.sendMessage("§cJOIN_FIREWORK is already false");
                             } else {
                                 player.sendMessage("§aJOIN_FIREWORK == FALSE");
-                                config.config.set("재접속.폭죽", false);
-                                config.save();
+                                cfg.get(p, c).set("재접속.폭죽", false);
+                                cfg.save(p, c);
                             }
                         }
                     } else if (args[2].equalsIgnoreCase("SOUND")) {
                         if (args[3].equalsIgnoreCase("ENABLE")) {
                             if (args[4].equalsIgnoreCase("true")) {
-                                if (config.config.getBoolean("재접속.소리.활성화")) {
+                                if (cfg.get(p, c).getBoolean("재접속.소리.활성화")) {
                                     player.sendMessage("§cJOIN_SOUND_ENABLE is already true");
                                 } else {
                                     player.sendMessage("§aJOIN_SOUND_ENABLE == TRUE");
-                                    config.config.set("재접속.소리.활성화", true);
-                                    config.save();
+                                    cfg.get(p, c).set("재접속.소리.활성화", true);
+                                    cfg.save(p, c);
                                 }
                             } else if (args[4].equalsIgnoreCase("false")) {
-                                if (!config.config.getBoolean("재접속.소리.활성화")) {
+                                if (!cfg.get(p, c).getBoolean("재접속.소리.활성화")) {
                                     player.sendMessage("§cJOIN_SOUND_ENABLE is already false");
                                 } else {
                                     player.sendMessage("§aJOIN_SOUND_ENABLE == FALSE");
-                                    config.config.set("재접속.소리.활성화", false);
-                                    config.save();
+                                    cfg.get(p, c).set("재접속.소리.활성화", false);
+                                    cfg.save(p, c);
                                 }
                             }
                         } else if (args[3].equalsIgnoreCase("SET_SOUND")) {
                             for (Sound a : Sound.values()) {
                                 if (a.toString().matches(args[4])) {
                                     player.sendMessage("§a성공적으로 '재접속'유저에 대한 노래가 변경되었습니다.");
-                                    player.sendMessage("기존 문장 : " + config.config.getString("재접속.소리.사운드"));
-                                    config.config.set("재접속.소리.사운드", args[4]);
-                                    config.save();
-                                    player.sendMessage("변경된 문장 : " + config.config.getString("재접속.소리.사운드"));
+                                    player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("재접속.소리.사운드"));
+                                    cfg.get(p, c).set("재접속.소리.사운드", args[4]);
+                                    cfg.save(p, c);
+                                    player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("재접속.소리.사운드"));
                                 }
                             }
                         }
                     } else if (args[2].equalsIgnoreCase("COMMAND")) {
                         if (args[3].equalsIgnoreCase("ENABLE")) {
                             if (args[4].equalsIgnoreCase("true")) {
-                                if (config.config.getBoolean("재접속.명령어(콘솔).활성화")) {
+                                if (cfg.get(p, c).getBoolean("재접속.명령어(콘솔).활성화")) {
                                     player.sendMessage("§cJOIN_CONSOLE_COMMAND_ENABLE is already true");
                                 } else {
                                     player.sendMessage("§aJOIN_CONSOLE_COMMAND_ENABLE == TRUE");
-                                    config.config.set("재접속.명령어(콘솔).활성화", true);
-                                    config.save();
+                                    cfg.get(p, c).set("재접속.명령어(콘솔).활성화", true);
+                                    cfg.save(p, c);
                                 }
                             } else if (args[4].equalsIgnoreCase("false")) {
-                                if (!config.config.getBoolean("재접속.명령어(콘솔).활성화")) {
+                                if (!cfg.get(p, c).getBoolean("재접속.명령어(콘솔).활성화")) {
                                     player.sendMessage("§cJOIN_CONSOLE_COMMAND_ENABLE is already false");
                                 } else {
                                     player.sendMessage("§aJOIN_CONSOLE_COMMAND_ENABLE == FALSE");
-                                    config.config.set("재접속.명령어(콘솔).활성화", false);
-                                    config.save();
+                                    cfg.get(p, c).set("재접속.명령어(콘솔).활성화", false);
+                                    cfg.save(p, c);
                                 }
                             }
                         } else if (args[3].equalsIgnoreCase("SET_COMMAND")) {
@@ -967,22 +525,18 @@ public class settings implements CommandExecutor, TabExecutor {
                                 }
                             }
                             player.sendMessage("§a성공적으로 '재접속'유저에 대한 명령어가 변경되었습니다.");
-                            player.sendMessage("기존 문장 : " + config.config.getString("재접속.명령어(콘솔).명령어"));
-                            config.config.set("재접속.명령어(콘솔).명령어", Objects.requireNonNull(M).toString());
-                            config.save();
-                            player.sendMessage("변경된 문장 : " + config.config.getString("재접속.명령어(콘솔).명령어"));
+                            player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("재접속.명령어(콘솔).명령어"));
+                            cfg.get(p, c).set("재접속.명령어(콘솔).명령어", Objects.requireNonNull(M).toString());
+                            cfg.save(p, c);
+                            player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("재접속.명령어(콘솔).명령어"));
                         }
                     }
                 }
             }
         } else {
-            player.sendMessage("§7---------- §3Manage 플러그인 명령어 §7----------");
-            player.sendMessage("§6/manage gui §7- Manage플러그인의 GUI를 실행합니다.");
-            player.sendMessage("§6/manage set <string> <boolean> §7- Manage플러그인의 Config를 명령어로 수정합니다.");
-            player.sendMessage("§6/manage setJoinQuit <string> §7- Manage플러그인의 Join/Quit을 명령어로 수정합니다.");
-            player.sendMessage("§6/manage reload §7- Manage플러그인의 Config를 리로드합니다.");
-            player.sendMessage("§6/manage debug §7- Manage플러그인의 디버그를 실행합니다.");
-
+            for (String sendList : cfg.get(p, m).getStringList("Help")) {
+                player.sendMessage(sendList);
+            }
         }
         return false;
     }

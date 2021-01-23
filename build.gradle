@@ -1,4 +1,7 @@
-apply plugin: 'java'
+plugins {
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+    id 'java'
+}
 
 group = properties["pluginGroup"]
 version = properties["pluginVersion"]
@@ -16,12 +19,18 @@ repositories {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
+    maven {
+        name = 'jitpack'
+        url = 'https://jitpack.io'
+    }
 }
 
 dependencies {
-    implementation 'org.jetbrains:annotations:19.0.0'
-    compileOnly 'com.destroystokyo.paper:paper-api:1.16.4-R0.1-SNAPSHOT'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.github.TeamVery:Config-Framework:1.0.2C'
+//    implementation fileTree(dir: 'libs', include: ['*.jar']) | NotUse
+
+    compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
+    compileOnly 'org.jetbrains:annotations:19.0.0'
 }
 
 tasks {
@@ -34,6 +43,20 @@ tasks {
     processResources {
         filesMatching("**/*.yml") {
             expand(project.properties)
+        }
+    }
+
+    jar {
+        finalizedBy shadowJar {
+            archiveBaseName.set("Manage")
+            archiveClassifier.set("")
+        }
+        enabled(false)
+        manifest {
+            attributes 'Main-Class': 'com.teamvery.manage.main'
+        }
+        assemble {
+            dependsOn(shadowJar)
         }
     }
 }

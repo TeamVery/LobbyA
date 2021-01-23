@@ -1,5 +1,6 @@
 package com.teamvery.manage.event;
 
+import com.teamvery.configframework.cfg;
 import org.bukkit.*;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.EntityType;
@@ -14,7 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static com.teamvery.manage.config.config;
+import static com.teamvery.manage.main.c;
+import static com.teamvery.manage.main.p;
 import static org.bukkit.Bukkit.getServer;
 
 public class joinquitevent implements @NotNull Listener {
@@ -27,17 +29,17 @@ public class joinquitevent implements @NotNull Listener {
         boolean hsb = player.hasPlayedBefore();
 
         if(!hsb) {
-            if (config.getBoolean("첫접속.소리.활성화")) {
-                player.playSound(player.getLocation(), Sound.valueOf(config.getString("첫접속.소리.사운드")), SoundCategory.MASTER, 1, 1);
+            if (cfg.get(p, c).getBoolean("첫접속.소리.활성화")) {
+                player.playSound(player.getLocation(), Sound.valueOf(cfg.get(p, c).getString("첫접속.소리.사운드")), SoundCategory.MASTER, 1, 1);
             }
-            if (config.getBoolean("첫접속.명령어(콘솔).활성화")) {
-                String cmd = config.getString("첫접속.명령어(콘솔).명령어");
+            if (cfg.get(p, c).getBoolean("첫접속.명령어(콘솔).활성화")) {
+                String cmd = cfg.get(p, c).getString("첫접속.명령어(콘솔).명령어");
                 Bukkit.dispatchCommand(console, Objects.requireNonNull(cmd)
                         .replace("&", "§")
                         .replace("%player%", player.getName())
                         .replace("%n%", "\n"));
             }
-            if (config.getBoolean("첫접속.폭죽")) {
+            if (cfg.get(p, c).getBoolean("첫접속.폭죽")) {
                 Firework firework = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
                 FireworkMeta meta = firework.getFireworkMeta();
                 FireworkEffect.Builder builder = FireworkEffect.builder();
@@ -49,24 +51,24 @@ public class joinquitevent implements @NotNull Listener {
                 firework.setFireworkMeta(meta);
                 firework.detonate();
             }
-            if (!(config.getString("첫접속.입장") == null)) {
-                e.setJoinMessage(Objects.requireNonNull(config.getString("첫접속.입장"))
+            if (!(cfg.get(p, c).getString("첫접속.입장") == null)) {
+                e.setJoinMessage(Objects.requireNonNull(cfg.get(p, c).getString("첫접속.입장"))
                         .replace("&", "§")
                         .replace("%player%", player.getName())
                         .replace("%n%", "\n"));
             }
         } else {
-            if (config.getBoolean("재접속.소리.활성화")) {
-                player.playSound(player.getLocation(), Sound.valueOf(config.getString("재접속.소리.사운드")), SoundCategory.MASTER, 1, 1);
+            if (cfg.get(p, c).getBoolean("재접속.소리.활성화")) {
+                player.playSound(player.getLocation(), Sound.valueOf(cfg.get(p, c).getString("재접속.소리.사운드")), SoundCategory.MASTER, 1, 1);
             }
-            if (config.getBoolean("재접속.명령어(콘솔).활성화")) {
-                String cmd = config.getString("재접속.명령어(콘솔).명령어");
+            if (cfg.get(p, c).getBoolean("재접속.명령어(콘솔).활성화")) {
+                String cmd = cfg.get(p, c).getString("재접속.명령어(콘솔).명령어");
                 Bukkit.dispatchCommand(console, Objects.requireNonNull(cmd)
                         .replace("&", "§")
                         .replace("%player%", player.getName())
                         .replace("%n%", "\n"));
             }
-            if (config.getBoolean("재접속.폭죽")) {
+            if (cfg.get(p, c).getBoolean("재접속.폭죽")) {
                 Firework firework = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
                 FireworkMeta meta = firework.getFireworkMeta();
                 FireworkEffect.Builder builder = FireworkEffect.builder();
@@ -78,14 +80,14 @@ public class joinquitevent implements @NotNull Listener {
                 firework.setFireworkMeta(meta);
                 firework.detonate();
             }
-            if (!(config.getString("재접속.입장") == null)) {
-                e.setJoinMessage(Objects.requireNonNull(config.getString("재접속.입장"))
+            if (!(cfg.get(p, c).getString("재접속.입장") == null)) {
+                e.setJoinMessage(Objects.requireNonNull(cfg.get(p, c).getString("재접속.입장"))
                         .replace("&", "§")
                         .replace("%player%", player.getName())
                         .replace("%n%", "\n"));
             }
         }
-        if (config.getBoolean("초기화")) {
+        if (cfg.get(p, c).getBoolean("초기화")) {
             player.getInventory().clear();
         }
     }
@@ -93,7 +95,7 @@ public class joinquitevent implements @NotNull Listener {
     @EventHandler
     void onPlayerQuit(PlayerQuitEvent e) {
         Player player = e.getPlayer();
-        e.setQuitMessage(Objects.requireNonNull(config.getString("재접속.퇴장"))
+        e.setQuitMessage(Objects.requireNonNull(cfg.get(p, c).getString("재접속.퇴장"))
                 .replace("&", "§")
                 .replace("%player%", player.getName())
                 .replace("%n%", "\n"));

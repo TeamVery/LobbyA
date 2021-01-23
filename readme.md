@@ -7,6 +7,17 @@
 > 만약 해당 플러그인을 배포할 예정이라면 '[해당 깃허브](https://github.com/TeamVery/Manage)' 로 배포해주시기 바랍니다.
 
 > 라이선스에 따라 해당 플러그인을 이용하실수 있습니다.
+
+---
+> * ### LICENSE
+> 1. Config-Framework - `MIT License`
+>    * https://github.com/TeamVery/Config-Framework
+>    * https://github.com/TeamVery/Config-Framework/blob/master/LICENSE
+---
+> ### 지원 자바 버전
+> * JDK 7 [X]
+> * JDK 8u261 [X]
+> * JDK 11.0.4 (LTS) [V]
 ---
 > ### 테스트 된 버킷
 > * Paper
