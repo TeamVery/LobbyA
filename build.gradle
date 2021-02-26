@@ -50,7 +50,7 @@ tasks {
         finalizedBy shadowJar {
             archiveBaseName.set("Manage")
             archiveClassifier.set("")
-            from("LICENSE")
+            from("LICENSE", "README.MD")
         }
         enabled(false)
         manifest {

@@ -8,16 +8,13 @@
 
 > 라이선스에 따라 해당 플러그인을 이용하실수 있습니다.
 
+> 플러그인이 'JDK 11.0.4 (LTS)'를 기반으로 제작되어 일부 자바 버전에서는 해당 플러그인을 사용할 수 없으니 반드시 자바 버전을 11 이상으로 업데이트해주세요
+
 ---
 > * ### LICENSE
 > 1. Config-Framework - `MIT License`
 >    * https://github.com/TeamVery/Config-Framework
 >    * https://github.com/TeamVery/Config-Framework/blob/master/LICENSE
----
-> ### 지원 자바 버전
-> * JDK 7 [X]
-> * JDK 8u261 [X]
-> * JDK 11.0.4 (LTS) [V]
 ---
 > ### 테스트 된 버킷
 > * Paper
