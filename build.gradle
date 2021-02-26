@@ -50,6 +50,7 @@ tasks {
         finalizedBy shadowJar {
             archiveBaseName.set("Manage")
             archiveClassifier.set("")
+            from("LICENSE")
         }
         enabled(false)
         manifest {

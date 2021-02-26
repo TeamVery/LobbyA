@@ -90,26 +90,22 @@ public class settings implements CommandExecutor, TabExecutor {
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("FREEZE_TIME")) {
-                    if (args[2].equalsIgnoreCase("ENABLE")) {
-                        if (args[3].equalsIgnoreCase("true")) {
-                            if (cfg.get(p, c).getBoolean("시간 고정.활성화")) {
-                                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME Already True")));
-                            } else {
-                                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME True")));
-                                cfg.get(p, c).set("시간 고정.활성화", true);
-                                cfg.save(p, c);
-                            }
-                        } else if (args[3].equalsIgnoreCase("false")) {
-                            if (!cfg.get(p, c).getBoolean("시간 고정.활성화")) {
-                                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME Already False")));
-                            } else {
-                                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME False")));
-                                cfg.get(p, c).set("시간 고정.활성화", false);
-                                cfg.save(p, c);
-                            }
+                    if (args[2].equalsIgnoreCase("true")) {
+                        if (cfg.get(p, c).getBoolean("시간 고정")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME Already True")));
+                        } else {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME True")));
+                            cfg.get(p, c).set("시간 고정", true);
+                            cfg.save(p, c);
                         }
-                    } else if (args[2].equalsIgnoreCase("SET_WORLD")) {
-                        player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME Set World")));
+                    } else if (args[2].equalsIgnoreCase("false")) {
+                        if (!cfg.get(p, c).getBoolean("시간 고정")) {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME Already False")));
+                        } else {
+                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME False")));
+                            cfg.get(p, c).set("시간 고정", false);
+                            cfg.save(p, c);
+                        }
                     }
                 } else if (args[1].equalsIgnoreCase("IGNORE_ITEM_DROP")) {
                     if (args[2].equalsIgnoreCase("true")) {
@@ -594,17 +590,9 @@ public class settings implements CommandExecutor, TabExecutor {
             List<String> arguments = new ArrayList<>();
             List<String> matches;
             if (args[0].equalsIgnoreCase("set")) {
-                if (args[1].equalsIgnoreCase("FREEZE_TIME")) {
-                    arguments.add("ENABLE");
-                    arguments.add("SET_WORLD");
-                    matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
-
-                } else {
-                    arguments.add("true");
-                    arguments.add("false");
-                    matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
-
-                }
+                arguments.add("true");
+                arguments.add("false");
+                matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
                 return matches;
             }
                 if (args[0].equalsIgnoreCase("setJoinQuit")) {
