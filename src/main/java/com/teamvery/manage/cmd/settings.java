@@ -1,6 +1,7 @@
 package com.teamvery.manage.cmd;
 
 import com.teamvery.configframework.cfg;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Sound;
@@ -39,12 +40,22 @@ public class settings implements CommandExecutor, TabExecutor {
                 player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("RELOAD CONFIRM")));
 
                 if (cfg.get(p, c).getBoolean("시간 고정.활성화")) {
-                    for (World worlds : Bukkit.getWorlds()) {
-                        worlds.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+                    for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
+                        if (Bukkit.getWorld(worlds) != null) {
+                            Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+                        } else {
+                            System.out.println(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
+                            player.sendMessage(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
+                        }
                     }
                 } else {
-                    for (World worlds : Bukkit.getWorlds()) {
-                        worlds.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+                    for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
+                        if (Bukkit.getWorld(worlds) != null) {
+                            Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+                        } else {
+                            System.out.println(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
+                            player.sendMessage(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
+                        }
                     }
                 }
             }
@@ -90,21 +101,56 @@ public class settings implements CommandExecutor, TabExecutor {
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("FREEZE_TIME")) {
-                    if (args[2].equalsIgnoreCase("true")) {
-                        if (cfg.get(p, c).getBoolean("시간 고정")) {
-                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME Already True")));
-                        } else {
-                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME True")));
-                            cfg.get(p, c).set("시간 고정", true);
-                            cfg.save(p, c);
+                    if (args[2].equalsIgnoreCase("Enable")) {
+                        if (args[3].equalsIgnoreCase("true")) {
+                            if (cfg.get(p, c).getBoolean("시간 고정.활성화")) {
+                                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME Already True")));
+                            } else {
+                                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME True")));
+                                cfg.get(p, c).set("시간 고정.활성화", true);
+                                cfg.save(p, c);
+                            }
+                        } else if (args[3].equalsIgnoreCase("false")) {
+                            if (!cfg.get(p, c).getBoolean("시간 고정.활성화")) {
+                                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME Already False")));
+                            } else {
+                                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME False")));
+                                cfg.get(p, c).set("시간 고정.활성화", false);
+                                cfg.save(p, c);
+                            }
                         }
-                    } else if (args[2].equalsIgnoreCase("false")) {
-                        if (!cfg.get(p, c).getBoolean("시간 고정")) {
-                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME Already False")));
-                        } else {
-                            player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME False")));
-                            cfg.get(p, c).set("시간 고정", false);
+                    } else if (args[2].equalsIgnoreCase("Worlds")) {
+                        if (args[3].equalsIgnoreCase("add")) {
+//                            for (Object worlds : Bukkit.getWorlds().toArray()) {
+//                                if (worlds.toString().matches(args[4])) {
+                            List<String> l = cfg.get(p, c).getStringList("시간 고정.월드");
+                            l.add(args[4]);
+                            cfg.get(p, c).set("시간 고정.월드", l);
+                            player.sendMessage(args[4] + "가 성공적으로 추가되었습니다.");
+                            player.sendMessage(ChatColor.RED + "변경 사항을 저장하려면 /manage reload 를 입력해주세요.");
                             cfg.save(p, c);
+//                                }
+//                            }
+                        } else if (args[3].equalsIgnoreCase("remove")) {
+                            for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
+                                if (worlds.matches(args[4])) {
+                                    List<String> l = cfg.get(p, c).getStringList("시간 고정.월드");
+                                    l.remove(args[4]);
+                                    cfg.get(p, c).set("시간 고정.월드", l);
+                                    player.sendMessage(args[4] + "가 성공적으로 제거되었습니다.");
+                                    player.sendMessage(ChatColor.RED + "변경 사항을 저장하려면 /manage reload 를 입력해주세요.");
+                                    cfg.save(p, c);
+                                }
+                            }
+                        } else if (args[3].equalsIgnoreCase("list")) {
+                            player.sendMessage("현재 시간고정에 영향을 받는 월드는 다음과 같습니다");
+                            for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
+                                if (Bukkit.getWorld(worlds) == null) {
+                                    player.sendMessage(ChatColor.RED + "§m" + worlds);
+                                } else {
+                                    player.sendMessage(ChatColor.GREEN + worlds);
+                                }
+                            }
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("IGNORE_ITEM_DROP")) {
@@ -306,7 +352,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         }
                     }
                 } else {
-                        player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("Info.MANAGE_SET")));
+                    player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("Info.MANAGE_SET")));
                 }
             }
 
@@ -590,8 +636,13 @@ public class settings implements CommandExecutor, TabExecutor {
             List<String> arguments = new ArrayList<>();
             List<String> matches;
             if (args[0].equalsIgnoreCase("set")) {
-                arguments.add("true");
-                arguments.add("false");
+                if (args[1].equalsIgnoreCase("FREEZE_TIME")) {
+                    arguments.add("ENABLE");
+                    arguments.add("WORLDS");
+                } else {
+                    arguments.add("true");
+                    arguments.add("false");
+                }
                 matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
                 return matches;
             }
@@ -633,6 +684,14 @@ public class settings implements CommandExecutor, TabExecutor {
                     matches = arguments.stream().filter(val -> val.startsWith(args[3])).collect(Collectors.toList());
 
                     return matches;
+                } else if (args[2].equalsIgnoreCase("WORLDS")) {
+                    arguments.add("add");
+                    arguments.add("remove");
+                    arguments.add("list");
+
+                    matches = arguments.stream().filter(val -> val.startsWith(args[3])).collect(Collectors.toList());
+
+                    return matches;
                 }
             }
             if (args[0].equalsIgnoreCase("setJoinQuit")) {
@@ -669,6 +728,25 @@ public class settings implements CommandExecutor, TabExecutor {
         if (args.length == 5) {
             List<String> arguments = new ArrayList<>();
             List<String> matches = new ArrayList<>();
+            if (args[2].equalsIgnoreCase("WORLDS")) {
+                if (args[3].equalsIgnoreCase("add")) {
+                    for (World worlds : Bukkit.getWorlds()) {
+                        arguments.add(worlds.getName());
+
+                        matches = arguments.stream().filter(val -> val.startsWith(args[4])).collect(Collectors.toList());
+
+                    }
+                    return matches;
+                } else if (args[3].equalsIgnoreCase("remove")) {
+                    for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
+                        arguments.add(worlds);
+
+                        matches = arguments.stream().filter(val -> val.startsWith(args[4])).collect(Collectors.toList());
+
+                    }
+                    return matches;
+                }
+            }
             if (args[0].equalsIgnoreCase("setJoinQuit")) {
                 if (args[3].equalsIgnoreCase("ENABLE")) {
                     arguments.add("true");

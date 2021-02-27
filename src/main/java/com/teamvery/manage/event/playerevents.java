@@ -1,6 +1,7 @@
 package com.teamvery.manage.event;
 
 import com.teamvery.configframework.cfg;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -92,7 +93,7 @@ public class playerevents implements Listener {
     @EventHandler
     void onKick(PlayerKickEvent e) {
         if (cfg.get(p, c).getBoolean("플레이어 움직임 비활성화")) {
-            if (e.getReason().equals("Flying is not enabled on this server")) {
+            if (e.reason().contains(Component.text("Flying is not enabled on this server"))) {
                 e.setCancelled(true);
             }
         }
@@ -103,7 +104,7 @@ public class playerevents implements Listener {
         Player player = e.getPlayer();
         if (cfg.get(p, c).getBoolean("플레이어 상호작용 비활성화")) {
             if (!(player.hasPermission("manage.bypass.interact"))) {
-                player.sendActionBar(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-PLAYER_INTERACT")));
+                player.sendActionBar(Component.text(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-PLAYER_INTERACT"))));
                 e.setCancelled(true);
             }
         }
@@ -142,7 +143,7 @@ public class playerevents implements Listener {
         if (cfg.get(p, c).getBoolean("플레이어 움직임 비활성화")) {
             if (!(player.hasPermission("manage.bypass.movement"))) {
                 e.setCancelled(true);
-                player.sendActionBar(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-PLAYER_MOVEMENT")));
+                player.sendActionBar(Component.text(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-PLAYER_MOVEMENT"))));
             }
         }
     }

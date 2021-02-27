@@ -26,8 +26,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.TeamVery:Config-Framework:1.0.2C'
-//    implementation fileTree(dir: 'libs', include: ['*.jar']) | NotUse
+    implementation 'com.github.TeamVery:Config-Framework:1.0.3A'
+//    implementation fileTree(dir: 'libs', include: ['*.jar']) // | NotUse
 
     compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
     compileOnly 'org.jetbrains:annotations:19.0.0'
