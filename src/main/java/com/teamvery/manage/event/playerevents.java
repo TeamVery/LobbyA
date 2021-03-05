@@ -1,6 +1,7 @@
 package com.teamvery.manage.event;
 
 import com.teamvery.configframework.cfg;
+import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -127,7 +128,7 @@ public class playerevents implements Listener {
     }
 
     @EventHandler
-    void onChat(AsyncPlayerChatEvent e) {
+    void onChat(AsyncChatEvent e) {
         Player player = e.getPlayer();
         if (cfg.get(p, c).getBoolean("플레이어 채팅 비활성화")) {
             if (!(player.hasPermission("manage.bypass.chat"))) {

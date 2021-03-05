@@ -51,6 +51,8 @@ tasks {
             archiveBaseName.set("Manage")
             archiveClassifier.set("")
             from("LICENSE", "README.MD")
+            relocate("com.teamvery.configframework", "com.teamvery.manage.configframework")
+
         }
         enabled(false)
         manifest {
