@@ -595,7 +595,7 @@ public class settings implements CommandExecutor, TabExecutor {
             if (sender instanceof Player) {
                 arguments.add("gui");
             }
-            matches = arguments.stream().filter(val -> val.startsWith(args[0])).collect(Collectors.toList());
+            matches = arguments.stream().filter(val -> val.toLowerCase().toLowerCase().startsWith(args[0])).collect(Collectors.toList());
 
             return matches;
         }
@@ -618,7 +618,7 @@ public class settings implements CommandExecutor, TabExecutor {
                 arguments.add("DISABLE_PLAYER_DAMAGE");
                 arguments.add("DISABLE_PLAYER_MOVEMENT");
                 arguments.add("DISABLE_INVENTORY_INTERACT");
-                matches = arguments.stream().filter(val -> val.startsWith(args[1])).collect(Collectors.toList());
+                matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[1])).collect(Collectors.toList());
 
                 return matches;
             }
@@ -626,7 +626,7 @@ public class settings implements CommandExecutor, TabExecutor {
                 arguments.add("FIRST_JOIN");
                 arguments.add("JOIN");
                 arguments.add("QUIT");
-                matches = arguments.stream().filter(val -> val.startsWith(args[1])).collect(Collectors.toList());
+                matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[1])).collect(Collectors.toList());
 
                 return matches;
             }
@@ -643,13 +643,13 @@ public class settings implements CommandExecutor, TabExecutor {
                     arguments.add("true");
                     arguments.add("false");
                 }
-                matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
+                matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[2])).collect(Collectors.toList());
                 return matches;
             }
                 if (args[0].equalsIgnoreCase("setJoinQuit")) {
                     if (args[1].equalsIgnoreCase("QUIT")) {
                         arguments.add("MESSAGE");
-                        matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
+                        matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[2])).collect(Collectors.toList());
 
                         return matches;
                     }
@@ -658,7 +658,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         arguments.add("FIREWORK");
                         arguments.add("MESSAGE");
                         arguments.add("COMMAND");
-                        matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
+                        matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[2])).collect(Collectors.toList());
 
                         return matches;
                     }
@@ -667,7 +667,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         arguments.add("FIREWORK");
                         arguments.add("MESSAGE");
                         arguments.add("COMMAND");
-                        matches = arguments.stream().filter(val -> val.startsWith(args[2])).collect(Collectors.toList());
+                        matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[2])).collect(Collectors.toList());
 
                         return matches;
                     }
@@ -681,7 +681,7 @@ public class settings implements CommandExecutor, TabExecutor {
                 if (args[2].equalsIgnoreCase("ENABLE")) {
                     arguments.add("true");
                     arguments.add("false");
-                    matches = arguments.stream().filter(val -> val.startsWith(args[3])).collect(Collectors.toList());
+                    matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[3])).collect(Collectors.toList());
 
                     return matches;
                 } else if (args[2].equalsIgnoreCase("WORLDS")) {
@@ -689,7 +689,7 @@ public class settings implements CommandExecutor, TabExecutor {
                     arguments.add("remove");
                     arguments.add("list");
 
-                    matches = arguments.stream().filter(val -> val.startsWith(args[3])).collect(Collectors.toList());
+                    matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[3])).collect(Collectors.toList());
 
                     return matches;
                 }
@@ -697,28 +697,28 @@ public class settings implements CommandExecutor, TabExecutor {
             if (args[0].equalsIgnoreCase("setJoinQuit")) {
                 if (args[2].equalsIgnoreCase("MESSAGE")) {
                     arguments.add("[<string>]");
-                    matches = arguments.stream().filter(val -> val.startsWith(args[3])).collect(Collectors.toList());
+                    matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[3])).collect(Collectors.toList());
 
                     return matches;
                 }
                 if (args[2].equalsIgnoreCase("FIREWORK")) {
                     arguments.add("true");
                     arguments.add("false");
-                    matches = arguments.stream().filter(val -> val.startsWith(args[3])).collect(Collectors.toList());
+                    matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[3])).collect(Collectors.toList());
 
                     return matches;
                 }
                 if (args[2].equalsIgnoreCase("SOUND")) {
                     arguments.add("ENABLE");
                     arguments.add("SET_SOUND");
-                    matches = arguments.stream().filter(val -> val.startsWith(args[3])).collect(Collectors.toList());
+                    matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[3])).collect(Collectors.toList());
 
                     return matches;
                 }
                 if (args[2].equalsIgnoreCase("COMMAND")) {
                     arguments.add("ENABLE");
                     arguments.add("SET_COMMAND");
-                    matches = arguments.stream().filter(val -> val.startsWith(args[3])).collect(Collectors.toList());
+                    matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[3])).collect(Collectors.toList());
 
                     return matches;
                 }
@@ -733,7 +733,7 @@ public class settings implements CommandExecutor, TabExecutor {
                     for (World worlds : Bukkit.getWorlds()) {
                         arguments.add(worlds.getName());
 
-                        matches = arguments.stream().filter(val -> val.startsWith(args[4])).collect(Collectors.toList());
+                        matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[4])).collect(Collectors.toList());
 
                     }
                     return matches;
@@ -741,7 +741,7 @@ public class settings implements CommandExecutor, TabExecutor {
                     for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
                         arguments.add(worlds);
 
-                        matches = arguments.stream().filter(val -> val.startsWith(args[4])).collect(Collectors.toList());
+                        matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[4])).collect(Collectors.toList());
 
                     }
                     return matches;
@@ -751,20 +751,20 @@ public class settings implements CommandExecutor, TabExecutor {
                 if (args[3].equalsIgnoreCase("ENABLE")) {
                     arguments.add("true");
                     arguments.add("false");
-                    matches = arguments.stream().filter(val -> val.startsWith(args[4])).collect(Collectors.toList());
+                    matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[4])).collect(Collectors.toList());
 
                     return matches;
                 }
                 if (args[3].equalsIgnoreCase("SET_SOUND")) {
                     for (Sound a : Sound.values()) {
                         arguments.add(a.name());
-                        matches = arguments.stream().filter(val -> val.startsWith(args[4])).collect(Collectors.toList());
+                        matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[4])).collect(Collectors.toList());
                     }
                     return matches;
                 }
                 if (args[3].equalsIgnoreCase("SET_COMMAND")) {
                     arguments.add("[<string>]");
-                    matches = arguments.stream().filter(val -> val.startsWith(args[4])).collect(Collectors.toList());
+                    matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[4])).collect(Collectors.toList());
 
                     return matches;
                 }
