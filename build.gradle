@@ -6,8 +6,8 @@ plugins {
 group = properties["pluginGroup"]
 version = properties["pluginVersion"]
 
-sourceCompatibility = '11.0'
-targetCompatibility = '11.0'
+sourceCompatibility = '16.0'
+targetCompatibility = '16.0'
 
 repositories {
     mavenCentral()
