@@ -1,9 +1,9 @@
 name: $pluginName
 version: $pluginVersion
 main: $pluginMain
-api-version: 1.16
+api-version: 1.17
 depend: [ ProtocolLib, PlaceholderAPI ]
-authors: [ TeamVery ]
+authors: [ TeamVeryMC, kill00 ]
 description: 관리의 잡다한 기능을 추가해줍니다.
 website: https://github.com/TeamVery/Manage
 

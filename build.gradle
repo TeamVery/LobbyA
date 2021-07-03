@@ -1,13 +1,13 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '6.1.0'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
     id 'java'
 }
 
 group = properties["pluginGroup"]
 version = properties["pluginVersion"]
 
-sourceCompatibility = '11.0'
-targetCompatibility = '11.0'
+sourceCompatibility = '16.0'
+targetCompatibility = '16.0'
 
 repositories {
     mavenCentral()
@@ -15,10 +15,10 @@ repositories {
         name = 'papermc-repo'
         url = 'https://papermc.io/repo/repository/maven-public/'
     }
-    maven {
-        name = 'sonatype'
-        url = 'https://oss.sonatype.org/content/groups/public/'
-    }
+//    maven {
+//        name = 'sonatype'
+//        url = 'https://oss.sonatype.org/content/groups/public/'
+//    }
     maven {
         name = 'jitpack'
         url = 'https://jitpack.io'
@@ -62,9 +62,8 @@ tasks {
             dependsOn(shadowJar)
         }
     }
-}
-
-clean {
-    file('build/resources').deleteDir()
+    project.delete(
+            file('build/resources')
+    )
 }
 
