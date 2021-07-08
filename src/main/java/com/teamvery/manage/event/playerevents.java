@@ -34,7 +34,7 @@ public class playerevents implements Listener {
             if (e.getDamager() instanceof Player){
                 if (e.getEntity() instanceof Player) {
                     e.setCancelled(true);
-                    e.getDamager().sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-PVP")));
+                    e.getDamager().sendMessage(Component.text(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-PVP"))));
                 }
             }
         }
@@ -53,7 +53,7 @@ public class playerevents implements Listener {
         Player player = e.getPlayer();
         if (cfg.get(p, c).getBoolean("블럭 설치금지")) {
             if (!(player.hasPermission("manage.bypass.blockplace"))) {
-                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT BLOCK_PLACE")));
+                player.sendMessage(Component.text(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT BLOCK_PLACE"))));
                 e.setCancelled(true);
             }
         }
@@ -65,7 +65,7 @@ public class playerevents implements Listener {
         if (cfg.get(p, c).getBoolean("블럭 파괴금지")) {
             if (!(player.hasPermission("manage.bypass.blockbreak"))) {
                 e.setCancelled(true);
-                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-BLOCK_BREAK")));
+                player.sendMessage(Component.text(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-BLOCK_BREAK"))));
             }
         }
     }
@@ -86,7 +86,7 @@ public class playerevents implements Listener {
         if (cfg.get(p, c).getBoolean("아이템 드랍 비활성화")) {
             if (!(player.hasPermission("manage.bypass.dropitem"))) {
                 e.setCancelled(true);
-                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-ITEM_DROP")));
+                player.sendMessage(Component.text(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-ITEM_DROP"))));
             }
         }
     }
@@ -133,7 +133,7 @@ public class playerevents implements Listener {
         if (cfg.get(p, c).getBoolean("플레이어 채팅 비활성화")) {
             if (!(player.hasPermission("manage.bypass.chat"))) {
                 e.setCancelled(true);
-                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-CHAT")));
+                player.sendMessage(Component.text(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-CHAT"))));
             }
         }
     }
@@ -155,7 +155,7 @@ public class playerevents implements Listener {
         if (cfg.get(p, c).getBoolean("인벤토리 상호작용 비활성화")) {
             if (!(player.hasPermission("manage.bypass.inv"))) {
                 e.setCancelled(true);
-                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-INVENTORY_INTERACT")));
+                player.sendMessage(Component.text(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-INVENTORY_INTERACT"))));
             }
         }
     }
@@ -166,7 +166,7 @@ public class playerevents implements Listener {
         if (cfg.get(p, c).getBoolean("인벤토리 상호작용 비활성화")) {
             if (!(player.hasPermission("manage.bypass.inv"))) {
                 e.setCancelled(true);
-                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-INVENTORY_INTERACT")));
+                player.sendMessage(Component.text(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-INVENTORY_INTERACT"))));
             }
         }
     }
@@ -177,7 +177,7 @@ public class playerevents implements Listener {
         if (cfg.get(p, c).getBoolean("인벤토리 상호작용 비활성화")) {
             if (!(player.hasPermission("manage.bypass.inv"))) {
                 e.setCancelled(true);
-                player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-INVENTORY_INTERACT")));
+                player.sendMessage(Component.text(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-INVENTORY_INTERACT"))));
             }
         }
     }

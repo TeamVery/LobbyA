@@ -22,16 +22,36 @@ import static com.teamvery.manage.main.*;
 
 public class settings implements CommandExecutor, TabExecutor {
 
+    private void timelock(Player player) {
+        if (cfg.get(p, c).getBoolean("시간 고정.활성화")) {
+            for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
+                if (Bukkit.getWorld(worlds) != null) {
+                    Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+                } else {
+                    System.out.println(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
+                    player.sendMessage(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
+                }
+            }
+        } else {
+            for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
+                if (Bukkit.getWorld(worlds) != null) {
+                    Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+                } else {
+                    System.out.println(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
+                    player.sendMessage(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
+                }
+            }
+        }
+    }
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             System.out.println("Comming Soon");
 
             return false;
         }
-
-        Player player = (Player) sender;
 
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("reload")) {
@@ -109,6 +129,8 @@ public class settings implements CommandExecutor, TabExecutor {
                                 player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME True")));
                                 cfg.get(p, c).set("시간 고정.활성화", true);
                                 cfg.save(p, c);
+
+                                timelock(player);
                             }
                         } else if (args[3].equalsIgnoreCase("false")) {
                             if (!cfg.get(p, c).getBoolean("시간 고정.활성화")) {
@@ -117,6 +139,8 @@ public class settings implements CommandExecutor, TabExecutor {
                                 player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME False")));
                                 cfg.get(p, c).set("시간 고정.활성화", false);
                                 cfg.save(p, c);
+
+                                timelock(player);
                             }
                         }
                     } else if (args[2].equalsIgnoreCase("Worlds")) {
