@@ -53,7 +53,7 @@ public class playerevents implements Listener {
         Player player = e.getPlayer();
         if (cfg.get(p, c).getBoolean("블럭 설치금지")) {
             if (!(player.hasPermission("manage.bypass.blockplace"))) {
-                player.sendMessage(Component.text(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT BLOCK_PLACE"))));
+                player.sendMessage(Component.text(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-BLOCK_PLACE"))));
                 e.setCancelled(true);
             }
         }
