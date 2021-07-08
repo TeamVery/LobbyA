@@ -36,7 +36,7 @@ IGNORE_ITEM_DROP Already True: "§cIGNORE_ITEM_DROP is already true"
 IGNORE_ITEM_DROP True: "§aIGNORE_ITEM_DROP == TRUE"
 IGNORE_ITEM_DROP Already False: "§cIGNORE_ITEM_DROP is already false"
 IGNORE_ITEM_DROP False: "§aIGNORE_ITEM_DROP == FALSE"
-CANECL_EVENT-ITEM_DROP: "§c서버 내 아이템 드랍이 비활성화 되어있습니다"
+CANCEL_EVENT-ITEM_DROP: "§c서버 내 아이템 드랍이 비활성화 되어있습니다"
 
 # IGNORE_ITEM_PICKUP
 IGNORE_ITEM_PICKUP Already True: "§cIGNORE_ITEM_PICKUP is already true"
