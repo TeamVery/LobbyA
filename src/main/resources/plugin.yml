@@ -10,7 +10,7 @@ website: https://github.com/TeamVery/Manage
 commands:
   manage:
     description: 관리 플러그인 설정 관련 명령어
-    permission: op
+    permission: manage.set
 
 permissions:
   manage.*:
