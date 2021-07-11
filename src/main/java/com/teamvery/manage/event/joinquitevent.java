@@ -1,7 +1,6 @@
 package com.teamvery.manage.event;
 
 import com.teamvery.configframework.cfg;
-import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.EntityType;
@@ -20,7 +19,7 @@ import static com.teamvery.manage.main.c;
 import static com.teamvery.manage.main.p;
 import static org.bukkit.Bukkit.getServer;
 
-public class joinquitevent implements @NotNull Listener {
+public class joinquitevent implements Listener {
 
     ConsoleCommandSender console = getServer().getConsoleSender();
 
@@ -53,10 +52,10 @@ public class joinquitevent implements @NotNull Listener {
                 firework.detonate();
             }
             if (!(cfg.get(p, c).getString("첫접속.입장") == null)) {
-                e.joinMessage(Component.text(Objects.requireNonNull(cfg.get(p, c).getString("첫접속.입장"))
+                e.setJoinMessage(Objects.requireNonNull(cfg.get(p, c).getString("첫접속.입장"))
                         .replace("&", "§")
                         .replace("%player%", player.getName())
-                        .replace("%n%", "\n")));
+                        .replace("%n%", "\n"));
             }
         } else {
             if (cfg.get(p, c).getBoolean("재접속.소리.활성화")) {
@@ -82,10 +81,10 @@ public class joinquitevent implements @NotNull Listener {
                 firework.detonate();
             }
             if (!(cfg.get(p, c).getString("재접속.입장") == null)) {
-                e.joinMessage(Component.text(Objects.requireNonNull(cfg.get(p, c).getString("재접속.입장"))
+                e.setJoinMessage(Objects.requireNonNull(cfg.get(p, c).getString("재접속.입장"))
                         .replace("&", "§")
                         .replace("%player%", player.getName())
-                        .replace("%n%", "\n")));
+                        .replace("%n%", "\n"));
             }
         }
         if (cfg.get(p, c).getBoolean("초기화")) {
@@ -96,9 +95,9 @@ public class joinquitevent implements @NotNull Listener {
     @EventHandler
     void onPlayerQuit(PlayerQuitEvent e) {
         Player player = e.getPlayer();
-        e.quitMessage(Component.text((Objects.requireNonNull(cfg.get(p, c).getString("재접속.퇴장"))
+        e.setQuitMessage(Objects.requireNonNull(cfg.get(p, c).getString("재접속.퇴장"))
                 .replace("&", "§")
                 .replace("%player%", player.getName())
-                .replace("%n%", "\n"))));
+                .replace("%n%", "\n"));
     }
 }

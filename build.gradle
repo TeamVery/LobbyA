@@ -6,8 +6,8 @@ plugins {
 group = properties["pluginGroup"]
 version = properties["pluginVersion"]
 
-sourceCompatibility = '16.0'
-targetCompatibility = '16.0'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
 
 repositories {
     mavenCentral()
@@ -26,10 +26,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.TeamVeryMC:Config-Framework:1.0.3A'
-//    implementation fileTree(dir: 'libs', include: ['*.jar']) // | NotUse
+//    implementation 'com.github.TeamVeryMC:Config-Framework:1.0.3A'
+    implementation fileTree(dir: 'libs', include: ['*.jar']) // | NotUse
 
-    compileOnly 'io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT'
+    compileOnly 'com.destroystokyo.paper:paper-api:1.12.2-R0.1-SNAPSHOT'
     compileOnly 'org.jetbrains:annotations:19.0.0'
 }
 

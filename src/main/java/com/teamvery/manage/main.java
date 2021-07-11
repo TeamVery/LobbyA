@@ -6,10 +6,8 @@ import com.teamvery.manage.event.joinquitevent;
 import com.teamvery.manage.event.playerevents;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.GameRule;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.List;
 import java.util.Objects;
 
 public final class main extends JavaPlugin {
@@ -35,7 +33,7 @@ public final class main extends JavaPlugin {
         if (cfg.get(p, c).getBoolean("시간 고정.활성화")) {
             for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
                 if (Bukkit.getWorld(worlds) != null) {
-                    Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+                    Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRuleValue("DO_DAYLIGHT_CYCLE", "true");
                 } else {
                     getLogger().info(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
                 }
@@ -43,7 +41,7 @@ public final class main extends JavaPlugin {
         } else {
             for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
                 if (Bukkit.getWorld(worlds) != null) {
-                    Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+                    Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRuleValue("DO_DAYLIGHT_CYCLE", "true");
                 } else {
                     getLogger().info(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
                 }

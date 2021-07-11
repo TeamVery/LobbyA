@@ -3,7 +3,6 @@ package com.teamvery.manage.cmd;
 import com.teamvery.configframework.cfg;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.GameRule;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -26,7 +25,7 @@ public class settings implements CommandExecutor, TabExecutor {
         if (cfg.get(p, c).getBoolean("시간 고정.활성화")) {
             for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
                 if (Bukkit.getWorld(worlds) != null) {
-                    Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+                    Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRuleValue("DO_DAYLIGHT_CYCLE", "false");
                 } else {
                     System.out.println(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
                     player.sendMessage(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
@@ -35,7 +34,7 @@ public class settings implements CommandExecutor, TabExecutor {
         } else {
             for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
                 if (Bukkit.getWorld(worlds) != null) {
-                    Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+                    Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRuleValue("DO_DAYLIGHT_CYCLE", "true");
                 } else {
                     System.out.println(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
                     player.sendMessage(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
@@ -47,11 +46,12 @@ public class settings implements CommandExecutor, TabExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
-        if (!(sender instanceof Player player)) {
+        if (!(sender instanceof Player)) {
             System.out.println("Comming Soon");
 
             return false;
         }
+        Player player = (Player)sender;
 
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("reload")) {
@@ -62,7 +62,7 @@ public class settings implements CommandExecutor, TabExecutor {
                 if (cfg.get(p, c).getBoolean("시간 고정.활성화")) {
                     for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
                         if (Bukkit.getWorld(worlds) != null) {
-                            Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+                            Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRuleValue("DO_DAYLIGHT_CYCLE", "false");
                         } else {
                             System.out.println(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
                             player.sendMessage(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
@@ -71,7 +71,7 @@ public class settings implements CommandExecutor, TabExecutor {
                 } else {
                     for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
                         if (Bukkit.getWorld(worlds) != null) {
-                            Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+                            Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRuleValue("DO_DAYLIGHT_CYCLE", "true");
                         } else {
                             System.out.println(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
                             player.sendMessage(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
