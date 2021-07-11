@@ -78,4 +78,5 @@
 > #### 테스트 된 마인크래프트 버전
 > * `v1.17.*-R0.1 (1.17.*)`
 > * `v1.16.*-R0.1 (1.16.*)` [(Legacy)](https://github.com/TeamVeryMC/Manage/tree/JAVA11_Legacy)
+> * `v1.12.*-R0.1 (1.12.*)` [(1.12.2-Legacy)](https://github.com/TeamVeryMC/Manage/tree/MC1.12.2-Legacy)
 ---
