@@ -33,7 +33,7 @@ public final class main extends JavaPlugin {
         if (cfg.get(p, c).getBoolean("시간 고정.활성화")) {
             for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
                 if (Bukkit.getWorld(worlds) != null) {
-                    Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRuleValue("DO_DAYLIGHT_CYCLE", "true");
+                    Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRuleValue("doDaylightCycle", "false");
                 } else {
                     getLogger().info(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
                 }
@@ -41,7 +41,7 @@ public final class main extends JavaPlugin {
         } else {
             for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
                 if (Bukkit.getWorld(worlds) != null) {
-                    Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRuleValue("DO_DAYLIGHT_CYCLE", "true");
+                    Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRuleValue("doDaylightCycle", "true");
                 } else {
                     getLogger().info(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
                 }
