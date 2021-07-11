@@ -49,7 +49,7 @@ tasks {
     jar {
         finalizedBy shadowJar {
             archiveBaseName.set("Manage")
-            archiveClassifier.set("")
+            archiveClassifier.set("[1.12.2-Legacy]")
             from("LICENSE", "README.MD")
             relocate("com.teamvery.configframework", "com.teamvery.manage.configframework")
 
