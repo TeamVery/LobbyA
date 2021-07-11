@@ -25,7 +25,8 @@
 
 > 플러그인이 'JDK 16.0'를 기반으로 제작되어 일부 자바 버전에서는 해당 플러그인을 사용할 수 없으니 반드시 자바 버전을 16 이상으로 업데이트해주세요
 >
-> ### **만약 서버 버전이 1.17 이하인경우 [여기](https://github.com/TeamVeryMC/Manage/tree/JAVA11_Legacy) 에서 다운해 주시기 바랍니다.**
+> #### **만약 서버 버전이 '1.13.\*~1.16.\*' 인 경우 [여기](https://github.com/TeamVeryMC/Manage/tree/JAVA11_Legacy) 에서 다운해 주시기 바랍니다.**
+> #### **만약 서버 버전이 '1.12.\*' 인 경우 [여기](https://github.com/TeamVeryMC/Manage/tree/MC1.12.2-Legacy) 에서 다운해 주시기 바랍니다.**
 
 ---
 > * ### LICENSE
