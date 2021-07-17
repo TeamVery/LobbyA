@@ -51,11 +51,15 @@ public class joinquitevent implements Listener {
                 firework.setFireworkMeta(meta);
                 firework.detonate();
             }
-            if (!(cfg.get(p, c).getString("첫접속.입장") == null)) {
-                e.joinMessage(Component.text(Objects.requireNonNull(cfg.get(p, c).getString("첫접속.입장"))
-                        .replace("&", "§")
-                        .replace("%player%", player.getName())
-                        .replace("%n%", "\n")));
+            if (cfg.get(p, c).getBoolean("첫접속.입장 메시지.활성화")) {
+                if (!(cfg.get(p, c).getString("첫접속.입장 메시지.내용") == null)) {
+                    e.joinMessage(Component.text(Objects.requireNonNull(cfg.get(p, c).getString("첫접속.입장"))
+                            .replace("&", "§")
+                            .replace("%player%", player.getName())
+                            .replace("%n%", "\n")));
+                }
+            } else {
+                e.joinMessage(null);
             }
         } else {
             if (cfg.get(p, c).getBoolean("재접속.소리.활성화")) {
@@ -80,11 +84,15 @@ public class joinquitevent implements Listener {
                 firework.setFireworkMeta(meta);
                 firework.detonate();
             }
-            if (!(cfg.get(p, c).getString("재접속.입장") == null)) {
-                e.joinMessage(Component.text(Objects.requireNonNull(cfg.get(p, c).getString("재접속.입장"))
-                        .replace("&", "§")
-                        .replace("%player%", player.getName())
-                        .replace("%n%", "\n")));
+            if (cfg.get(p, c).getBoolean("재접속.입장 메시지.활성화")) {
+                if (!(cfg.get(p, c).getString("재접속.입장 메시지.내용") == null)) {
+                    e.joinMessage(Component.text(Objects.requireNonNull(cfg.get(p, c).getString("재접속.입장 메시지.내용"))
+                            .replace("&", "§")
+                            .replace("%player%", player.getName())
+                            .replace("%n%", "\n")));
+                }
+            } else {
+                e.joinMessage(null);
             }
         }
         if (cfg.get(p, c).getBoolean("초기화")) {
@@ -95,9 +103,15 @@ public class joinquitevent implements Listener {
     @EventHandler
     void onPlayerQuit(PlayerQuitEvent e) {
         Player player = e.getPlayer();
-        e.quitMessage(Component.text((Objects.requireNonNull(cfg.get(p, c).getString("재접속.퇴장"))
-                .replace("&", "§")
-                .replace("%player%", player.getName())
-                .replace("%n%", "\n"))));
+        if (cfg.get(p, c).getBoolean("재접속.퇴장 메시지.활성화")) {
+            if (!(cfg.get(p, c).getString("재접속.퇴장 메시지.내용") == null)) {
+                e.quitMessage(Component.text((Objects.requireNonNull(cfg.get(p, c).getString("재접속.퇴장 메시지.내용"))
+                        .replace("&", "§")
+                        .replace("%player%", player.getName())
+                        .replace("%n%", "\n"))));
+            }
+        } else {
+            e.quitMessage(null);
+        }
     }
 }
