@@ -1,6 +1,6 @@
-package com.teamvery.manage.event;
+package com.teamverymc.manage.event;
 
-import com.teamvery.configframework.cfg;
+import com.teamverymc.configframework.cfg;
 import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.command.ConsoleCommandSender;
@@ -12,15 +12,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static com.teamvery.manage.main.c;
-import static com.teamvery.manage.main.p;
+import static com.teamverymc.manage.main.c;
+import static com.teamverymc.manage.main.p;
 import static org.bukkit.Bukkit.getServer;
 
-public class joinquitevent implements @NotNull Listener {
+public class joinquitevent implements Listener {
 
     ConsoleCommandSender console = getServer().getConsoleSender();
 

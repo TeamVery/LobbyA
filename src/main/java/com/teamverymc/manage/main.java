@@ -1,15 +1,14 @@
-package com.teamvery.manage;
+package com.teamverymc.manage;
 
-import com.teamvery.configframework.cfg;
-import com.teamvery.manage.cmd.settings;
-import com.teamvery.manage.event.joinquitevent;
-import com.teamvery.manage.event.playerevents;
+import com.teamverymc.configframework.cfg;
+import com.teamverymc.manage.cmd.settings;
+import com.teamverymc.manage.event.joinquitevent;
+import com.teamverymc.manage.event.playerevents;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.List;
 import java.util.Objects;
 
 public final class main extends JavaPlugin {
@@ -28,7 +27,7 @@ public final class main extends JavaPlugin {
         saveDefaultConfig();
 
         cfg.makeData(p, c);
-        cfg.save(p, c);
+        cfg.save(p, c, true);
 
         cfg.makeData(p, m);
 

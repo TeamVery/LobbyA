@@ -1,6 +1,6 @@
-package com.teamvery.manage.event;
+package com.teamverymc.manage.event;
 
-import com.teamvery.configframework.cfg;
+import com.teamverymc.configframework.cfg;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.*;
@@ -15,7 +15,7 @@ import org.bukkit.event.weather.WeatherChangeEvent;
 
 import java.util.Objects;
 
-import static com.teamvery.manage.main.*;
+import static com.teamverymc.manage.main.*;
 
 public class playerevents implements Listener {
 
