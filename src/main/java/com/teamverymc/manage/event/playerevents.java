@@ -72,21 +72,21 @@ public class playerevents implements Listener {
 
     @EventHandler
     void onPickupItem(EntityPickupItemEvent e) {
-        Player player = (Player) e.getEntity();
-        if (cfg.get(p, c).getBoolean("아이템 획득 비활성화")) {
-            if (!(player.hasPermission("manage.bypass.pickupitem"))) {
-                e.setCancelled(true);
+        if (e.getEntity() instanceof Player player) {
+            if (cfg.get(p, c).getBoolean("아이템 획득 비활성화")) {
+                if (!(player.hasPermission("manage.bypass.pickupitem"))) {
+                    e.setCancelled(true);
+                }
             }
         }
     }
 
     @EventHandler
     void onDropItem(PlayerDropItemEvent e) {
-        Player player = e.getPlayer();
         if (cfg.get(p, c).getBoolean("아이템 드랍 비활성화")) {
-            if (!(player.hasPermission("manage.bypass.dropitem"))) {
+            if (!(e.getPlayer().hasPermission("manage.bypass.dropitem"))) {
                 e.setCancelled(true);
-                player.sendMessage(Component.text(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-ITEM_DROP"))));
+                e.getPlayer().sendMessage(Component.text(Objects.requireNonNull(cfg.get(p, m).getString("CANCEL_EVENT-ITEM_DROP"))));
             }
         }
     }
