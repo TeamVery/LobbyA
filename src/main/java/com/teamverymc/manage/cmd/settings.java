@@ -1,6 +1,6 @@
-package com.teamvery.manage.cmd;
+package com.teamverymc.manage.cmd;
 
-import com.teamvery.configframework.cfg;
+import com.teamverymc.configframework.cfg;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.teamvery.manage.main.*;
+import static com.teamverymc.manage.main.*;
 
 public class settings implements CommandExecutor, TabExecutor {
 
@@ -55,8 +55,6 @@ public class settings implements CommandExecutor, TabExecutor {
 
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("reload")) {
-                cfg.reload(p, c);
-                cfg.reload(p, m);
                 player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("RELOAD CONFIRM")));
 
                 if (cfg.get(p, c).getBoolean("시간 고정.활성화")) {
@@ -91,7 +89,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ENTITY_SPAWN True")));
                             cfg.get(p, c).set("엔티티 소환 차단", true);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
                         if (!cfg.get(p, c).getBoolean("엔티티 소환 차단")) {
@@ -99,7 +97,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ENTITY_SPAWN False")));
                             cfg.get(p, c).set("엔티티 소환 차단", false);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_WEATHER")) {
@@ -109,7 +107,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_WEATHER True")));
                             cfg.get(p, c).set("날씨 비활성화", true);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
                         if (!cfg.get(p, c).getBoolean("날씨 비활성화")) {
@@ -117,7 +115,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_WEATHER False")));
                             cfg.get(p, c).set("날씨 비활성화", false);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("FREEZE_TIME")) {
@@ -128,7 +126,7 @@ public class settings implements CommandExecutor, TabExecutor {
                             } else {
                                 player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME True")));
                                 cfg.get(p, c).set("시간 고정.활성화", true);
-                                cfg.save(p, c);
+                                cfg.save(p, c, true);
 
                                 timelock(player);
                             }
@@ -138,7 +136,7 @@ public class settings implements CommandExecutor, TabExecutor {
                             } else {
                                 player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("FREEZE_TIME False")));
                                 cfg.get(p, c).set("시간 고정.활성화", false);
-                                cfg.save(p, c);
+                                cfg.save(p, c, true);
 
                                 timelock(player);
                             }
@@ -152,7 +150,7 @@ public class settings implements CommandExecutor, TabExecutor {
                             cfg.get(p, c).set("시간 고정.월드", l);
                             player.sendMessage(args[4] + "가 성공적으로 추가되었습니다.");
                             player.sendMessage(ChatColor.RED + "변경 사항을 저장하려면 /manage reload 를 입력해주세요.");
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
 //                                }
 //                            }
                         } else if (args[3].equalsIgnoreCase("remove")) {
@@ -163,7 +161,7 @@ public class settings implements CommandExecutor, TabExecutor {
                                     cfg.get(p, c).set("시간 고정.월드", l);
                                     player.sendMessage(args[4] + "가 성공적으로 제거되었습니다.");
                                     player.sendMessage(ChatColor.RED + "변경 사항을 저장하려면 /manage reload 를 입력해주세요.");
-                                    cfg.save(p, c);
+                                    cfg.save(p, c, true);
                                 }
                             }
                         } else if (args[3].equalsIgnoreCase("list")) {
@@ -184,7 +182,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ITEM_DROP True")));
                             cfg.get(p, c).set("아이템 드랍 비활성화", true);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
                         if (!cfg.get(p, c).getBoolean("아이템 드랍 비활성화")) {
@@ -192,7 +190,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ITEM_DROP False")));
                             cfg.get(p, c).set("아이템 드랍 비활성화", false);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("IGNORE_ITEM_PICKUP")) {
@@ -202,7 +200,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ITEM_PICKUP True")));
                             cfg.get(p, c).set("아이템 획득 비활성화", true);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
                         if (!cfg.get(p, c).getBoolean("아이템 획득 비활성화")) {
@@ -210,7 +208,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_ITEM_PICKUP False")));
                             cfg.get(p, c).set("아이템 획득 비활성화", false);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("IGNORE_BLOCK_BREAK")) {
@@ -220,7 +218,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_BLOCK_BREAK True")));
                             cfg.get(p, c).set("블럭 파괴금지", true);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
                         if (!cfg.get(p, c).getBoolean("블럭 파괴금지")) {
@@ -228,7 +226,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_BLOCK_BREAK False")));
                             cfg.get(p, c).set("블럭 파괴금지", false);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("IGNORE_BLOCK_PLACE")) {
@@ -238,7 +236,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_BLOCK_PLACE True")));
                             cfg.get(p, c).set("블럭 설치금지", true);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
                         if (!cfg.get(p, c).getBoolean("블럭 설치금지")) {
@@ -246,7 +244,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("IGNORE_BLOCK_PLACE False")));
                             cfg.get(p, c).set("블럭 설치금지", false);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_PLAYER_HUNGER")) {
@@ -256,7 +254,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_HUNGER True")));
                             cfg.get(p, c).set("플레이어 허기 비활성화", true);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
                         if (!cfg.get(p, c).getBoolean("플레이어 허기 비활성화")) {
@@ -264,7 +262,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_HUNGER False")));
                             cfg.get(p, c).set("플레이어 허기 비활성화", false);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_PVP")) {
@@ -274,7 +272,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PVP True")));
                             cfg.get(p, c).set("플레이어 PVP 비활성화", true);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
                         if (!cfg.get(p, c).getBoolean("플레이어 PVP 비활성화")) {
@@ -282,7 +280,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PVP False")));
                             cfg.get(p, c).set("플레이어 PVP 비활성화", false);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_CHAT")) {
@@ -292,7 +290,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_CHAT True")));
                             cfg.get(p, c).set("플레이어 채팅 비활성화", true);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
                         if (!cfg.get(p, c).getBoolean("플레이어 채팅 비활성화")) {
@@ -300,7 +298,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_CHAT False")));
                             cfg.get(p, c).set("플레이어 채팅 비활성화", false);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_PLAYER_INTERACT")) {
@@ -310,7 +308,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_INTERACT True")));
                             cfg.get(p, c).set("플레이어 상호작용 비활성화", true);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
                         if (!cfg.get(p, c).getBoolean("플레이어 상호작용 비활성화")) {
@@ -318,7 +316,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_INTERACT False")));
                             cfg.get(p, c).set("플레이어 상호작용 비활성화", false);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_PLAYER_DAMAGE")) {
@@ -328,7 +326,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_DAMAGE True")));
                             cfg.get(p, c).set("플레이어 무적", true);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
                         if (!cfg.get(p, c).getBoolean("플레이어 무적")) {
@@ -336,7 +334,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_DAMAGE False")));
                             cfg.get(p, c).set("플레이어 무적", false);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_PLAYER_MOVEMENT")) {
@@ -346,7 +344,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_MOVEMENT True")));
                             cfg.get(p, c).set("플레이어 움직임 비활성화", true);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
                         if (!cfg.get(p, c).getBoolean("플레이어 움직임 비활성화")) {
@@ -354,7 +352,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_PLAYER_MOVEMENT False")));
                             cfg.get(p, c).set("플레이어 움직임 비활성화", false);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     }
                 } else if (args[1].equalsIgnoreCase("DISABLE_INVENTORY_INTERACT")) {
@@ -364,7 +362,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_INVENTORY_INTERACT True")));
                             cfg.get(p, c).set("인벤토리 상호작용 비활성화", true);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     } else if (args[2].equalsIgnoreCase("false")) {
                         if (!cfg.get(p, c).getBoolean("인벤토리 상호작용 비활성화")) {
@@ -372,7 +370,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("DISABLE_INVENTORY_INTERACT False")));
                             cfg.get(p, c).set("인벤토리 상호작용 비활성화", false);
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                         }
                     }
                 } else {
@@ -394,7 +392,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         player.sendMessage("§a성공적으로 '로그아웃'하는 유저에 대한 퇴장 문장이 변경되었습니다.");
                         player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("재접속.퇴장"));
                         cfg.get(p, c).set("재접속.퇴장", Objects.requireNonNull(M).toString());
-                        cfg.save(p, c);
+                        cfg.save(p, c, true);
                         player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("재접속.퇴장"));
                     }
                 }
@@ -412,7 +410,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 입장 문장이 변경되었습니다.");
                         player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("첫접속.입장"));
                         cfg.get(p, c).set("첫접속.입장", Objects.requireNonNull(M).toString());
-                        cfg.save(p, c);
+                        cfg.save(p, c, true);
                         player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("첫접속.입장"));
                     } else if (args[2].equalsIgnoreCase("FIREWORK")) {
                         if (args[3].equalsIgnoreCase("true")) {
@@ -421,7 +419,7 @@ public class settings implements CommandExecutor, TabExecutor {
                             } else {
                                 player.sendMessage("§aFIRST_JOIN_FIREWORK == TRUE");
                                 cfg.get(p, c).set("첫접속.폭죽", true);
-                                cfg.save(p, c);
+                                cfg.save(p, c, true);
                             }
                         } else if (args[3].equalsIgnoreCase("false")) {
                             if (!cfg.get(p, c).getBoolean("첫접속.폭죽")) {
@@ -429,7 +427,7 @@ public class settings implements CommandExecutor, TabExecutor {
                             } else {
                                 player.sendMessage("§aFIRST_JOIN_FIREWORK == FALSE");
                                 cfg.get(p, c).set("첫접속.폭죽", false);
-                                cfg.save(p, c);
+                                cfg.save(p, c, true);
                             }
                         }
                     } else if (args[2].equalsIgnoreCase("SOUND")) {
@@ -440,7 +438,7 @@ public class settings implements CommandExecutor, TabExecutor {
                                 } else {
                                     player.sendMessage("§aFIRST_JOIN_SOUND_ENABLE == TRUE");
                                     cfg.get(p, c).set("첫접속.소리.활성화", true);
-                                    cfg.save(p, c);
+                                    cfg.save(p, c, true);
                                 }
                             } else if (args[4].equalsIgnoreCase("false")) {
                                 if (!cfg.get(p, c).getBoolean("첫접속.소리.활성화")) {
@@ -448,7 +446,7 @@ public class settings implements CommandExecutor, TabExecutor {
                                 } else {
                                     player.sendMessage("§aFIRST_JOIN_SOUND_ENABLE == FALSE");
                                     cfg.get(p, c).set("첫접속.소리.활성화", false);
-                                    cfg.save(p, c);
+                                    cfg.save(p, c, true);
                                 }
                             }
                         } else if (args[3].equalsIgnoreCase("SET_SOUND")) {
@@ -457,7 +455,7 @@ public class settings implements CommandExecutor, TabExecutor {
                                     player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 노래가 변경되었습니다.");
                                     player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("첫접속.소리.사운드"));
                                     cfg.get(p, c).set("첫접속.소리.사운드", args[4]);
-                                    cfg.save(p, c);
+                                    cfg.save(p, c, true);
                                     player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("첫접속.소리.사운드"));
                                 }
                             }
@@ -470,7 +468,7 @@ public class settings implements CommandExecutor, TabExecutor {
                                 } else {
                                     player.sendMessage("§aFIRST_JOIN_CONSOLE_COMMAND_ENABLE == TRUE");
                                     cfg.get(p, c).set("첫접속.명령어(콘솔).활성화", true);
-                                    cfg.save(p, c);
+                                    cfg.save(p, c, true);
                                 }
                             } else if (args[4].equalsIgnoreCase("false")) {
                                 if (!cfg.get(p, c).getBoolean("첫접속.명령어(콘솔).활성화")) {
@@ -478,7 +476,7 @@ public class settings implements CommandExecutor, TabExecutor {
                                 } else {
                                     player.sendMessage("§aFIRST_JOIN_CONSOLE_COMMAND_ENABLE == FALSE");
                                     cfg.get(p, c).set("첫접속.명령어(콘솔).활성화", false);
-                                    cfg.save(p, c);
+                                    cfg.save(p, c, true);
                                 }
                             }
                         } else if (args[3].equalsIgnoreCase("SET_COMMAND")) {
@@ -493,7 +491,7 @@ public class settings implements CommandExecutor, TabExecutor {
                             player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 명령어가 변경되었습니다.");
                             player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("첫접속.명령어(콘솔).명령어"));
                             cfg.get(p, c).set("첫접속.명령어(콘솔).명령어", Objects.requireNonNull(M).toString());
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                             player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("첫접속.명령어(콘솔).명령어"));
                         }
                     }
@@ -512,7 +510,7 @@ public class settings implements CommandExecutor, TabExecutor {
                         player.sendMessage("§a성공적으로 '재접속'유저에 대한 입장 문장이 변경되었습니다.");
                         player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("재접속.입장"));
                         cfg.get(p, c).set("재접속.입장", Objects.requireNonNull(M).toString());
-                        cfg.save(p, c);
+                        cfg.save(p, c, true);
                         player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("재접속.입장"));
                     } else if (args[2].equalsIgnoreCase("FIREWORK")) {
                         if (args[3].equalsIgnoreCase("true")) {
@@ -521,7 +519,7 @@ public class settings implements CommandExecutor, TabExecutor {
                             } else {
                                 player.sendMessage("§aJOIN_FIREWORK == TRUE");
                                 cfg.get(p, c).set("재접속.폭죽", true);
-                                cfg.save(p, c);
+                                cfg.save(p, c, true);
                             }
                         } else if (args[3].equalsIgnoreCase("false")) {
                             if (!cfg.get(p, c).getBoolean("재접속.폭죽")) {
@@ -529,7 +527,7 @@ public class settings implements CommandExecutor, TabExecutor {
                             } else {
                                 player.sendMessage("§aJOIN_FIREWORK == FALSE");
                                 cfg.get(p, c).set("재접속.폭죽", false);
-                                cfg.save(p, c);
+                                cfg.save(p, c, true);
                             }
                         }
                     } else if (args[2].equalsIgnoreCase("SOUND")) {
@@ -540,7 +538,7 @@ public class settings implements CommandExecutor, TabExecutor {
                                 } else {
                                     player.sendMessage("§aJOIN_SOUND_ENABLE == TRUE");
                                     cfg.get(p, c).set("재접속.소리.활성화", true);
-                                    cfg.save(p, c);
+                                    cfg.save(p, c, true);
                                 }
                             } else if (args[4].equalsIgnoreCase("false")) {
                                 if (!cfg.get(p, c).getBoolean("재접속.소리.활성화")) {
@@ -548,7 +546,7 @@ public class settings implements CommandExecutor, TabExecutor {
                                 } else {
                                     player.sendMessage("§aJOIN_SOUND_ENABLE == FALSE");
                                     cfg.get(p, c).set("재접속.소리.활성화", false);
-                                    cfg.save(p, c);
+                                    cfg.save(p, c, true);
                                 }
                             }
                         } else if (args[3].equalsIgnoreCase("SET_SOUND")) {
@@ -557,7 +555,7 @@ public class settings implements CommandExecutor, TabExecutor {
                                     player.sendMessage("§a성공적으로 '재접속'유저에 대한 노래가 변경되었습니다.");
                                     player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("재접속.소리.사운드"));
                                     cfg.get(p, c).set("재접속.소리.사운드", args[4]);
-                                    cfg.save(p, c);
+                                    cfg.save(p, c, true);
                                     player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("재접속.소리.사운드"));
                                 }
                             }
@@ -570,7 +568,7 @@ public class settings implements CommandExecutor, TabExecutor {
                                 } else {
                                     player.sendMessage("§aJOIN_CONSOLE_COMMAND_ENABLE == TRUE");
                                     cfg.get(p, c).set("재접속.명령어(콘솔).활성화", true);
-                                    cfg.save(p, c);
+                                    cfg.save(p, c, true);
                                 }
                             } else if (args[4].equalsIgnoreCase("false")) {
                                 if (!cfg.get(p, c).getBoolean("재접속.명령어(콘솔).활성화")) {
@@ -578,7 +576,7 @@ public class settings implements CommandExecutor, TabExecutor {
                                 } else {
                                     player.sendMessage("§aJOIN_CONSOLE_COMMAND_ENABLE == FALSE");
                                     cfg.get(p, c).set("재접속.명령어(콘솔).활성화", false);
-                                    cfg.save(p, c);
+                                    cfg.save(p, c, true);
                                 }
                             }
                         } else if (args[3].equalsIgnoreCase("SET_COMMAND")) {
@@ -593,7 +591,7 @@ public class settings implements CommandExecutor, TabExecutor {
                             player.sendMessage("§a성공적으로 '재접속'유저에 대한 명령어가 변경되었습니다.");
                             player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("재접속.명령어(콘솔).명령어"));
                             cfg.get(p, c).set("재접속.명령어(콘솔).명령어", Objects.requireNonNull(M).toString());
-                            cfg.save(p, c);
+                            cfg.save(p, c, true);
                             player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("재접속.명령어(콘솔).명령어"));
                         }
                     }

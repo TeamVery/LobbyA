@@ -1,6 +1,6 @@
-package com.teamvery.manage.event;
+package com.teamverymc.manage.event;
 
-import com.teamvery.configframework.cfg;
+import com.teamverymc.configframework.cfg;
 import org.bukkit.*;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.EntityType;
@@ -11,12 +11,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static com.teamvery.manage.main.c;
-import static com.teamvery.manage.main.p;
+import static com.teamverymc.manage.main.c;
+import static com.teamverymc.manage.main.p;
 import static org.bukkit.Bukkit.getServer;
 
 public class joinquitevent implements Listener {
@@ -51,11 +50,15 @@ public class joinquitevent implements Listener {
                 firework.setFireworkMeta(meta);
                 firework.detonate();
             }
-            if (!(cfg.get(p, c).getString("첫접속.입장") == null)) {
-                e.setJoinMessage(Objects.requireNonNull(cfg.get(p, c).getString("첫접속.입장"))
-                        .replace("&", "§")
-                        .replace("%player%", player.getName())
-                        .replace("%n%", "\n"));
+            if (cfg.get(p, c).getBoolean("첫접속.입장 메시지.활성화")) {
+                if (!(cfg.get(p, c).getString("첫접속.입장 메시지.내용") == null)) {
+                    e.setJoinMessage(Objects.requireNonNull(cfg.get(p, c).getString("첫접속.입장"))
+                            .replace("&", "§")
+                            .replace("%player%", player.getName())
+                            .replace("%n%", "\n"));
+                }
+            } else {
+                e.setJoinMessage(null);
             }
         } else {
             if (cfg.get(p, c).getBoolean("재접속.소리.활성화")) {
@@ -80,11 +83,15 @@ public class joinquitevent implements Listener {
                 firework.setFireworkMeta(meta);
                 firework.detonate();
             }
-            if (!(cfg.get(p, c).getString("재접속.입장") == null)) {
-                e.setJoinMessage(Objects.requireNonNull(cfg.get(p, c).getString("재접속.입장"))
-                        .replace("&", "§")
-                        .replace("%player%", player.getName())
-                        .replace("%n%", "\n"));
+            if (cfg.get(p, c).getBoolean("재접속.입장 메시지.활성화")) {
+                if (!(cfg.get(p, c).getString("재접속.입장 메시지.내용") == null)) {
+                    e.setJoinMessage(Objects.requireNonNull(cfg.get(p, c).getString("재접속.입장 메시지.내용"))
+                            .replace("&", "§")
+                            .replace("%player%", player.getName())
+                            .replace("%n%", "\n"));
+                }
+            } else {
+                e.setJoinMessage(null);
             }
         }
         if (cfg.get(p, c).getBoolean("초기화")) {
@@ -95,9 +102,15 @@ public class joinquitevent implements Listener {
     @EventHandler
     void onPlayerQuit(PlayerQuitEvent e) {
         Player player = e.getPlayer();
-        e.setQuitMessage(Objects.requireNonNull(cfg.get(p, c).getString("재접속.퇴장"))
-                .replace("&", "§")
-                .replace("%player%", player.getName())
-                .replace("%n%", "\n"));
+        if (cfg.get(p, c).getBoolean("재접속.퇴장 메시지.활성화")) {
+            if (!(cfg.get(p, c).getString("재접속.퇴장 메시지.내용") == null)) {
+                e.setQuitMessage((Objects.requireNonNull(cfg.get(p, c).getString("재접속.퇴장 메시지.내용"))
+                        .replace("&", "§")
+                        .replace("%player%", player.getName())
+                        .replace("%n%", "\n")));
+            }
+        } else {
+            e.setQuitMessage(null);
+        }
     }
 }

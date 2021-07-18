@@ -1,6 +1,6 @@
-package com.teamvery.manage.event;
+package com.teamverymc.manage.event;
 
-import com.teamvery.configframework.cfg;
+import com.teamverymc.configframework.cfg;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,7 +13,7 @@ import org.bukkit.event.weather.WeatherChangeEvent;
 
 import java.util.Objects;
 
-import static com.teamvery.manage.main.*;
+import static com.teamverymc.manage.main.*;
 
 public class playerevents implements Listener {
 
@@ -70,10 +70,11 @@ public class playerevents implements Listener {
 
     @EventHandler
     void onPickupItem(EntityPickupItemEvent e) {
-        Player player = (Player) e.getEntity();
-        if (cfg.get(p, c).getBoolean("아이템 획득 비활성화")) {
-            if (!(player.hasPermission("manage.bypass.pickupitem"))) {
-                e.setCancelled(true);
+        if (e.getEntity() instanceof Player) {
+            if (cfg.get(p, c).getBoolean("아이템 획득 비활성화")) {
+                if (!(e.getEntity().hasPermission("manage.bypass.pickupitem"))) {
+                    e.setCancelled(true);
+                }
             }
         }
     }
