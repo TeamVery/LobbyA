@@ -51,31 +51,14 @@ public class settings implements CommandExecutor, TabExecutor {
 
             return false;
         }
-        Player player = (Player)sender;
+
+        Player player = (Player) sender;
 
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("reload")) {
                 player.sendMessage(Objects.requireNonNull(cfg.get(p, m).getString("RELOAD CONFIRM")));
 
-                if (cfg.get(p, c).getBoolean("시간 고정.활성화")) {
-                    for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
-                        if (Bukkit.getWorld(worlds) != null) {
-                            Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRuleValue("doDaylightCycle", "false");
-                        } else {
-                            System.out.println(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
-                            player.sendMessage(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
-                        }
-                    }
-                } else {
-                    for (String worlds : cfg.get(p, c).getStringList("시간 고정.월드")) {
-                        if (Bukkit.getWorld(worlds) != null) {
-                            Objects.requireNonNull(Bukkit.getWorld(worlds)).setGameRuleValue("doDaylightCycle", "true");
-                        } else {
-                            System.out.println(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
-                            player.sendMessage(ChatColor.RED + worlds + " 는 존재하지 않는 월드입니다.");
-                        }
-                    }
-                }
+                timelock(player);
             }
             if (args[0].equalsIgnoreCase("debug")) {
 
@@ -381,37 +364,77 @@ public class settings implements CommandExecutor, TabExecutor {
             if (args[0].equalsIgnoreCase("setJoinQuit")) {
                 if (args[1].equalsIgnoreCase("QUIT")) {
                     if (args[2].equalsIgnoreCase("MESSAGE")) {
-                        StringBuilder M = null;
-                        for (int i = 3; i <= args.length - 1; i++) {
-                            if (M == null) {
-                                M = new StringBuilder(args[i]);
-                            } else {
-                                M.append(" ").append(args[i]);
+                        if (args[3].equalsIgnoreCase("ENABLE")) {
+                            if (args[4].equalsIgnoreCase("true")) {
+                                if (cfg.get(p, c).getBoolean("재접속.퇴장 메시지.활성화")) {
+                                    player.sendMessage("§cQUIT_MESSAGE is already true");
+                                } else {
+                                    player.sendMessage("§aQUIT_MESSAGE == TRUE");
+                                    cfg.get(p, c).set("재접속.퇴장 메시지.활성화", true);
+                                    cfg.save(p, c, true);
+                                }
+                            } else if (args[4].equalsIgnoreCase("false")) {
+                                if (!cfg.get(p, c).getBoolean("재접속.퇴장 메시지.활성화")) {
+                                    player.sendMessage("§cQUIT_MESSAGE is already false");
+                                } else {
+                                    player.sendMessage("§aQUIT_MESSAGE == FALSE");
+                                    cfg.get(p, c).set("재접속.퇴장 메시지.활성화", false);
+                                    cfg.save(p, c, true);
+                                }
                             }
+                        } else if (args[3].equalsIgnoreCase("CONTENTS")) {
+                            StringBuilder M = null;
+                            for (int i = 4; i <= args.length - 1; i++) {
+                                if (M == null) {
+                                    M = new StringBuilder(args[i]);
+                                } else {
+                                    M.append(" ").append(args[i]);
+                                }
+                            }
+                            player.sendMessage("§a성공적으로 '로그아웃'하는 유저에 대한 퇴장 문장이 변경되었습니다.");
+                            player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("재접속.퇴장 메시지.내용"));
+                            cfg.get(p, c).set("재접속.퇴장 메시지.내용", Objects.requireNonNull(M).toString());
+                            cfg.save(p, c, true);
+                            player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("재접속.퇴장 메시지.내용"));
                         }
-                        player.sendMessage("§a성공적으로 '로그아웃'하는 유저에 대한 퇴장 문장이 변경되었습니다.");
-                        player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("재접속.퇴장"));
-                        cfg.get(p, c).set("재접속.퇴장", Objects.requireNonNull(M).toString());
-                        cfg.save(p, c, true);
-                        player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("재접속.퇴장"));
                     }
                 }
 
                 if (args[1].equalsIgnoreCase("FIRST_JOIN")) {
                     if (args[2].equalsIgnoreCase("MESSAGE")) {
-                        StringBuilder M = null;
-                        for (int i = 3; i <= args.length - 1; i++) {
-                            if (M == null) {
-                                M = new StringBuilder(args[i]);
-                            } else {
-                                M.append(" ").append(args[i]);
+                        if (args[3].equalsIgnoreCase("ENABLE")) {
+                            if (args[4].equalsIgnoreCase("true")) {
+                                if (cfg.get(p, c).getBoolean("첫접속.입장 메시지.활성화")) {
+                                    player.sendMessage("§cFIRST_JOIN_MESSAGE is already true");
+                                } else {
+                                    player.sendMessage("§aFIRST_JOIN_MESSAGE == TRUE");
+                                    cfg.get(p, c).set("첫접속.입장 메시지.활성화", true);
+                                    cfg.save(p, c, true);
+                                }
+                            } else if (args[4].equalsIgnoreCase("false")) {
+                                if (!cfg.get(p, c).getBoolean("첫접속.입장 메시지.활성화")) {
+                                    player.sendMessage("§cFIRST_JOIN_MESSAGE is already false");
+                                } else {
+                                    player.sendMessage("§aFIRST_JOIN_MESSAGE == FALSE");
+                                    cfg.get(p, c).set("첫접속.입장 메시지.활성화", false);
+                                    cfg.save(p, c, true);
+                                }
                             }
+                        } else if (args[3].equalsIgnoreCase("CONTENTS")) {
+                            StringBuilder M = null;
+                            for (int i = 4; i <= args.length - 1; i++) {
+                                if (M == null) {
+                                    M = new StringBuilder(args[i]);
+                                } else {
+                                    M.append(" ").append(args[i]);
+                                }
+                            }
+                            player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 입장 문장이 변경되었습니다.");
+                            player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("첫접속.입장 메시지.내용"));
+                            cfg.get(p, c).set("첫접속.입장 메시지.내용", Objects.requireNonNull(M).toString());
+                            cfg.save(p, c, true);
+                            player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("첫접속.입장 메시지.내용"));
                         }
-                        player.sendMessage("§a성공적으로 '첫 접속'유저에 대한 입장 문장이 변경되었습니다.");
-                        player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("첫접속.입장"));
-                        cfg.get(p, c).set("첫접속.입장", Objects.requireNonNull(M).toString());
-                        cfg.save(p, c, true);
-                        player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("첫접속.입장"));
                     } else if (args[2].equalsIgnoreCase("FIREWORK")) {
                         if (args[3].equalsIgnoreCase("true")) {
                             if (cfg.get(p, c).getBoolean("첫접속.폭죽")) {
@@ -499,19 +522,39 @@ public class settings implements CommandExecutor, TabExecutor {
 
                 if (args[1].equalsIgnoreCase("JOIN")) {
                     if (args[2].equalsIgnoreCase("MESSAGE")) {
-                        StringBuilder M = null;
-                        for (int i = 3; i <= args.length - 1; i++) {
-                            if (M == null) {
-                                M = new StringBuilder(args[i]);
-                            } else {
-                                M.append(" ").append(args[i]);
+                        if (args[3].equalsIgnoreCase("ENABLE")) {
+                            if (args[4].equalsIgnoreCase("true")) {
+                                if (cfg.get(p, c).getBoolean("재접속.입장 메시지.활성화")) {
+                                    player.sendMessage("§cJOIN_MESSAGE is already true");
+                                } else {
+                                    player.sendMessage("§aJOIN_MESSAGE == TRUE");
+                                    cfg.get(p, c).set("재접속.입장 메시지.활성화", true);
+                                    cfg.save(p, c, true);
+                                }
+                            } else if (args[4].equalsIgnoreCase("false")) {
+                                if (!cfg.get(p, c).getBoolean("재접속.입장 메시지.활성화")) {
+                                    player.sendMessage("§cJOIN_MESSAGE is already false");
+                                } else {
+                                    player.sendMessage("§aJOIN_MESSAGE == FALSE");
+                                    cfg.get(p, c).set("재접속.입장 메시지.활성화", false);
+                                    cfg.save(p, c, true);
+                                }
                             }
+                        } else if (args[3].equalsIgnoreCase("CONTENTS")) {
+                            StringBuilder M = null;
+                            for (int i = 4; i <= args.length - 1; i++) {
+                                if (M == null) {
+                                    M = new StringBuilder(args[i]);
+                                } else {
+                                    M.append(" ").append(args[i]);
+                                }
+                            }
+                            player.sendMessage("§a성공적으로 '재접속'유저에 대한 입장 문장이 변경되었습니다.");
+                            player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("재접속.입장 메시지.내용"));
+                            cfg.get(p, c).set("재접속.입장 메시지.내용", Objects.requireNonNull(M).toString());
+                            cfg.save(p, c, true);
+                            player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("재접속.입장 메시지.내용"));
                         }
-                        player.sendMessage("§a성공적으로 '재접속'유저에 대한 입장 문장이 변경되었습니다.");
-                        player.sendMessage("기존 문장 : " + cfg.get(p, c).getString("재접속.입장"));
-                        cfg.get(p, c).set("재접속.입장", Objects.requireNonNull(M).toString());
-                        cfg.save(p, c, true);
-                        player.sendMessage("변경된 문장 : " + cfg.get(p, c).getString("재접속.입장"));
                     } else if (args[2].equalsIgnoreCase("FIREWORK")) {
                         if (args[3].equalsIgnoreCase("true")) {
                             if (cfg.get(p, c).getBoolean("재접속.폭죽")) {
@@ -668,33 +711,33 @@ public class settings implements CommandExecutor, TabExecutor {
                 matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[2].toLowerCase())).collect(Collectors.toList());
                 return matches;
             }
-                if (args[0].equalsIgnoreCase("setJoinQuit")) {
-                    if (args[1].equalsIgnoreCase("QUIT")) {
-                        arguments.add("MESSAGE");
-                        matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[2].toLowerCase())).collect(Collectors.toList());
+            if (args[0].equalsIgnoreCase("setJoinQuit")) {
+                if (args[1].equalsIgnoreCase("QUIT")) {
+                    arguments.add("MESSAGE");
+                    matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[2].toLowerCase())).collect(Collectors.toList());
 
-                        return matches;
-                    }
-                    if (args[1].equalsIgnoreCase("FIRST_JOIN")) {
-                        arguments.add("SOUND");
-                        arguments.add("FIREWORK");
-                        arguments.add("MESSAGE");
-                        arguments.add("COMMAND");
-                        matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[2].toLowerCase())).collect(Collectors.toList());
+                    return matches;
+                }
+                if (args[1].equalsIgnoreCase("FIRST_JOIN")) {
+                    arguments.add("SOUND");
+                    arguments.add("FIREWORK");
+                    arguments.add("MESSAGE");
+                    arguments.add("COMMAND");
+                    matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[2].toLowerCase())).collect(Collectors.toList());
 
-                        return matches;
-                    }
-                    if (args[1].equalsIgnoreCase("JOIN")) {
-                        arguments.add("SOUND");
-                        arguments.add("FIREWORK");
-                        arguments.add("MESSAGE");
-                        arguments.add("COMMAND");
-                        matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[2].toLowerCase())).collect(Collectors.toList());
+                    return matches;
+                }
+                if (args[1].equalsIgnoreCase("JOIN")) {
+                    arguments.add("SOUND");
+                    arguments.add("FIREWORK");
+                    arguments.add("MESSAGE");
+                    arguments.add("COMMAND");
+                    matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[2].toLowerCase())).collect(Collectors.toList());
 
-                        return matches;
-                    }
+                    return matches;
                 }
             }
+        }
 
         if (args.length == 4) {
             List<String> arguments = new ArrayList<>();
@@ -718,7 +761,9 @@ public class settings implements CommandExecutor, TabExecutor {
             }
             if (args[0].equalsIgnoreCase("setJoinQuit")) {
                 if (args[2].equalsIgnoreCase("MESSAGE")) {
-                    arguments.add("[<string>]");
+                    arguments.add("ENABLE");
+                    arguments.add("CONTENTS");
+
                     matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[3].toLowerCase())).collect(Collectors.toList());
 
                     return matches;
@@ -785,6 +830,12 @@ public class settings implements CommandExecutor, TabExecutor {
                     return matches;
                 }
                 if (args[3].equalsIgnoreCase("SET_COMMAND")) {
+                    arguments.add("[<string>]");
+                    matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[4].toLowerCase())).collect(Collectors.toList());
+
+                    return matches;
+                }
+                if (args[3].equalsIgnoreCase("CONTENTS")) {
                     arguments.add("[<string>]");
                     matches = arguments.stream().filter(val -> val.toLowerCase().startsWith(args[4].toLowerCase())).collect(Collectors.toList());
 
